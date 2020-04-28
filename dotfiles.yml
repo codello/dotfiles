@@ -1,0 +1,5 @@
+- name: Install Dotfiles
+  hosts: all
+  roles:
+    - role: git
+      tags: [git]
