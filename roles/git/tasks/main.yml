@@ -1,11 +1,9 @@
-- name: Install Git
-  package:
-    name: git
-    state: present
-    use: "{{ 'opkg' if distribution == 'DSM' else 'auto' }}"
-  environment:
-    # Required for opkg on synology
-    PATH: "{{ ansible_env.PATH }}:/opt/bin"
+- import_tasks: macos.yml
+  when: distribution == "MacOSX"
+- import_tasks: ubuntu.yml
+  when: distribution == "Ubuntu"
+- import_tasks: dsm.yml
+  when: distribution == "DSM"
 
 - name: Update .gitignore
   template:

@@ -1,10 +1,10 @@
-
-distribution: "{{ 'DSM' if ansible_os_family == 'OtherLinux' and 'synoboot' in ansible_devices else ansible_distribution }}"
-
 full_name: Kim Wittenburg
 email: codello@wittenburg.kim
 github_user: Codello
 
+sudo: yes
+
 git:
-    name: "{{ full_name }}"
-    email: "{{ email }}"
+  install: yes
+  name: "{{ full_name }}"
+  email: "{{ email }}"

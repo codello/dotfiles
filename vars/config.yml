@@ -1,0 +1,1 @@
+distribution: "{{ 'DSM' if ansible_os_family == 'OtherLinux' and 'synoboot' in ansible_devices else ansible_distribution }}"

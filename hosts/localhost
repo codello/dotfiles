@@ -3,4 +3,6 @@ localhost
 
 [local:vars]
 ansible_connection=local
-# ask_sudo=true
+
+[dotfiles]
+localhost

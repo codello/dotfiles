@@ -1,0 +1,8 @@
+- name: Install Git via OpenWrt
+  become: true
+  when: git.install|bool and sudo|bool
+  opkg:
+    name: git
+    state: present
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/opt/bin"

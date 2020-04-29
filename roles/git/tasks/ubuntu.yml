@@ -1,0 +1,6 @@
+- name: Install Git via Apt
+  become: true
+  when: git.install|bool and sudo|bool
+  apt:
+    name: git
+    state: present
