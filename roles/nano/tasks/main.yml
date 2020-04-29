@@ -1,0 +1,11 @@
+---
+- name: Generate Nano Syntax Highlighting Files
+  copy:
+    src: syntax-highlighting/
+    dest: ~/.nano/
+  when: nano.syntax_highlighting
+
+- name: Generate .nanorc
+  template:
+    src: nanorc.j2
+    dest: ~/.nanorc

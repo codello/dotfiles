@@ -4,3 +4,4 @@
     - vars/config.yml
   roles:
     - {role: git, tags: git}
+    - {role: nano, tags: nano}
