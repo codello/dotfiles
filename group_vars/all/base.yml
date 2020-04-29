@@ -1,5 +1,12 @@
+# Your full name. May be used in other configurations as default value.
 full_name: Kim Wittenburg
+
+# Your E-Mail address. May be used in other configurations as default value.
 email: codello@wittenburg.kim
+
+# Your username on GitHub. Used for example to fetch authorized SSH keys.
 github_user: Codello
 
+# Wether to run tasks that require sudo permissions. Set this to false to skip
+# those tasks.
 sudo: yes

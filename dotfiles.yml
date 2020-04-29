@@ -1,5 +1,7 @@
 - name: Install Dotfiles
   hosts: dotfiles
+  gather_facts: True
+  gather_subset: hardware
   vars_files:
     - vars/config.yml
   roles:

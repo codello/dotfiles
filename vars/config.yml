@@ -1,1 +1,1 @@
-distribution: "{{ 'DSM' if ansible_os_family == 'OtherLinux' and 'synoboot' in ansible_devices else ansible_distribution }}"
+distribution: "{% if ansible_os_family == 'OtherLinux' and 'synoboot' in ansible_devices %}DSM{% else %}{{ ansible_distribution }}{% endif %}"

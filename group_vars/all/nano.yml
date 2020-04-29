@@ -1,2 +1,5 @@
+# Configure nano
 nano:
+  # Whether to install syntax highlighting for various languages. Does not work
+  # with nano v2 and below.
   syntax_highlighting: true
