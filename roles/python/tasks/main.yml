@@ -1,0 +1,4 @@
+- name: Configure Python
+  template:
+    src: pythonrc.j2
+    dest: ~/.pythonrc

@@ -5,3 +5,4 @@
   roles:
     - {role: git, tags: git}
     - {role: nano, tags: nano}
+    - {role: python, tags: python}
