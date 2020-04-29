@@ -1,0 +1,5 @@
+for bundle in $(antibody list); do
+    if [[ $bundle = https* ]]; then
+        antibody purge "$bundle"
+    fi
+done

@@ -1,0 +1,29 @@
+- name: Finding ZSH
+  shell: command -v zsh
+  changed_when: false
+  register: result
+  when: zsh.location is not defined
+
+- name: Add ZSH to /etc/shells
+  become: true
+  lineinfile:
+    line: "{{ zsh.location|default(result.stdout) }}"
+    dest: /etc/shells
+    state: present
+  when:
+    - result.rc == 0 or zsh.location is defined
+    - sudo|bool
+
+- name: Set the default shell to ZSH
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: "{{ zsh.location|default(result.stdout) }}"
+  when:
+    - result.rc == 0 or zsh.location is defined
+    - not zsh.shell_exec
+  
+- name: Set the exec shell to ZSH
+  template:
+    src: underpriviliged-profile.j2
+    dest: "{% if zsh.shell_exec is sameas true %}~/.profile{% else %}{{ zsh.shell_exec }}{% endif %}"
+  when: zsh.shell_exec

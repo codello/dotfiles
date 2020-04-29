@@ -4,7 +4,11 @@
   gather_subset: hardware
   vars_files:
     - vars/config.yml
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/opt/bin"
   roles:
     - {role: git, tags: git}
     - {role: nano, tags: nano}
     - {role: python, tags: python}
+    - {role: zsh, tags: zsh}
+    # TODO: SSH Keys

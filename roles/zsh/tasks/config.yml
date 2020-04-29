@@ -1,0 +1,39 @@
+- name: Generate zshrc
+  template:
+    src: zshrc.j2
+    dest: ~/.zshrc
+
+- name: Generate zshenv
+  template:
+    src: zshenv.j2
+    dest: ~/.zshenv
+
+- name: Generate zprofile
+  template:
+    src: zprofile.j2
+    dest: ~/.zprofile
+
+- name: Generate Completions
+  copy:
+    src: completions
+    dest: ~/.zsh/
+
+- name: Generate Colors
+  template:
+    src: colors.j2
+    dest: ~/.zsh/colors
+
+- name: Generate Aliases
+  template:
+    src: aliases.j2
+    dest: ~/.zsh/aliases
+
+- name: Generate Functions
+  copy:
+    src: functions/
+    dest: ~/.zsh/functions/
+
+- name: Generate ZSH Theme
+  template:
+    src: powerlevel9k.zsh.j2
+    dest: ~/.zsh/powerlevel9k.zsh

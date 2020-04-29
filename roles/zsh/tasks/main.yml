@@ -1,0 +1,7 @@
+- import_tasks: config.yml
+- import_tasks: antibody.yml
+  tags: antibody
+  when: zsh.antibody
+- import_tasks: shell.yml
+- import_tasks: fonts.yml
+  when: zsh.fonts

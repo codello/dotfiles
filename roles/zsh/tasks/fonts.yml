@@ -1,0 +1,22 @@
+---
+- name: Install Terminal Fonts via Cask
+  homebrew_cask:
+    name: font-jetbrainsmono-nerd-font
+    state: present
+  when:
+    - distribution == "MacOSX"
+    - zsh.fonts is true
+
+- name: Create Fonts Directory
+  file:
+    path: "{% if zsh.fonts is true %}~/.local/share/fonts{% else %}{{ zsh.fonts }}{% endif %}"
+    state: directory
+  when: distribution != "MacOSX" or zsh.fonts is not true
+
+- name: Install Terminal Fonts from Web
+  unarchive:
+    remote_src: yes
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+    dest: "{% if zsh.fonts is true %}~/.local/share/fonts{% else %}{{ zsh.fonts }}{% endif %}"
+  when: distribution != "MacOSX" or zsh.fonts is not true
+    

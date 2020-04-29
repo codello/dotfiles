@@ -1,0 +1,66 @@
+# Environment Variables & Global Options
+
+##############################################################################
+# History Configuration
+##############################################################################
+HISTSIZE=5000               #How many lines of history to keep in memory
+HISTFILE=~/.zsh_history     #Where to save history to disk
+SAVEHIST=5000               #Number of history entries to save to disk
+HISTDUP=erase               #Erase duplicates in the history file
+setopt    appendhistory     #Append history to the history file (no overwriting)
+setopt    extendedhistory   #Save each command's beginning timestamp and the duration to the history file
+setopt    sharehistory      #Share history across terminals
+setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
+setopt    histignorealldups #Remove duplicates from history
+setopt    histreduceblanks  #Remove superflous blanks from history
+
+# no c-s/c-q output freezing
+setopt noflowcontrol
+# display PID when suspending processes as well
+setopt longlistjobs
+# report the status of backgrounds jobs immediately
+setopt notify
+# allow use of comments in interactive code
+setopt interactivecomments
+
+setopt csh_null_glob
+setopt hist_verify
+setopt auto_cd
+setopt multios
+# No "Beep"ing
+setopt nobeep
+# Don't push the same dir twice
+setopt pushd_ignore_dups
+
+
+{% if distribution == "MacOSX" %}
+export ANTIBODY_HOME=~/Library/antibody
+export PATH="/usr/local/sbin:$PATH"
+{% endif %}
+
+PATH="~/.local/bin:$PATH"
+
+if [[ -f "$HOME/.pythonrc" ]]; then
+    export PYTHONSTARTUP="$HOME/.pythonrc"
+fi
+
+{% if zsh.language %}
+export LANG="{{ zsh.language }}"
+export LC_ALL="{{ zsh.language }}"
+{% endif %}
+
+# Select theme based on client capabilities
+if [[ ! $SSH_CONNECTION ]]; then
+    export ZSH_POWERLINE_THEME=yes
+fi
+
+# Preferred editor for local and remote sessions
+if [[ $SSH_CONNECTION ]]; then
+    export EDITOR='nano'
+elif [[ "$(uname -s)" == 'Darwin' ]]; then
+    export EDITOR='open'
+    export BROWSER='Safari'
+else
+    export EDITOR='nano'
+    export BROWSER='firefox'
+fi
