@@ -1,10 +1,3 @@
-- import_tasks: macos.yml
-  when: distribution == "MacOSX"
-- import_tasks: ubuntu.yml
-  when: distribution == "Ubuntu"
-- import_tasks: dsm.yml
-  when: distribution == "DSM"
-
 - name: Update .gitignore
   template:
     src: gitignore.j2

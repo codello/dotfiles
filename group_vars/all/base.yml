@@ -3,8 +3,3 @@ email: codello@wittenburg.kim
 github_user: Codello
 
 sudo: yes
-
-git:
-  install: yes
-  name: "{{ full_name }}"
-  email: "{{ email }}"

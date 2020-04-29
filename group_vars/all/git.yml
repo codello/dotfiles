@@ -1,0 +1,3 @@
+git:
+  name: "{{ full_name }}"
+  email: "{{ email }}"
