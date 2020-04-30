@@ -1,0 +1,5 @@
+docker:
+  no_password: yes
+  compose: "1.25.5"
+  # compose_path: ...
+  compose_system_install: no

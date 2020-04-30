@@ -12,7 +12,6 @@
   file:
     path: "{{ _zsh_fonts_dir }}"
     state: directory
-  vars:
   when: distribution != "MacOSX" or zsh.fonts is not true
 
 - name: Install Terminal Fonts from Web

@@ -27,11 +27,12 @@
   environment:
     PATH: "{{ ansible_env.PATH }}:/opt/bin"
   roles:
-    - {role: ssh, tags: ssh}
-    - {role: zsh, tags: zsh}
     - {role: git, tags: git}
     - {role: nano, tags: nano}
     - {role: python, tags: python}
+    - {role: ssh, tags: ssh}
+    - {role: docker, tags: docker}
+    - {role: zsh, tags: zsh}
     - role: macos
       tags: macos
       when: distribution == "MacOSX"

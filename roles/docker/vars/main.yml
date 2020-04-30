@@ -1,0 +1,2 @@
+_compose_url: https://github.com/docker/compose/releases/download/{{ docker.compose }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}
+_compose_dir: "{{ docker.compose_path | default('/usr/local/bin' if docker.compose_system_install else '~/.local/bin') }}"
