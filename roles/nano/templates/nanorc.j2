@@ -37,6 +37,6 @@ set wordbounds
 # Syntax Hightlighting
 {% if nano.syntax_highlighting %}
 {% for file in lookup('fileglob', '~/.nano/*.nanorc', wantlist=True) %}
-include ~/.nano/{{ file | basename }}
+include {{ file }}
 {% endfor %}
 {% endif %}

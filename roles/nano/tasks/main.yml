@@ -1,9 +1,9 @@
----
-- name: Generate Nano Syntax Highlighting Files
-  copy:
-    src: syntax-highlighting/
-    dest: ~/.nano/
-  when: nano.syntax_highlighting
+- name: Download Nano Syntax Highlighting Files
+  git:
+    repo: https://github.com/scopatz/nanorc.git
+    dest: ~/.nano
+    depth: 1
+  when: nano.syntax_highlighting|bool
 
 - name: Generate .nanorc
   template:
