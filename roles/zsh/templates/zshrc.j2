@@ -2,6 +2,11 @@
 # Shell Options #
 #################
 
+# Powerlevel10k Instant Prompt
+if [[ $ZSH_POWERLINE_THEME ]] && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 source ~/.zsh/completions
 source ~/.zsh/aliases
 fpath=(~/.zsh/functions $fpath)
@@ -43,7 +48,7 @@ fi
 
 # Powerline Theme
 if [[ $ZSH_POWERLINE_THEME ]]; then
-    source ~/.zsh/powerlevel9k.zsh
+    source ~/.zsh/p10k.zsh
     # antibody bundle bhilburn/powerlevel9k 2> /dev/null
     antibody bundle romkatv/powerlevel10k 2> /dev/null
 else

@@ -35,5 +35,5 @@
 
 - name: Generate ZSH Theme
   template:
-    src: powerlevel9k.zsh.j2
-    dest: ~/.zsh/powerlevel9k.zsh
+    src: p10k.zsh.j2
+    dest: ~/.zsh/p10k.zsh
