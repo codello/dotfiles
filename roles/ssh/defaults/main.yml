@@ -1,0 +1,7 @@
+ssh:
+  key: ~/.ssh/id_ed25519
+  #key_passphrase: ...
+  github_keys: yes  
+  github_keys_comment: GitHub
+  authorized_keys: []
+  hosts: {}

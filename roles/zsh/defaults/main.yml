@@ -1,0 +1,9 @@
+zsh:
+  # location: ...
+  shell_exec: false
+  language: de_DE.UTF-8
+  enable_svn: false
+  antibody: true
+  # antibody_path: ...
+  antibody_system_install: false
+  fonts: "{{ not server }}"

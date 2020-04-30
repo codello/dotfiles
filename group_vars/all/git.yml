@@ -1,5 +1,0 @@
-## Configures your git installation.
-git:
-  ## The name and email that should be used for commits.
-  name: "{{ full_name }}"
-  email: "{{ email }}"
