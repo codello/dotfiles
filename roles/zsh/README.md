@@ -24,6 +24,9 @@ zsh:
   # switch to ZSH for some reason.
   shell_exec: false
   
+  # Set ZSH as the default shell for the user.
+  default: true
+  
   # Sets the LANG environment variable
   language: de_DE.UTF-8
   

@@ -16,6 +16,6 @@
   environment:
     COMPUTER_NAME: "{{ macos.computer_name }}"
   when:
-    - macos.computer_name
+    - macos.computer_name is defined
     - not server|bool
     - sudo|bool

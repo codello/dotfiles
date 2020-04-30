@@ -2,7 +2,9 @@
   command:
     cmd: ssh-keygen -o -a 100 -t ed25519 -f {{ ssh.key | quote }}{% if ssh.key_passphrase is defined %} -N {{ ssh.key_passphrase | quote }}{% endif %}
     creates: "{{ ssh.key }}"
-  when: ssh.key is defined
+  when:
+    - ssh.key is defined
+    - ssh.key_passphrase
 
 - name: Add GitHub SSH Keys
   authorized_key:

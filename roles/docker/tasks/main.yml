@@ -11,5 +11,5 @@
 - import_tasks: compose.yml
   when:
     - docker.compose
-    - ansible_system != "Linux"
+    - ansible_system == "Linux"
   become: "{{ docker.compose_system_install }}"

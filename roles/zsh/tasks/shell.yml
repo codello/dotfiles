@@ -19,6 +19,7 @@
     name: "{{ ansible_user_id }}"
     shell: "{{ zsh.location|default(result.stdout) }}"
   when:
+    - zsh.default
     - result.rc == 0 or zsh.location is defined
     - not zsh.shell_exec
   

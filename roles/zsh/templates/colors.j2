@@ -5,7 +5,7 @@ autoload -U colors && colors
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
 if which dircolors > /dev/null; then
-    antibody bundle trapd00r/LS_COLORS
+    antibody bundle trapd00r/LS_COLORS kind:fpath
     eval "$(dircolors -b $(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-trapd00r-SLASH-LS_COLORS/LS_COLORS)"
     zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
     
