@@ -1,0 +1,24 @@
+- name: Generate SSH Key
+  command:
+    cmd: ssh-keygen -o -a 100 -t ed25519 -f {{ ssh.key | quote }}{% if ssh.key_passphrase is defined %} -N {{ ssh.key_passphrase | quote }}{% endif %}
+    creates: "{{ ssh.key }}"
+  when: ssh.key is defined
+
+- name: Add GitHub SSH Keys
+  authorized_key:
+    user: "{{ ansible_user_id }}"
+    key: https://github.com/{{ github_user }}.keys
+    comment: "{{ ssh.github_keys_comment|default(omit) }}"
+  when: ssh.github_keys
+
+- name: Add SSH Keys
+  authorized_key:
+    user: "{{ ansible_user_id }}"
+    key: "{{ item.key if item is mapping else item }}"
+    comment: "{{ item.comment if item is mapping else omit }}"
+  with_items: "{{ ssh.authorized_keys }}"
+
+- name: Generate SSH Config
+  template:
+    src: config.j2
+    dest: ~/.ssh/config
