@@ -9,12 +9,12 @@
 
 - name: Install Antibody
   become: "{{ zsh.antibody_system_install }}"
-  shell: curl -sfL git.io/antibody | sh -s - -b {{ antibody_path }}
-  args:
-    warn: false
+  shell:
+    cmd: curl -sfL git.io/antibody | sh -s - -b {{ antibody_path }}
     creates: "{{ antibody_path }}/antibody"
+    warn: false
   vars:
-    antibody_default_path: '{{ "/usr/local/bin" if zsh.antibody_system_install|bool else "~/.local/bin" }}'
+    antibody_default_path: '{{ zsh.antibody_system_install | bool | ternary("/usr/local/bin", "~/.local/bin") }}'
     antibody_path: '{{ zsh.antibody_path | default(antibody_default_path) }}'
   when:
     - distribution != "MacOSX" or zsh.antibody == "manual"

@@ -53,7 +53,11 @@ zsh:
   # Whether to install fonts that work well with the ZSH theme automatically.
   # The fonts are installed via Homebrew on macOS unless this variable is set to
   # a string indicating the target directory for the fonts. On other operating
-  # systems fonts are installed into ~/.local/share/fonts by default.
+  # systems fonts are installed into ~/.local/share/fonts by default (or
+  # /usr/local/share/fonts if zsh.fonts_system_install is true).
   fonts: "{{ not server }}"
+  
+  # Whether to install the fonts system wide. Ignored if zsh.fonts is false.
+  fonts_system_install: false
 ```
 

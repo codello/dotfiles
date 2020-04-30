@@ -8,15 +8,18 @@
     - zsh.fonts is true
 
 - name: Create Fonts Directory
+  become: "{{ fonts_system_install }}"
   file:
-    path: "{% if zsh.fonts is true %}~/.local/share/fonts{% else %}{{ zsh.fonts }}{% endif %}"
+    path: "{{ _zsh_fonts_dir }}"
     state: directory
+  vars:
   when: distribution != "MacOSX" or zsh.fonts is not true
 
 - name: Install Terminal Fonts from Web
+  become: "{{ fonts_system_install }}"
   unarchive:
     remote_src: yes
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
-    dest: "{% if zsh.fonts is true %}~/.local/share/fonts{% else %}{{ zsh.fonts }}{% endif %}"
+    dest: "{{ _zsh_fonts_dir }}"
   when: distribution != "MacOSX" or zsh.fonts is not true
     

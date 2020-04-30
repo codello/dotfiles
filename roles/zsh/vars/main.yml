@@ -1,0 +1,1 @@
+_zsh_fonts_dir: "{% if zsh.fonts is true %}{{ fonts_system_install | bool | ternary('/usr/local/share/fonts', '~/.local/share/fonts') }}{% else %}{{ zsh.fonts }}{% endif %}"
