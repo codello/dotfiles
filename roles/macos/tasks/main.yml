@@ -4,8 +4,18 @@
     SERVER: "{{ server|bool }}"
 
 - name: Set System defaults
-  script: set-system-defaults.sh
-  environment:
-    SERVER: "{{ server|bool }}"
   become: true
-  when: sudo|bool
+  script: set-system-defaults.sh
+  when:
+    - not server|bool
+    - sudo|bool
+
+- name: Set Computer Name
+  become: true
+  script: set-computer-name.sh
+  environment:
+    COMPUTER_NAME: "{{ macos.computer_name }}"
+  when:
+    - macos.computer_name
+    - not server|bool
+    - sudo|bool
