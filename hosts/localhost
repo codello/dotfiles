@@ -6,6 +6,3 @@ ansible_connection=local
 
 [dotfiles]
 localhost
-
-[setup]
-localhost

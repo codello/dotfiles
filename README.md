@@ -30,14 +30,6 @@ In contrast to some other dotfile repositories these files provide a separation 
 
 Generally there are configuration options to prevent the installation of configuration-like programs or to customize the install location for these programs.
 
-In order to actually install programs you can explicitly include the `install` tag like so:
-
-```shell
-ansible-playbook dotfiles --tags=all,install
-```
-
-The playbook will then include tasks to install packages via homebrew, apt or opkg. See the respective roles for details.
-
 ## Configuration
 
 Many parts of the dotfiles can be configured to your liking. To do so create a `host_vars/localhost.yml` file and add your customizations there. For example:

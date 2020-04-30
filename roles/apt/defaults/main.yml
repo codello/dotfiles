@@ -1,5 +1,0 @@
-apt:
-  update: yes
-  upgrade: yes
-  autoremove: yes
-  packages: []

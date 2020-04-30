@@ -1,6 +1,0 @@
-homebrew:
-  update: yes
-  upgrade: yes
-  taps: []
-  formulae: []
-  casks: []
