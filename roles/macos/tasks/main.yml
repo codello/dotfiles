@@ -1,0 +1,11 @@
+- name: Set User defaults
+  script: set-user-defaults.sh
+  environment:
+    SERVER: "{{ server|bool }}"
+
+- name: Set System defaults
+  script: set-system-defaults.sh
+  environment:
+    SERVER: "{{ server|bool }}"
+  become: true
+  when: sudo|bool

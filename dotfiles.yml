@@ -12,3 +12,6 @@
     - {role: git, tags: git}
     - {role: nano, tags: nano}
     - {role: python, tags: python}
+    - role: macos
+      tags: macos
+      when: distribution == "MacOSX"
