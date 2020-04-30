@@ -40,7 +40,7 @@ email: codello@wittenburg.kim
 github_user: Codello
 
 nano:
-	syntax_highlighting: no
+  syntax_highlighting: no
 ```
 
 To see all possible configuration values and their defaults have a look at the files in `roles/*`. All roles are documented with their own `README.md` that explains their available options. Although you can override the defaults in the `roles/*/defaults` directory it is not recommended as that might lead to merge conflicts later on. Instead define your own customizations in the `host_vars` and `group_vars` directories.
