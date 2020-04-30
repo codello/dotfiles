@@ -1,0 +1,27 @@
+- name: Check if Homebrew is installed
+  shell: command -v brew 2>&1 > /dev/null
+  ignore_errors: yes
+  register: brew
+
+# FIXME: This probably does not work on newly setup systems as setting folder
+# permissions requires sudo and we are connected over SSH.
+- name: Install Homebrew
+  shell: echo "" | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: brew.rc != 0
+
+- name: Tap Additional Repositories
+  homebrew_tap:
+    name: "{{ homebrew.taps }}"
+
+- name: Install Homebrew Formulae
+  homebrew:
+    update_homebrew: "{{ homebrew.update|bool }}"
+    name: "{{ homebrew.formulae }}"
+    upgrade_all: "{{ homebrew.upgrade|bool }}"
+
+- name: Install Homebrew Casks
+  homebrew_cask:
+    name: "{{ homebrew.casks }}"
+    state: present
+    upgrade: "{{ homebrew.upgrade }}"
+    sudo_password: "{{ ansible_become_pass|default(omit) if sudo|bool else omit }}"

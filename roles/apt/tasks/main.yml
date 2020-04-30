@@ -1,0 +1,13 @@
+- name: Install Apt Packages
+  when: sudo|bool
+  become: true
+  apt:
+    update_cache: "{{ apt.update|bool }}"
+    upgrade: "{{ apt.upgrade|bool }}"
+    name: "{{ apt.packages }}"
+
+- name: Remove Unused Packages
+  when: apt.autoremove and sudo|bool
+  become: true
+  apt:
+    autoremove: yes

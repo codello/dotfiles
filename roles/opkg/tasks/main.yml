@@ -1,0 +1,6 @@
+- name: Install OpenWrt Packages
+  when: opkg.update|bool and sudo|bool
+  become: true
+  opkg:
+    update_cache: opkg.update|bool
+    name: "{{ opkg.packages }}"

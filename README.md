@@ -20,7 +20,7 @@ ansible-playbook dotfiles.yml --tags=git,nano
 
 The git and nano configuration does not require sudo permissions so we do not need `--ask-become-pass`.
 
-## Features
+## Installation vs Configuration
 
 In contrast to some other dotfile repositories these files provide a separation of installation and configuration. The separation is not done on a technical level though. This is best explained with an example. Take the ZSH configuration.
 
@@ -29,6 +29,14 @@ In contrast to some other dotfile repositories these files provide a separation 
 - The `zsh` role **will** install [Antibody](https://getantibody.github.io). Although the role is a configuration role, Antibody is considered part of the ZSH configuration and not a separate program. The same pattern may be used in different targets as well (e.g. installing Pyenv as part of the `python` configuration).
 
 Generally there are configuration options to prevent the installation of configuration-like programs or to customize the install location for these programs.
+
+In order to actually install programs you can explicitly include the `install` tag like so:
+
+```shell
+ansible-playbook dotfiles --tags=all,install
+```
+
+The playbook will then include tasks to install packages via homebrew, apt or opkg. See the respective roles for details.
 
 ## Configuration
 
