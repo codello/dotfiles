@@ -39,4 +39,4 @@ zsh:
   ## The fonts are installed via Homebrew on macOS unless this variable is set to
   ## a string indicating the target directory for the fonts. On other operating
   ## systems fonts are installed into ~/.local/share/fonts by default.
-  fonts: true
+  fonts: "{{ not server }}"
