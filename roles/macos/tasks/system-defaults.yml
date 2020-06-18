@@ -17,18 +17,13 @@
 # Configuring the Computer Name
 ##############################################################################
 - name: Set computer name (as done via System Preferences → Sharing)
-  when: macos.computer_name is not none
+  when: macos.computer_name
   become: true
   block:
     - name: Set the computer name
-      shell: |
-        old=$(scutil --get ComputerName)
-        scutil --set ComputerName "{{ macos.computer_name }}"
-        if [ "$(scutil --get ComputerName)" = "$old" ]; then
-          echo "Unchanged"
-        fi
-      register: result
-      changed_when: result.stdout != "Unchanged"
+      systemsetup:
+        setting: computername
+        value: "{{ macos.computer_name }}"
 
     - name: Set the host name
       shell: |
@@ -39,22 +34,13 @@
         fi
       register: result
       changed_when: result.stdout != "Unchanged"
-      
-    - name: Set the local host name
-      shell: |
-        old=$(scutil --get LocalHostName)
-        scutil --set LocalHostName "{{ macos.computer_name }}"
-        if [ "$(scutil --get LocalHostName)" = "$old" ]; then
-          echo "Unchanged"
-        fi
-      register: result
-      changed_when: result.stdout != "Unchanged"
     
     - name: Set NetBIOS name
       osx_defaults:
         domain: /Library/Preferences/SystemConfiguration/com.apple.smb.server
         key: NetBIOSName
         value: "{{ macos.computer_name }}"
+      when: "'MacBook'|lower not in macos.computer_name|lower"
 
 ##############################################################################
 # Configuring Security Settings
@@ -74,7 +60,7 @@
   when: macos.remote_login is not none
 
 ##############################################################################
-# "Configuring System Settings"
+# Configuring System Settings
 ##############################################################################
 - name: Disable guest account login
   become: true
@@ -98,26 +84,21 @@
 
 - name: Restart automatically if the computer freezes
   become: true
-  shell: |
-    if [ "$(systemsetup -getrestartfreeze)" = "Restart After Freeze: {{ macos.restart_after_freeze|onoff }}" ]; then
-      echo "Unchanged"
-    else
-      systemsetup -setrestartfreeze {{ macos.restart_after_freeze|onoff }}
-    fi
-  register: result
-  changed_when: result.stdout != "Unchanged"
+  systemsetup:
+    setting: restartfreeze
+    value: "{{ macos.restart_after_freeze }}"
   when: macos.restart_after_freeze is not none
 
 - name: Set computer sleep delay
   become: true
-  shell: |
-    if [ "$(systemsetup -getcomputersleep)" = "Computer Sleep: {{ expected }}" ]; then
-      echo "Unchanged"
-    else
-      systemsetup -setcomputersleep {{ macos.sleep_delay|valoff }}
-    fi
-  vars:
-    expected: "{{ 'after ' ~ macos.sleep_delay ~ ' minutes' if macos.sleep_delay else 'Never' }}"
-  register: result
-  changed_when: result.stdout != "Unchanged"
-  when: macos.sleep_delay is not none
+  systemsetup:
+    setting: computersleep
+    value: "{{ macos.computer_sleep }}"
+  when: macos.computer_sleep is not none
+
+- name: Set Display sleep delay
+  become: true
+  systemsetup:
+    setting: displaysleep
+    value: "{{ macos.display_sleep }}"
+  when: macos.display_sleep is not none

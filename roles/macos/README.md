@@ -54,8 +54,13 @@ macos:
   # Automatically restart if the computer freezes.
   restart_after_freeze: on
   
-  # The delay in minutes until the computer goes to sleep. Set to `off` to prevent the computer from going to sleep.
-  sleep_delay: 1
+  # The delay in minutes until the computer goes to sleep.
+  # Set to `off` to prevent the computer from going to sleep.
+  computer_sleep: 5
+  
+  # The delay in minutes until the display goes to sleep.
+  # Set to `off` to prevent the display from going to sleep.
+  display_sleep: 1
 ```
 
 Each value can also be set to the `null` value to keep the respective setting untouched.

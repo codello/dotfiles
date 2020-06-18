@@ -15,4 +15,5 @@ macos:
   guest_account_login: off
   login_window_host_info: null
   restart_after_freeze: on
-  sleep_delay: 1
+  computer_sleep: 5
+  display_sleep: 1
