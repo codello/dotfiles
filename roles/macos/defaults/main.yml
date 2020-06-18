@@ -1,2 +1,18 @@
 macos:
-  #computer_name:
+  skip_system: no
+
+  quit_printer_when_finished: yes
+  transparent_menu_bar: null
+  tap_to_click: yes
+  hq_bluetooth_audio: yes
+  display_zoom: yes
+  # https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+  font_smoothing: 1
+
+  computer_name: null
+  remote_apple_events: off
+  remote_login: off
+  guest_account_login: off
+  login_window_host_info: null
+  restart_after_freeze: on
+  sleep_delay: 1

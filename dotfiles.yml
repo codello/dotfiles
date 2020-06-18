@@ -10,4 +10,4 @@
     - {role: zsh, tags: zsh}
     - role: macos
       tags: macos
-      when: distribution == "MacOSX"
+      when: ansible_distribution == "MacOSX"

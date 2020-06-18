@@ -1,21 +1,10 @@
+- name: Make sure that we run on macOS
+  assert: { that: ansible_distribution == "MacOSX" }
+
 - name: Set User defaults
-  script: set-user-defaults.sh
-  environment:
-    SERVER: "{{ server|bool }}"
+  import_tasks: user-defaults.yml
 
 - name: Set System defaults
-  become: true
-  script: set-system-defaults.sh
+  import_tasks: system-defaults.yml
   when:
-    - not server|bool
-    - sudo|bool
-
-- name: Set Computer Name
-  become: true
-  script: set-computer-name.sh
-  environment:
-    COMPUTER_NAME: "{{ macos.computer_name }}"
-  when:
-    - macos.computer_name is defined
-    - not server|bool
-    - sudo|bool
+    - not macos.skip_system|bool

@@ -1,0 +1,138 @@
+- name: Closing any system preferences to prevent issues with automated changes
+  command: osascript -e 'tell application "System Preferences" to quit'
+  changed_when: false
+
+##############################################################################
+# Printer Settings
+##############################################################################
+
+- name: Automatically quit printer app once the print jobs complete
+  osx_defaults:
+    domain: com.apple.print.PrintingPrefs
+    key: Quit When Finished
+    type: bool
+    value: "{{ macos.quit_printer_when_finished }}"
+  when: macos.quit_printer_when_finished is not none
+
+##############################################################################
+# System Settings
+##############################################################################
+
+- name: Set Menu Bar Transparency
+  osx_defaults:
+    key: AppleEnableMenuBarTransparency
+    type: bool
+    value: "{{ macos.transparent_menu_bar }}"
+  when: macos.transparent_menu_bar is not none
+
+###############################################################################
+# Trackpad, Mouse, Keyboard, Bluetooth accessories, and Input Settings
+###############################################################################
+
+- name: Set Tap to Click
+  when: macos.tap_to_click is not none
+  block:
+    - name: Set Tap to Click
+      osx_defaults:
+        domain: com.apple.AppleMultitouchTrackpad
+        key: Clicking
+        type: bool
+        value: "{{ macos.tap_to_click }}"
+    - name: Set Tap to Click for Bluetooth Trackpads
+      osx_defaults:
+        domain: com.apple.driver.AppleBluetoothMultitouch.trackpad
+        key: Clicking
+        type: bool
+        value: "{{ macos.tap_to_click }}"
+    - name: Set Tap to Click on Login Screen
+      osx_defaults:
+        key: com.apple.mouse.tapBehavior
+        type: int
+        value: "{{ macos.tap_to_click | ternary(1, 0) }}"
+
+# The following values are taken from here:
+# https://www.macfix.de/entries/mix/578613
+- name: High Quality Bluetooth Audio
+  when: macos.hq_bluetooth_audio is not none
+  block:
+    - name: Set Max Bluetooth Audio Bitpool
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Apple Bitpool Max (editable)
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 58
+    - name: Set Min Bluetooth Audio Bitpool
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Apple Bitpool Min (editable)
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 48
+    - name: Set Initial Bluetooth Audio Bitpool
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Apple Initial Bitpool (editable)
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 40
+    - name: Set Negotiated Bluetooth Audio Bitpool
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Negotiated Bitpool
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 58
+    - name: Set Negotiated Bluetooth Audio Bitpool Max
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Negotiated Bitpool Max
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 58
+    - name: Set Negotiated Bluetooth Audio Bitpool Min
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Negotiated Bitpool Min
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 48
+    - name: Set Max Outstanding Packets for Bluetooth Audio
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Stream – Max Outstanding Packets (editable)
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 15
+    - name: Set Flush Ring on Packet Drop for Bluetooth Audio
+      osx_defaults:
+        domain: com.apple.BluetoothAudioAgent
+        key: Stream – Flush Ring on Packet Drop (editable)
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+        value: 30
+    - name: Enable AptX for Bluetooth Headphones
+      osx_defaults:
+        domain: bluetoothaudiod
+        key: Enable AptX codec
+        type: bool
+        value: true
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+    - name: Enable AAC for Bluetooth Headphones
+      osx_defaults:
+        domain: bluetoothaudiod
+        key: Enable AAC codec
+        type: bool
+        value: true
+        state: "{{ macos.hq_bluetooth_audio | ternary('present', 'absent') }}"
+
+- name: Enable Display Zoom
+  osx_defaults:
+    domain: com.apple.universalaccess
+    key: closeViewScrollWheelToggle
+    type: bool
+    value: true
+  when: macos.display_zoom is not none
+
+###############################################################################
+# Configuring Display Settings
+###############################################################################
+
+- name: Enable subpixel font rendering on non-Apple LCDs
+  osx_defaults:
+    key: AppleFontSmoothing
+    type: int
+    value: "{{ macos.font_smoothing }}"
+  when: macos.font_smoothing is not none

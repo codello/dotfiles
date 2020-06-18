@@ -1,30 +1,5 @@
-#!/usr/bin/env sh
-
-##############################################################################
-# Configuring Security Settings
-##############################################################################
-# Disable remote apple events
-systemsetup -setremoteappleevents off
-
-# Disable remote login
-yes 'yes' | systemsetup -setremotelogin off
-
-##############################################################################
-# "Configuring System Settings"
-##############################################################################
-
-# Disable guest account login
-defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
-
-# Reveal IP address, hostname, OS version, etc. when clicking the clock
-# in the login window
-# defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-# Restart automatically if the computer freezes
-# systemsetup -setrestartfreeze on
-
-# Never go into computer sleep mode
-# systemsetup -setcomputersleep Off > /dev/null
+# This file contains unused system default settings that have not yet been
+# converted into ansible tasks.
 
 ###############################################################################
 # SSD-specific tweaks                                                         #

@@ -1,0 +1,123 @@
+- name: Closing any system preferences to prevent issues with automated changes
+  command: osascript -e 'tell application "System Preferences" to quit'
+  changed_when: false
+
+# This is not technically required. However the error messages are otherwise
+# lost when capturing the output so we include this extra step to give a
+# understandable error message if we cannot escalate privileges.
+#
+# Also the meta module has a noop operation which does not support conditionals.
+# As a workaround we use the shell module to perform a noop.
+- name: Validate that sudo access is possible
+  become: true
+  shell: ":"
+  changed_when: false
+
+##############################################################################
+# Configuring the Computer Name
+##############################################################################
+- name: Set computer name (as done via System Preferences → Sharing)
+  when: macos.computer_name is not none
+  become: true
+  block:
+    - name: Set the computer name
+      shell: |
+        old=$(scutil --get ComputerName)
+        scutil --set ComputerName "{{ macos.computer_name }}"
+        if [ "$(scutil --get ComputerName)" = "$old" ]; then
+          echo "Unchanged"
+        fi
+      register: result
+      changed_when: result.stdout != "Unchanged"
+
+    - name: Set the host name
+      shell: |
+        old=$(scutil --get HostName)
+        scutil --set HostName "{{ macos.computer_name }}"
+        if [ "$(scutil --get HostName)" = "$old" ]; then
+          echo "Unchanged"
+        fi
+      register: result
+      changed_when: result.stdout != "Unchanged"
+      
+    - name: Set the local host name
+      shell: |
+        old=$(scutil --get LocalHostName)
+        scutil --set LocalHostName "{{ macos.computer_name }}"
+        if [ "$(scutil --get LocalHostName)" = "$old" ]; then
+          echo "Unchanged"
+        fi
+      register: result
+      changed_when: result.stdout != "Unchanged"
+    
+    - name: Set NetBIOS name
+      osx_defaults:
+        domain: /Library/Preferences/SystemConfiguration/com.apple.smb.server
+        key: NetBIOSName
+        value: "{{ macos.computer_name }}"
+
+##############################################################################
+# Configuring Security Settings
+##############################################################################
+- name: Disable remote apple events
+  become: true
+  command: systemsetup -setremoteappleevents {{ macos.remote_apple_events|onoff }}
+  register: result
+  changed_when: "result.stdout == 'setremoteappleevents: ' ~ macos.remote_apple_events|onoff"
+  when: macos.remote_apple_events is not none
+
+- name: Disable remote login
+  become: true
+  command: systemsetup -f -setremotelogin {{ macos.remote_login|onoff }}
+  register: result
+  changed_when: result.stdout == ''
+  when: macos.remote_login is not none
+
+##############################################################################
+# "Configuring System Settings"
+##############################################################################
+- name: Disable guest account login
+  become: true
+  osx_defaults:
+    domain: /Library/Preferences/com.apple.loginwindow
+    key: GuestEnabled
+    type: bool
+    value: "{{ macos.guest_account_login }}"
+  when: macos.guest_account_login is not none
+
+- name:
+    Reveal IP address, hostname, OS version, etc. when clicking the clock in the
+    login window
+  become: true
+  osx_defaults:
+    domain: /Library/Preferences/com.apple.loginwindow
+    key: AdminHostInfo
+    value: HostName
+    state: "{{ macos.login_window_host_info | ternary('present', 'absent') }}"
+  when: macos.login_window_host_info is not none
+
+- name: Restart automatically if the computer freezes
+  become: true
+  shell: |
+    if [ "$(systemsetup -getrestartfreeze)" = "Restart After Freeze: {{ macos.restart_after_freeze|onoff }}" ]; then
+      echo "Unchanged"
+    else
+      systemsetup -setrestartfreeze {{ macos.restart_after_freeze|onoff }}
+    fi
+  register: result
+  changed_when: result.stdout != "Unchanged"
+  when: macos.restart_after_freeze is not none
+
+- name: Set computer sleep delay
+  become: true
+  shell: |
+    if [ "$(systemsetup -getcomputersleep)" = "Computer Sleep: {{ expected }}" ]; then
+      echo "Unchanged"
+    else
+      systemsetup -setcomputersleep {{ macos.sleep_delay|valoff }}
+    fi
+  vars:
+    expected: "{{ 'after ' ~ macos.sleep_delay ~ ' minutes' if macos.sleep_delay else 'Never' }}"
+  register: result
+  changed_when: result.stdout != "Unchanged"
+  when: macos.sleep_delay is not none

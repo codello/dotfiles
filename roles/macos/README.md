@@ -2,23 +2,60 @@
 
 Configures macOS systems. This role features:
 
-- Configuring default macOS apps like Finder, Safari and System Preferences
-- Disables the gues account
-- Restarts affected apps after applying the changes
+- Configuring the computer name
+- Configuring the guest account
+- Configuring trackpads
+- Enabling high quality bluetooth audio
 - Much more…
 
 ## Configuration
 
-The `macos` role supports the following customizations:
+The `macos` role can be configured using the `macos` namespace. Available options and their defaults are:
 
 ```yaml
 macos:
-	# The name of the computer as configured via System Preferences > Sharing.
-  computer_name: "{{ omit }}"
+	# Whether to skip all tasks that require sudo permissions.
+  skip_system: no
+
+	# Quit the printer app automatically when printing is finished.
+  quit_printer_when_finished: yes
+  
+  # Enable transparency for the main menu bar.
+  transparent_menu_bar: null
+  
+  # Enable tap to click on trackpads.
+  tap_to_click: yes
+  
+  # Enable high quality bluetooth audio.
+  hq_bluetooth_audio: yes
+  
+  # Enable scroll to zoom using the ctrl (^) modifier.
+  display_zoom: yes
+  
+  # Enable font smoothing on non-Apple LCDs.
+  # See: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+  font_smoothing: 1
+
+	# Set the computer name (as done via System Preferences → Sharing)
+  computer_name: null
+  
+  # Disable remote apple events
+  remote_apple_events: off
+  
+  # Disable remote login
+  remote_login: off
+  
+  # Disable the guest account
+  guest_account_login: off
+  
+  # Display information about the host (IP address, hostname, ...) in the login window.
+  login_window_host_info: null
+  
+  # Automatically restart if the computer freezes.
+  restart_after_freeze: on
+  
+  # The delay in minutes until the computer goes to sleep. Set to `off` to prevent the computer from going to sleep.
+  sleep_delay: 1
 ```
 
-Additionally it does however respect the `sudo` and `server` variables:
-
-- If `sudo=no` no system configuration will be applied.
-- If `server=yes` some server-specific settings will be applied such as automatically restarting when the system freezes.
-
+Each value can also be set to the `null` value to keep the respective setting untouched.
