@@ -1,9 +1,11 @@
 [user]
     name = "{{ git.name }}"
     email = "{{ git.email }}"
+
 [core]
     excludesfile = ~/.gitignore
-{% if distribution == 'MacOSX' %}
+
+{% if ansible_distribution == 'MacOSX' %}
 [credential]
     helper = osxkeychain
 {% endif %}

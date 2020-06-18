@@ -4,7 +4,7 @@ Configures git using the `.gitconfig` file. The configuration includes:
 
 - Git name and email
 - Keychain support on macOS
-- Global `.gitignore` for some OS files
+- Global `.gitignore` for common OS files
 
 ## Configuration
 
