@@ -7,7 +7,6 @@
     - {role: nano, tags: nano}
     - {role: python, tags: python}
     - {role: ssh, tags: ssh}
-    - {role: docker, tags: docker}
     - {role: zsh, tags: zsh}
     - role: macos
       tags: macos
