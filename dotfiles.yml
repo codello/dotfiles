@@ -8,6 +8,9 @@
     - {role: python, tags: python}
     - {role: ssh, tags: ssh}
     - {role: zsh, tags: zsh}
+    - role: finder
+      tags: finder
+      when: ansible_distribution == "MacOSX"
     - role: macos
       tags: macos
       when: ansible_distribution == "MacOSX"

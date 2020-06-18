@@ -1,0 +1,106 @@
+- name: Make sure that we run on macOS
+  assert: { that: ansible_distribution == "MacOSX" }
+
+- name: Show hard drives on desktop
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowHardDrivesOnDesktop
+    type: bool
+    value: "{{ finder.hds_on_desktop }}"
+  notify: Restart Finder
+  when: finder.hds_on_desktop is not none
+
+- name: Show external hard drives on desktop
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowExternalHardDrivesOnDesktop
+    type: bool
+    value: "{{ finder.external_hds_on_desktop }}"
+  notify: Restart Finder
+  when: finder.external_hds_on_desktop is not none
+
+- name: Show mounted servers on destop
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowMountedServersOnDesktop
+    type: bool
+    value: "{{ finder.servers_on_desktop }}"
+  notify: Restart Finder
+  when: finder.servers_on_desktop is not none
+
+- name: Show removable media on desktop
+  osx_defaults:
+    domain: com.apple.finder
+    key: ShowRemovableMediaOnDesktop
+    type: bool
+    value: "{{ finder.removable_media_on_desktop }}"
+  notify: Restart Finder
+  when: finder.removable_media_on_desktop is not none
+
+- name: Search the current folder by default
+  osx_defaults:
+    domain: com.apple.finder
+    key: FXDefaultSearchScope
+    value: SCcf
+    state: "{{ finder.current_folder_search | ternary('present', 'absent') }}"
+  notify: Restart Finder
+  when: finder.current_folder_search is not none
+
+- name: Configure the warning when changing a file extension
+  osx_defaults:
+    domain: com.apple.finder
+    key: FXEnableExtensionChangeWarning
+    type: bool
+    value: "{{ finder.file_extension_warning }}"
+  notify: Restart Finder
+  when: finder.file_extension_warning is not none
+
+- name: Configure .DS_Store files on network drives
+  osx_defaults:
+    domain: com.apple.desktopservices
+    key: DSDontWriteNetworkStores
+    type: bool
+    value: "{{ finder.no_network_stores }}"
+  notify: Restart Finder
+  when: finder.no_network_stores is not none
+
+- name: Configure .DS_Store files on USB drives
+  osx_defaults:
+    domain: com.apple.desktopservices
+    key: DSDontWriteUSBStores
+    type: bool
+    value: "{{ finder.no_usb_stores }}"
+  notify: Restart Finder
+  when: finder.no_usb_stores is not none
+
+- name: Configure Stacks
+  plist:
+    dest: com.apple.finder
+    key: DesktopViewSettings.GroupBy
+    value: "{{ finder.stacks }}"
+  notify: Restart Finder
+  when: finder.stacks is not none
+
+- name: Configure Desktop Icon Arrangement
+  plist:
+    dest: com.apple.finder
+    key: DesktopViewSettings.IconViewSettings.arrangeBy
+    value: "{{ finder.desktop_item_arrangement }}"
+  notify: Restart Finder
+  when: finder.desktop_item_arrangement is not none
+
+- name: Configure Default Icon Arrangement
+  plist:
+    dest: com.apple.finder
+    key: FK_StandardViewSettings.IconViewSettings.arrangeBy
+    value: "{{ finder.default_item_arrangement }}"
+  notify: Restart Finder
+  when: finder.default_item_arrangement is not none
+
+- name: Configure Folder Icon Arrangement
+  plist:
+    dest: com.apple.finder
+    key: StandardViewSettings.IconViewSettings.arrangeBy
+    value: "{{ finder.default_item_arrangement }}"
+  notify: Restart Finder
+  when: finder.default_item_arrangement is not none

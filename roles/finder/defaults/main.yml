@@ -1,0 +1,12 @@
+finder:
+  hds_on_desktop: yes
+  external_hds_on_desktop: yes
+  servers_on_desktop: yes
+  removable_media_on_desktop: yes
+  current_folder_search: yes
+  file_extension_warning: no
+  no_network_stores: null
+  no_usb_stores: null
+  default_item_arrangement: grid
+  desktop_item_arrangement: name
+  stacks: Kind
