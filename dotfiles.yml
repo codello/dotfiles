@@ -20,6 +20,9 @@
     - role: mail
       tags: mail
       when: ansible_distribution == "MacOSX"
+    - role: dock
+      tags: dock
+      when: ansible_distribution == "MacOSX"
     - role: macos
       tags: macos
       when: ansible_distribution == "MacOSX"

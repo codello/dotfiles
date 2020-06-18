@@ -1,0 +1,20 @@
+- name: Make sure that we run on macOS
+  assert: { that: ansible_distribution == "MacOSX" }
+
+- name: Configure Dock icons of hidden Applications
+  osx_defaults:
+    domain: com.apple.dock
+    key: showhidden
+    type: bool
+    value: "{{ dock.show_hidden }}"
+  notify: Restart Dock
+  when: dock.show_hidden is not none
+
+- name: Configure Indicator Lights
+  osx_defaults:
+    domain: com.apple.dock
+    key: show-process-indicators
+    type: bool
+    value: "{{ dock.indicators }}"
+  notify: Restart Dock
+  when: dock.indicators is not none
