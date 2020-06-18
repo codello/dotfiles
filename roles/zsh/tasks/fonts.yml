@@ -21,4 +21,3 @@
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
     dest: "{{ _zsh_fonts_dir }}"
   when: ansible_distribution != "MacOSX" or zsh.fonts is not true
-    

@@ -4,7 +4,7 @@
       "owner": "ansible-lint-compact",
       "pattern": [
         {
-          "regexp": "([^:]+):(\\d+):\\s*\\[([A-Za-z]\\d+)\\]\\s*(.+)",
+          "regexp": "^([^:]+):(\\d+):\\s*\\[([A-Za-z]\\d+)\\]\\s*(.+)$",
           "file": 1,
           "line": 2,
           "code": 3,

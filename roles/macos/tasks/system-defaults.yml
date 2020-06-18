@@ -10,7 +10,7 @@
 # As a workaround we use the shell module to perform a noop.
 - name: Validate that sudo access is possible
   become: true
-  command: true
+  command: "true"
   changed_when: false
 
 ##############################################################################
@@ -34,7 +34,7 @@
         fi
       register: result
       changed_when: result.stdout != "Unchanged"
-    
+
     - name: Set NetBIOS name
       osx_defaults:
         domain: /Library/Preferences/SystemConfiguration/com.apple.smb.server
@@ -56,7 +56,7 @@
   become: true
   command: systemsetup -f -setremotelogin {{ macos.remote_login|onoff }}
   register: result
-  changed_when: result.stdout == ''
+  changed_when: result.stdout|length > 0
   when: macos.remote_login is not none
 
 ##############################################################################

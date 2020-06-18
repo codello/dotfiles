@@ -1,6 +1,7 @@
 - name: Download Nano Syntax Highlighting Files
   git:
     repo: https://github.com/scopatz/nanorc.git
+    version: master
     dest: ~/.nano
     depth: 1
   when: nano.syntax_highlighting|bool

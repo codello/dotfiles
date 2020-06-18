@@ -1,5 +1,5 @@
 - name: Finding ZSH
-  shell: command -v zsh
+  command: command -v zsh
   changed_when: false
   register: zsh_command
   when: not zsh.location
@@ -31,7 +31,7 @@
     - zsh.default
     - zsh_command.rc == 0 or zsh.location
     - not zsh.shell_exec
-  
+
 - name: Set the exec shell to ZSH
   template:
     src: underpriviliged-profile.j2
