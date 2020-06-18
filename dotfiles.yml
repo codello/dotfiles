@@ -14,6 +14,9 @@
     - role: safari
       tags: safari
       when: ansible_distribution == "MacOSX"
+    - role: textedit
+      tags: textedit
+      when: ansible_distribution == "MacOSX"
     - role: macos
       tags: macos
       when: ansible_distribution == "MacOSX"
