@@ -169,8 +169,11 @@ def main():
         module.params['dest'] = os.path.expanduser(
             "~/Library/Preferences/%s.plist" % module.params['dest'])
 
-    plist = Plist(module=module)
-    module.exit_json(changed=plist.run())
+    try:
+        plist = Plist(module=module)
+        module.exit_json(changed=plist.run())
+    except PlistException as error:
+        module.fail_json(msg=error.message)
 
 
 if __name__ == '__main__':
