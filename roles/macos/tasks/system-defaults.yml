@@ -10,7 +10,8 @@
 # As a workaround we use the shell module to perform a noop.
 - name: Validate that sudo access is possible
   become: true
-  command: "true"
+  shell: ":"
+  # command: "true"
   changed_when: false
 
 ##############################################################################
