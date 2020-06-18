@@ -1,4 +1,2 @@
-/hosts/
-!/hosts/localhost
-
 /host_vars/
+.idea
