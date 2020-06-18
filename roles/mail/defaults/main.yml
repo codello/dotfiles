@@ -1,0 +1,3 @@
+mail:
+  copy_with_names: no
+  no_inline_attachments: yes

@@ -1,0 +1,20 @@
+- name: Make sure that we run on macOS
+  assert: { that: ansible_distribution == "MacOSX" }
+
+- name: Configure Copying of Addresses
+  osx_defaults:
+    domain: com.apple.mail
+    key: AddressesIncludeNameOnPasteboard
+    type: bool
+    value: "{{ mail.copy_with_names }}"
+  notify: Quit Mail
+  when: mail.copy_with_names is not none
+
+- name: Configure Inline Attachments
+  osx_defaults:
+    domain: com.apple.mail
+    key: DisableInlineAttachmentViewing
+    type: bool
+    value: "{{ mail.no_inline_attachments }}"
+  notify: Quit Mail
+  when: mail.no_inline_attachments is not none
