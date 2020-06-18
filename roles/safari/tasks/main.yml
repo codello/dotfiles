@@ -1,0 +1,86 @@
+- name: Make sure that we run on macOS
+  assert: { that: ansible_distribution == "MacOSX" }
+
+- name: Configure Safe Downloads
+  osx_defaults:
+    domain: com.apple.Safari
+    key: AutoOpenSafeDownloads
+    type: bool
+    value: "{{ safari.open_safe_downloads }}"
+  notify: Quit Safari
+  when: safari.open_safe_downloads is not none
+
+- name: Configure Debug Menu
+  osx_defaults:
+    domain: com.apple.Safari
+    key: IncludeInternalDebugMenu
+    type: bool
+    value: "{{ safari.debug_menu }}"
+  notify: Quit Safari
+  when: safari.debug_menu is not none
+
+- name: Configure Searches
+  osx_defaults:
+    domain: com.apple.Safari
+    key: FindOnPageMatchesWordStartsOnly
+    type: bool
+    value: "{{ safari.search_starts_with }}"
+  notify: Quit Safari
+  when: safari.search_starts_with is not none
+
+- name: Configure Developer Extras
+  when: safari.developer is not none
+  block:
+    - name: Configure Developer Menu
+      osx_defaults:
+        domain: com.apple.Safari
+        key: IncludeDevelopMenu
+        type: bool
+        value: "{{ safari.developer }}"
+      notify: Quit Safari
+    - name: Configure Developer Extras
+      osx_defaults:
+        domain: com.apple.Safari
+        key: WebKitDeveloperExtrasEnabledPreferenceKey
+        type: bool
+        value: "{{ safari.developer }}"
+      notify: Quit Safari
+    - name: Configure WebKit 2 Developer Extras
+      osx_defaults:
+        domain: com.apple.Safari
+        key: com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled
+        type: bool
+        value: "{{ safari.developer }}"
+      notify: Quit Safari
+    - name: Configure Inspector Context Menu
+      osx_defaults:
+        key: WebKitDeveloperExtras
+        type: bool
+        value: "{{ safari.developer }}"
+
+- name: Configure for Fraudulent Websites
+  osx_defaults:
+    domain: com.apple.Safari
+    key: WarnAboutFraudulentWebsites
+    type: bool
+    value: "{{ safari.warn_about_fraudulent_websites }}"
+  notify: Quit Safari
+  when: safari.warn_about_fraudulent_websites is not none
+
+- name: Configure Do Not Track
+  osx_defaults:
+    domain: com.apple.Safari
+    key: SendDoNotTrackHTTPHeader
+    type: bool
+    value: "{{ safari.do_not_track }}"
+  notify: Quit Safari
+  when: safari.do_not_track is not none
+
+- name: Configure Extension Updates
+  osx_defaults:
+    domain: com.apple.Safari
+    key: InstallExtensionUpdatesAutomatically
+    type: bool
+    value: "{{ safari.auto_update_extensions }}"
+  notify: Quit Safari
+  when: safari.auto_update_extensions is not none

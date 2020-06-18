@@ -11,6 +11,9 @@
     - role: finder
       tags: finder
       when: ansible_distribution == "MacOSX"
+    - role: safari
+      tags: safari
+      when: ansible_distribution == "MacOSX"
     - role: macos
       tags: macos
       when: ansible_distribution == "MacOSX"

@@ -1,0 +1,8 @@
+safari:
+  open_safe_downloads: no
+  debug_menu: null
+  search_starts_with: null
+  developer: yes
+  warn_about_fraudulent_websites: yes
+  do_not_track: yes
+  auto_update_extensions: yes
