@@ -56,26 +56,15 @@ email: codello@wittenburg.kim
 
 ## Your username on GitHub. Used for example to fetch authorized SSH keys.
 github_user: Codello
-
-## Wether to run tasks that require sudo permissions. Set this to false to skip
-## those tasks.
-sudo: yes
-
-## Whether the target machine is considered a server. If true some
-## configurations may be applied slightly differently. For example no fonts will
-## be installed on servers by default.
-server: no
 ```
 
-
-
-Note that the dotfiles use `hash_behaviour=merge` which is non-standard behavior in Ansible. However no roles rely on this behavior so it is save to use `hash_behavior=replace` instead although customizing the default configuration might get a little cumbersome.
+Note that the dotfiles make heavy use of `hash_behaviour=merge` which is non-standard behavior in Ansible. However no roles functionally rely on this behavior so it is save to use `hash_behavior=replace` instead although customizing the default configuration might get a little cumbersome.
 
 ## Priviliged Configurations
 
 For the most part the dotfiles work without needing `sudo` permissions. However there are some aspects that do require escalated priviliges like for example configuring the system defaults on macOS. In order to apply these configurations you need to make sure that Ansible can successfully run in priviliged mode. One way to do so is to provide the ``--ask-become-pass`` command line switch which lets you provide your sudo password when running the playbook. Another option might be to configure your user to allow passwordless sudo.
 
-If you absolutely do not want to perform any priviliged tasks you can set the configuration variable `sudo=false`. This will skip any tasks that require root priviliges. This way you can prevent the execution of sudo tasks even if you have passwordless sudo enabled.
+If you absolutely do not want to perform any priviliged tasks you can set appropriate flags in each role’s configuration. This way you can also prevent the execution of sudo tasks even if you have passwordless sudo enabled.
 
 ## Multiple Hosts
 
