@@ -7,8 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Register Problem Matcher
+        run: echo "::add-matcher::$(pwd)/.github/ansible-lint-problem-matcher.json"
       - name: Lint Playbook
         uses: ansible/ansible-lint-action@master
         with:
           targets: dotfiles.yml
-          args: -q -p
+          args: -p

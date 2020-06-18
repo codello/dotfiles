@@ -1,5 +1,7 @@
 # Codello’s Dotfiles
 
+![Lint](https://github.com/codello/dotfiles/workflows/Lint/badge.svg)
+
 Codello's dotfiles as Ansible roles. Parametrized system configuration.
 
 The dotfiles are mainly targeted at macOS systems but include some support for Ubuntu and Synology’s DSM.
