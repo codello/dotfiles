@@ -34,6 +34,6 @@
     dest: ~/.zsh/functions/
 
 - name: Generate ZSH Theme
-  template:
-    src: p10k.zsh.j2
-    dest: ~/.zsh/p10k.zsh
+  copy:
+    src: p10k.zsh
+    dest: ~/.p10k.zsh
