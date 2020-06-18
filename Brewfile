@@ -1,5 +1,5 @@
 # Taps
-tap Codello/Brewery
+tap codello/brewery
 tap homebrew/cask-fonts
 tap homebrew/cask-versions
 
