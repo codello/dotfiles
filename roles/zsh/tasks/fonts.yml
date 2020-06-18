@@ -4,7 +4,7 @@
     name: font-jetbrainsmono-nerd-font
     state: present
   when:
-    - distribution == "MacOSX"
+    - ansible_distribution == "MacOSX"
     - zsh.fonts is true
 
 - name: Create Fonts Directory
@@ -12,7 +12,7 @@
   file:
     path: "{{ _zsh_fonts_dir }}"
     state: directory
-  when: distribution != "MacOSX" or zsh.fonts is not true
+  when: ansible_distribution != "MacOSX" or zsh.fonts is not true
 
 - name: Install Terminal Fonts from Web
   become: "{{ fonts_system_install }}"
@@ -20,5 +20,5 @@
     remote_src: yes
     src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
     dest: "{{ _zsh_fonts_dir }}"
-  when: distribution != "MacOSX" or zsh.fonts is not true
+  when: ansible_distribution != "MacOSX" or zsh.fonts is not true
     

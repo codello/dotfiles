@@ -1,11 +1,11 @@
 zsh:
-  # location: ...
-  shell_exec: false
+  location: null
   default: true
+  shell_exec: false
   language: de_DE.UTF-8
   enable_svn: false
   antibody: true
-  # antibody_path: ...
+  antibody_path: null
   antibody_system_install: false
-  fonts: "{{ not server }}"
+  fonts: true
   fonts_system_install: false

@@ -1,10 +1,10 @@
-{% if distribution == "DSM" %}
-# Load Entware
-source /opt/etc/profile
-{% endif %}
+if [[ -f /opt/etc/profile ]]; then
+  # Load Entware
+  source /opt/etc/profile
+fi
 
 # Run ZSH
-{% if zsh.location is defined %}
+{% if zsh.location %}
 SHELL={{ zsh.location }}
 {% else %}
 SHELL=$(command -v zsh)

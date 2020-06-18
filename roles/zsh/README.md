@@ -17,15 +17,15 @@ zsh:
   # Manually set the location of the ZSH executable. This value is not
   # validated. If the specified executable does not exist, it will be set as
   # the default shell anyway.
-  location: "{{ omit }}"
+  location: null
+  
+  # Set ZSH as the default shell for the user.
+  default: true
   
   # Do not set ZSH as the default shell via chsh but include a bash profile
   # that immediately executes ZSH. This is useful if chsh cannot be used to
   # switch to ZSH for some reason.
   shell_exec: false
-  
-  # Set ZSH as the default shell for the user.
-  default: true
   
   # Sets the LANG environment variable
   language: de_DE.UTF-8
@@ -44,7 +44,7 @@ zsh:
   #
   # On macOS the default is to install antibody via Homebrew unless this path
   # is specified.
-  antibody_path: "{{ omit }}"
+  antibody_path: null
   
   # Whether antibody should be installed in a system wide directory (by default
   # /usr/local/bin). This causes antibody to be installed in priviliged mode if
@@ -58,7 +58,7 @@ zsh:
   # a string indicating the target directory for the fonts. On other operating
   # systems fonts are installed into ~/.local/share/fonts by default (or
   # /usr/local/share/fonts if zsh.fonts_system_install is true).
-  fonts: "{{ not server }}"
+  fonts: true
   
   # Whether to install the fonts system wide. Ignored if zsh.fonts is false.
   fonts_system_install: false

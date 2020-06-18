@@ -4,7 +4,7 @@
     name: getantibody/tap/antibody
     state: present
   when:
-    - distribution == "MacOSX"
+    - ansible_distribution == "MacOSX"
     - zsh.antibody != "manual"
 
 - name: Install Antibody
@@ -15,7 +15,6 @@
     warn: false
   vars:
     antibody_default_path: '{{ zsh.antibody_system_install | bool | ternary("/usr/local/bin", "~/.local/bin") }}'
-    antibody_path: '{{ zsh.antibody_path | default(antibody_default_path) }}'
+    antibody_path: '{{ zsh.antibody_path or antibody_default_path }}'
   when:
-    - distribution != "MacOSX" or zsh.antibody == "manual"
-    - not zsh.antibody_system_install|bool or sudo|bool
+    - ansible_distribution != "MacOSX" or zsh.antibody == "manual"

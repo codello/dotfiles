@@ -33,7 +33,7 @@ setopt nobeep
 setopt pushd_ignore_dups
 
 
-{% if distribution == "MacOSX" %}
+{% if ansible_distribution == "MacOSX" %}
 export ANTIBODY_HOME=~/Library/antibody
 export PATH="/usr/local/sbin:$PATH"
 {% endif %}
@@ -49,18 +49,15 @@ export LANG="{{ zsh.language }}"
 export LC_ALL="{{ zsh.language }}"
 {% endif %}
 
-# Select theme based on client capabilities
-if [[ ! $SSH_CONNECTION ]]; then
-    export ZSH_POWERLINE_THEME=yes
-fi
-
 # Preferred editor for local and remote sessions
 if [[ $SSH_CONNECTION ]]; then
     export EDITOR='nano'
-elif [[ "$(uname -s)" == 'Darwin' ]]; then
+else
+{% if ansible_distribution == 'MacOSX' %}
     export EDITOR='open'
     export BROWSER='Safari'
-else
+{% else %}
     export EDITOR='nano'
     export BROWSER='firefox'
+{% endif %}
 fi

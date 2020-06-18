@@ -1,26 +1,35 @@
 - name: Finding ZSH
   shell: command -v zsh
   changed_when: false
-  register: result
-  when: zsh.location is not defined
+  register: zsh_command
+  when: not zsh.location
+
+- name: Check for ZSH in /etc/shells
+  command: grep -Fxq {{ zsh.location or zsh_command.stdout }} /etc/shells
+  register: zsh_in_shells
+  check_mode: false
+  failed_when: false
+  changed_when: false
+  when:
+    - zsh_command.rc == 0 or zsh.location
 
 - name: Add ZSH to /etc/shells
   become: true
   lineinfile:
-    line: "{{ zsh.location|default(result.stdout) }}"
+    line: "{{ zsh.location or zsh_command.stdout }}"
     dest: /etc/shells
     state: present
   when:
-    - result.rc == 0 or zsh.location is defined
-    - sudo|bool
+    - zsh_in_shells.rc != 0
+    - zsh_command.rc == 0 or zsh.location
 
 - name: Set the default shell to ZSH
   user:
     name: "{{ ansible_user_id }}"
-    shell: "{{ zsh.location|default(result.stdout) }}"
+    shell: "{{ zsh.location or zsh_command.stdout }}"
   when:
     - zsh.default
-    - result.rc == 0 or zsh.location is defined
+    - zsh_command.rc == 0 or zsh.location
     - not zsh.shell_exec
   
 - name: Set the exec shell to ZSH
