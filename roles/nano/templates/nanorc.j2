@@ -34,9 +34,7 @@ set tabstospaces
 # as part of a word.
 set wordbounds
 
-# Syntax Hightlighting
 {% if nano.syntax_highlighting %}
-{% for file in lookup('fileglob', '~/.nano/*.nanorc', wantlist=True) %}
-include {{ file }}
-{% endfor %}
+# Syntax Hightlighting
+include ~/.nano/*.nanorc
 {% endif %}
