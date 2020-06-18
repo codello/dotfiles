@@ -47,16 +47,16 @@
 ##############################################################################
 - name: Disable remote apple events
   become: true
-  command: systemsetup -setremoteappleevents {{ macos.remote_apple_events|onoff }}
-  register: result
-  changed_when: "result.stdout == 'setremoteappleevents: ' ~ macos.remote_apple_events|onoff"
+  systemsetup:
+    setting: remoteappleevents
+    value: "{{ macos.remote_apple_events }}"
   when: macos.remote_apple_events is not none
 
 - name: Disable remote login
   become: true
-  command: systemsetup -f -setremotelogin {{ macos.remote_login|onoff }}
-  register: result
-  changed_when: result.stdout|length > 0
+  systemsetup:
+    setting: remotelogin
+    value: "{{ macos.remote_login }}"
   when: macos.remote_login is not none
 
 ##############################################################################
