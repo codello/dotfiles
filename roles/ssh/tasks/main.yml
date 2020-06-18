@@ -1,16 +1,22 @@
+- name: Check existing SSH key
+  stat:
+    path: "{{ ssh.key }}"
+  register: result
+  when: ssh.key is not none
+
 - name: Generate SSH Key
   command:
-    cmd: ssh-keygen -o -a 100 -t ed25519 -f {{ ssh.key | quote }}{% if ssh.key_passphrase is defined %} -N {{ ssh.key_passphrase | quote }}{% endif %}
+    cmd: ssh-keygen -o -a 100 -t ed25519 -f {{ ssh.key | quote }} -N {{ ssh.key_passphrase | quote }}
     creates: "{{ ssh.key }}"
   when:
-    - ssh.key is defined
-    - ssh.key_passphrase
+    - not result.stat.exists
+    - ssh.key is not none
 
 - name: Add GitHub SSH Keys
   authorized_key:
     user: "{{ ansible_user_id }}"
     key: https://github.com/{{ github_user }}.keys
-    comment: "{{ ssh.github_keys_comment|default(omit) }}"
+    comment: "{{ ssh.github_keys_comment or omit }}"
   when: ssh.github_keys
 
 - name: Add SSH Keys

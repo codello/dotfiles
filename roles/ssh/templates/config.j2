@@ -10,10 +10,11 @@ Host *
 {% if ssh.key is defined %}
   IdentityFile        {{ ssh.key }}
 {% endif %}
+{% if ansible_distribution == 'MacOSX' %}
   UseKeychain         yes
+{% endif %}
   AddKeysToAgent      yes
   IdentitiesOnly      yes
   ForwardX11          no
   ForwardAgent        no
   ServerAliveInterval 240
-  SendEnv             ZSH_POWERLINE_THEME
