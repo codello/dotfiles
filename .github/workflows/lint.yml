@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Lint Playbook
-        uses: ansible/ansible-lint-action@v4.1.0
+        uses: ansible/ansible-lint-action@master
         with:
           targets: dotfiles.yml
-          args: -p
+          args: -q -p
