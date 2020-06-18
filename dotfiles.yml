@@ -23,6 +23,9 @@
     - role: dock
       tags: dock
       when: ansible_distribution == "MacOSX"
+    - role: osx_update
+      tags: osx_update
+      when: ansible_distribution == "MacOSX"
     - role: macos
       tags: macos
       when: ansible_distribution == "MacOSX"

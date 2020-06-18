@@ -1,0 +1,7 @@
+osx_update:
+  auto_check: yes
+  check_frequency: 1
+  auto_download: yes
+  install_critical: yes
+  auto_update: yes
+  allow_reboot: yes

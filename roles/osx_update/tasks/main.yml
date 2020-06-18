@@ -1,0 +1,50 @@
+- name: Make sure that we run on macOS
+  assert: { that: ansible_distribution == "MacOSX" }
+
+- name: Configure Automatic Update Check
+  osx_defaults:
+    domain: com.apple.SoftwareUpdate
+    key: AutomaticCheckEnabled
+    type: bool
+    value: "{{ osx_update.auto_check }}"
+  when: osx_update.auto_check is not none
+
+- name: Configure Update Check Frequency
+  osx_defaults:
+    domain: com.apple.SoftwareUpdate
+    key: ScheduleFrequency
+    type: int
+    value: "{{ osx_update.check_frequency }}"
+  when: osx_update.check_frequency is not none
+
+- name: Configure Automatic Downloads
+  osx_defaults:
+    domain: com.apple.SoftwareUpdate
+    key: AutomaticDownload
+    type: int
+    value: "{{ osx_update.auto_download | ternary(1, 0) }}"
+  when: osx_update.auto_download is not none
+
+- name: Configure Critical Updates
+  osx_defaults:
+    domain: com.apple.SoftwareUpdate
+    key: CriticalUpdateInstall
+    type: int
+    value: "{{ osx_update.install_critical | ternary(1, 0) }}"
+  when: osx_update.install_critical is not none
+
+- name: Configure Auto Updates
+  osx_defaults:
+    domain: com.apple.commerce
+    key: AutoUpdate
+    type: bool
+    value: "{{ osx_update.auto_update }}"
+  when: osx_update.auto_update is not none
+
+- name: Configure Reboot for Updates
+  osx_defaults:
+    domain: com.apple.commerce
+    key: AutoUpdateRestartRequired
+    type: bool
+    value: "{{ osx_update.allow_reboot }}"
+  when: osx_update.allow_reboot is not none
