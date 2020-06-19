@@ -9,6 +9,7 @@
     value: "{{ finder.hds_on_desktop }}"
   notify: Restart Finder
   when: finder.hds_on_desktop is not none
+  tags: desktop
 
 - name: Show external hard drives on desktop
   osx_defaults:
@@ -18,6 +19,7 @@
     value: "{{ finder.external_hds_on_desktop }}"
   notify: Restart Finder
   when: finder.external_hds_on_desktop is not none
+  tags: desktop
 
 - name: Show mounted servers on destop
   osx_defaults:
@@ -27,6 +29,7 @@
     value: "{{ finder.servers_on_desktop }}"
   notify: Restart Finder
   when: finder.servers_on_desktop is not none
+  tags: desktop
 
 - name: Show removable media on desktop
   osx_defaults:
@@ -36,6 +39,7 @@
     value: "{{ finder.removable_media_on_desktop }}"
   notify: Restart Finder
   when: finder.removable_media_on_desktop is not none
+  tags: desktop
 
 - name: Search the current folder by default
   osx_defaults:
@@ -80,6 +84,7 @@
     value: "{{ finder.stacks }}"
   notify: Restart Finder
   when: finder.stacks is not none
+  tags: desktop
 
 - name: Configure Desktop Icon Arrangement
   plist:
@@ -88,6 +93,7 @@
     value: "{{ finder.desktop_item_arrangement }}"
   notify: Restart Finder
   when: finder.desktop_item_arrangement is not none
+  tags: desktop
 
 - name: Configure Default Icon Arrangement
   plist:

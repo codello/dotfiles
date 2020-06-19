@@ -12,6 +12,7 @@
   become: true
   command: "true"
   changed_when: false
+  tags: sudo
 
 ##############################################################################
 # Configuring the Computer Name
@@ -19,6 +20,7 @@
 - name: Set computer name (as done via System Preferences → Sharing)
   when: macos.computer_name
   become: true
+  tags: sudo
   block:
     - name: Set the computer name
       systemsetup:
@@ -51,6 +53,7 @@
     setting: remoteappleevents
     value: "{{ macos.remote_apple_events }}"
   when: macos.remote_apple_events is not none
+  tags: sudo
 
 - name: Disable remote login
   become: true
@@ -58,6 +61,7 @@
     setting: remotelogin
     value: "{{ macos.remote_login }}"
   when: macos.remote_login is not none
+  tags: sudo
 
 ##############################################################################
 # Configuring System Settings
@@ -70,6 +74,7 @@
     type: bool
     value: "{{ macos.guest_account_login }}"
   when: macos.guest_account_login is not none
+  tags: sudo
 
 - name:
     Reveal IP address, hostname, OS version, etc. when clicking the clock in the
@@ -81,6 +86,7 @@
     value: HostName
     state: "{{ macos.login_window_host_info | ternary('present', 'absent') }}"
   when: macos.login_window_host_info is not none
+  tags: sudo
 
 - name: Restart automatically if the computer freezes
   become: true
@@ -88,6 +94,7 @@
     setting: restartfreeze
     value: "{{ macos.restart_after_freeze }}"
   when: macos.restart_after_freeze is not none
+  tags: sudo
 
 - name: Set computer sleep delay
   become: true
@@ -95,6 +102,7 @@
     setting: computersleep
     value: "{{ macos.computer_sleep }}"
   when: macos.computer_sleep is not none
+  tags: sudo
 
 - name: Set Display sleep delay
   become: true
@@ -102,3 +110,4 @@
     setting: displaysleep
     value: "{{ macos.display_sleep }}"
   when: macos.display_sleep is not none
+  tags: sudo

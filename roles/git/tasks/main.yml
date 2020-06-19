@@ -2,8 +2,10 @@
   template:
     src: gitignore.j2
     dest: ~/.gitignore
+  tags: gitignore
 
 - name: Update .gitconfig
   template:
     src: gitconfig.j2
     dest: ~/.gitconfig
+  tags: gitconfig

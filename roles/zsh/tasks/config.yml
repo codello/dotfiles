@@ -2,38 +2,46 @@
   template:
     src: zshrc.j2
     dest: ~/.zshrc
+  tags: zshrc
 
 - name: Generate zshenv
   template:
     src: zshenv.j2
     dest: ~/.zshenv
+  tags: zshenv
 
 - name: Generate zprofile
   template:
     src: zprofile.j2
     dest: ~/.zprofile
+  tags: zprofile
 
 - name: Generate Completions
   copy:
     src: completions
     dest: ~/.zsh/
+  tags: zsh-completions
 
 - name: Generate Colors
   template:
     src: colors.j2
     dest: ~/.zsh/colors
+  tags: zsh-colors
 
 - name: Generate Aliases
   template:
     src: aliases.j2
     dest: ~/.zsh/aliases
+  tags: zsh-aliases
 
 - name: Generate Functions
   copy:
     src: functions/
     dest: ~/.zsh/functions/
+  tags: zsh-functions
 
 - name: Generate ZSH Theme
   copy:
     src: p10k.zsh
     dest: ~/.p10k.zsh
+  tags: p10k

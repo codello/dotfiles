@@ -5,8 +5,10 @@
     dest: ~/.nano
     depth: 1
   when: nano.syntax_highlighting|bool
+  tags: nano-syntax
 
 - name: Generate .nanorc
   template:
     src: nanorc.j2
     dest: ~/.nanorc
+  tags: nanorc
