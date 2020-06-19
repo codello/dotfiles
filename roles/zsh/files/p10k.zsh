@@ -959,7 +959,7 @@
     function prompt_python_version() {
       _p9k_cached_cmd 1 python --version || return
       [[ $_p9k__ret == (#b)'Python '([[:digit:].]##) ]] || return
-      p10k segment -i '' -t "${match[1]}"
+      p10k segment -i ' ' -t "${match[1]}"
     }
 
   typeset -g POWERLEVEL9K_PYTHON_VERSION_FOREGROUND=221
@@ -970,7 +970,7 @@
     function prompt_python3_version() {
       _p9k_cached_cmd 1 python3 --version || return
       [[ $_p9k__ret == (#b)'Python '([[:digit:].]##) ]] || return
-      p10k segment -i '' -t "${match[1]}"
+      p10k segment -i ' ' -t "${match[1]}"
     }
 
   typeset -g POWERLEVEL9K_PYTHON3_VERSION_FOREGROUND=221
@@ -980,7 +980,7 @@
 
     function prompt_npm_version() {
       _p9k_cached_cmd 0 npm --version || return
-      p10k segment -i '' -t "$_p9k__ret"
+      p10k segment -i ' ' -t "$_p9k__ret"
     }
 
   typeset -g POWERLEVEL9K_NPM_VERSION_FOREGROUND=161
