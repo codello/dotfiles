@@ -62,5 +62,8 @@ zsh:
   
   # Whether to install the fonts system wide. Ignored if zsh.fonts is false.
   fonts_system_install: false
+  
+  # Additional environemnt variables to be exported.
+  env: {}
 ```
 

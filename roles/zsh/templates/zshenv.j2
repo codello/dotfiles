@@ -40,6 +40,14 @@ export PATH="/usr/local/sbin:$PATH"
 
 PATH="$HOME/.local/bin:$PATH"
 
+{% for key, value in zsh.env.items() %}
+{% if value %}
+export {{ key }}={{ value }}
+{% else %}
+export {{ key }}
+{% endif %}
+{% endfor %}
+
 if [[ -f "$HOME/.pythonrc" ]]; then
     export PYTHONSTARTUP="$HOME/.pythonrc"
 fi
@@ -54,7 +62,11 @@ if [[ $SSH_CONNECTION ]]; then
     export EDITOR='nano'
 else
 {% if ansible_distribution == 'MacOSX' %}
-    export EDITOR='open'
+    if command -v mate > /dev/null; then
+        export EDITOR='mate -w'
+    else
+        export EDITOR='open'
+    fi
     export BROWSER='Safari'
 {% else %}
     export EDITOR='nano'

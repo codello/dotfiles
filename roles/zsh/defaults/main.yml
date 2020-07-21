@@ -9,3 +9,4 @@ zsh:
   antibody_system_install: false
   fonts: true
   fonts_system_install: false
+  env: {}
