@@ -1,6 +1,5 @@
-if [[ "$1" == "search" ]]; then
-    shift
-    brew search --casks "$@"
-else
-    brew cask "$@"
-fi
+cmd=$1
+shift
+
+brew "$cmd" --cask "$@"
+

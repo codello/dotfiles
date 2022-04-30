@@ -1,3 +1,5 @@
+Include config.d/*
+
 {% for (name, host) in ssh.hosts.items() %}
 Host {{ name }}
   {% for (key, value) in host.items() %}
