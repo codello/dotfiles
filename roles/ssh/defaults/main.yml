@@ -1,5 +1,4 @@
 ssh:
-  key: ~/.ssh/id_ed25519
   key_passphrase: null
   github_keys: no
   github_keys_comment: GitHub
