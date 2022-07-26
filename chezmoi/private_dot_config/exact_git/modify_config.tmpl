@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+file=$(mktemp)
+cat > "$file"
+
+git config --file "$file" user.name {{ .name | quote }}
+git config --file "$file" user.email {{ .email | quote }}
+
+git config --file "$file" core.excludesfile "~/.config/git/ignore"
+
+{{ if eq .chezmoi.os "darwin" -}}
+git config --file "$file" credential.helper "osxkeychain"
+{{- end }}
+
+cat "$file"
+rm "$file"

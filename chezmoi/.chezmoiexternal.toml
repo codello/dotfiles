@@ -1,6 +1,6 @@
 [".nano"]
 type  = "archive"
-url   = "https://github.com/scopatz/nanorc/releases/download/2020.10.10/nanorc-2020.10.10.tar.gz"
+url   = "https://github.com/scopatz/nanorc/archive/refs/tags/2020.10.10.zip"
 exact = true
 stripComponents = 1
 
