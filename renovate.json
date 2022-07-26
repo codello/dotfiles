@@ -6,6 +6,7 @@
   "regexManagers": [{
     "fileMatch": ["(^|\\/).chezmoiexternal.toml$"],
     "matchStrings": ["url\\s*=\\s*\"https:\\/\\/github.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/archive\\/refs\\/tags\\/(?<currentValue>\\d+(\\.\\d+)*).zip\""],
-    "datasourceTemplate": "github-tags"
+    "datasourceTemplate": "github-tags",
+    "versioningTemplate": "loose"
   }]
 }
