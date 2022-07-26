@@ -1,0 +1,11 @@
+Include config.d/*
+
+Host *
+  UseKeychain         yes
+  AddKeysToAgent      yes
+  ForwardX11          no
+  ForwardAgent        no
+  ServerAliveInterval 240
+  {{- if eq .chezmoi.os "darwin" }}
+  IdentityAgent       "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+  {{- end }}
