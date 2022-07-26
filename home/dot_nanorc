@@ -1,0 +1,38 @@
+# Use auto-indentation.
+set autoindent
+
+# Enable mouse support, so that mouse clicks can be used to place the cursor,
+# set the mark (with a double click), or execute shortcuts.
+# set mouse
+
+# Don't display the help lists at the bottom of the screen.
+# set nohelp
+
+# Don't wrap text at all.
+# unset nowrap
+
+# Do extended regular expression searches by default.
+set regexp
+
+# Use smooth scrolling by default.
+#set smooth
+
+# Allow nano to be suspended.
+set suspend
+
+# Use a tab size of "n" columns. The value of n must be greater than 0. The
+# default value is 8.
+set tabsize "2"
+
+# Convert typed tabs to spaces
+set tabstospaces
+
+# Save automatically on exit, don't prompt.
+#unset tempfile
+
+# Detect word boundaries more accurately by treating punctuation characters
+# as part of a word.
+set wordbounds
+
+# Syntax Hightlighting
+include ~/.nano/*.nanorc
