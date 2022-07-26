@@ -1,0 +1,20 @@
+# TODO: What does this do?
+autoload -U colors && colors
+
+# Enable ls colors
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+if which dircolors > /dev/null; then
+    antibody bundle trapd00r/LS_COLORS kind:fpath
+    eval "$(dircolors -b $(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-trapd00r-SLASH-LS_COLORS/LS_COLORS)"
+    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+    
+    ls --color -d . &>/dev/null && alias ls='ls --color=tty' || { ls -G . &>/dev/null && alias ls='ls -G' }
+else
+    # this is a good alias, it works by default just using $LSCOLORS
+    ls -G . &>/dev/null && alias ls='ls -G'
+
+    # only use coreutils ls if there is a dircolors customization present ($LS_COLORS or .dircolors file)
+    # otherwise, gls will use the default color scheme which is ugly af
+    [[ -n "$LS_COLORS" || -f "$HOME/.dircolors" ]] && gls --color -d . &>/dev/null && alias ls='gls --color=tty'
+fi

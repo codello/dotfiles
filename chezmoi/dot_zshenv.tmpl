@@ -1,0 +1,63 @@
+# Environment Variables & Global Options
+
+##############################################################################
+# History Configuration
+##############################################################################
+HISTSIZE=5000               #How many lines of history to keep in memory
+HISTFILE=~/.zsh_history     #Where to save history to disk
+SAVEHIST=5000               #Number of history entries to save to disk
+HISTDUP=erase               #Erase duplicates in the history file
+setopt    appendhistory     #Append history to the history file (no overwriting)
+setopt    extendedhistory   #Save each command's beginning timestamp and the duration to the history file
+setopt    sharehistory      #Share history across terminals
+setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
+setopt    histignorealldups #Remove duplicates from history
+setopt    histreduceblanks  #Remove superflous blanks from history
+
+# no c-s/c-q output freezing
+setopt noflowcontrol
+# display PID when suspending processes as well
+setopt longlistjobs
+# report the status of backgrounds jobs immediately
+setopt notify
+# allow use of comments in interactive code
+setopt interactivecomments
+
+setopt csh_null_glob
+setopt hist_verify
+setopt auto_cd
+setopt multios
+# No "Beep"ing
+setopt nobeep
+# Don't push the same dir twice
+setopt pushd_ignore_dups
+
+{{ if eq .chezmoi.os "darwin" -}}
+export HOMEBREW_GITHUB_API_TOKEN={{ (onepasswordItemFields "zpohjouf2jauxhpfngmiynuyyq").Homebrew.v | quote}}
+
+export ANTIBODY_HOME=~/Library/antibody
+export PATH="/usr/local/sbin:$PATH"
+{{- end }}
+
+PATH="$HOME/.local/bin:$PATH"
+
+if [[ -f "$HOME/.pythonrc" ]]; then
+    export PYTHONSTARTUP="$HOME/.pythonrc"
+fi
+
+# TODO: Make this configurable maybe?
+export LANG="de_DE.UTF-8"
+export LC_ALL="de_DE.UTF-8"
+
+# Editor and Browser integration
+export EDITOR='nano'
+{{- if eq .chezmoi.os "darwin" }}
+export BROWSER='Safari'
+if command -v /usr/local/bin/nova > /dev/null; then
+    export VISUAL='/usr/local/bin/nova open --wait'
+else
+    export VISUAL='open -t -n -W'
+fi
+{{- else if eq .chezmoi.os "linux" }}
+export BROWSER='firefox'
+{{- end }}

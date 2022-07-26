@@ -17,6 +17,8 @@ brew "codello/brewery/srtlab"
 brew "trash"
 brew "watch"
 
+brew "getantibody/tap/antibody"
+
 
 # Casks
 cask "1password"

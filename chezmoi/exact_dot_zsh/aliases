@@ -1,0 +1,7 @@
+alias la='ls -lAh'
+alias ll='ls -lah'
+alias l='k -h'
+
+if command -v bat > /dev/null; then
+    alias cat='bat'
+fi
