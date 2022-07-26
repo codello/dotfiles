@@ -33,7 +33,7 @@ setopt nobeep
 setopt pushd_ignore_dups
 
 {{ if eq .chezmoi.os "darwin" -}}
-export HOMEBREW_GITHUB_API_TOKEN={{ (onepasswordItemFields "zpohjouf2jauxhpfngmiynuyyq").Homebrew.v | quote}}
+export HOMEBREW_GITHUB_API_TOKEN={{ .homebrewtoken | quote }}
 {{- end }}
 
 PATH="$HOME/.local/bin:$PATH"
