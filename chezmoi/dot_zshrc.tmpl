@@ -1,51 +1,33 @@
-#################
-# Shell Options #
-#################
+# Setup Znap Plugin Manager
+zstyle ':znap:*' plugins-dir ~/.zsh/plugins
+source ~/.zsh/zsh-snap/znap.zsh
 
-# Powerlevel10k Instant Prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-source ~/.zsh/completions
 source ~/.zsh/aliases
 
-autoload clean-antibody
-{{- if eq .chezmoi.os "darwin" }}
-autoload cask
-{{- end }}
-
-# Initialize Antibody
-source <(antibody init)
-
-# Setup Oh-My-ZSH stuff (unset later). This makes Oh-My-ZSH plugins and themes work.
-ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh"
-
-# Common Plugins
-source ~/.zsh/colors
-antibody bundle chrissicool/zsh-256color
-antibody bundle zsh-users/zsh-autosuggestions
-antibody bundle ael-code/zsh-colored-man-pages
-antibody bundle hcgraf/zsh-sudo
-antibody bundle supercrabtree/k
-antibody bundle agkozak/zsh-z
-{{- if eq .chezmoi.os "darwin" }}
-antibody bundle robbyrussell/oh-my-zsh path:plugins/osx
-antibody bundle sinetoami/web-search
-{{- end }}
-
-# Docker-Compose Shortcuts
-if command -v docker > /dev/null; then
-    antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
-    antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
-    antibody bundle Cloudstek/zsh-plugin-appup
-fi
-
-unset ZSH
-
-# Shell Theme
-antibody bundle romkatv/powerlevel10k
+# Poverlevel10k Theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+znap source romkatv/powerlevel10k
 
-# Should be at the end of this file
-antibody bundle zsh-users/zsh-syntax-highlighting
+# Install Plugins
+zstyle ':autocomplete:*' insert-unambiguous yes
+znap source marlonrichert/zsh-autocomplete
+
+znap source zsh-users/zsh-autosuggestions
+znap source ael-code/zsh-colored-man-pages
+
+{{- if eq .chezmoi.os "darwin" }}
+znap source ohmyzsh/ohmyzsh plugins/macos
+znap source sinetoami/web-search
+{{- end }}
+
+# Don't know if this is needed...
+# znap source chrissicool/zsh-256color
+
+# LSCOLORS is used as a fallback for LS_COLORS
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export CLICOLOR=1 # Colored ls by default
+znap source trapd00r/LS_COLORS
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# This should be loaded last
+znap source zsh-users/zsh-syntax-highlighting

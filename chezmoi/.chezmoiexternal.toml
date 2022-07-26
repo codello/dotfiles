@@ -1,4 +1,11 @@
 [".nano"]
-type = "git-repo"
-url = "https://github.com/scopatz/nanorc.git"
+type  = "archive"
+url   = "https://github.com/scopatz/nanorc/releases/download/2020.10.10/nanorc-2020.10.10.tar.gz"
 exact = true
+stripComponents = 1
+
+[".zsh/zsh-snap"]
+type  = "archive"
+url   = "https://github.com/marlonrichert/zsh-snap/archive/refs/tags/22.06.22.zip"
+exact = false # Znap generates its own files
+stripComponents = 1

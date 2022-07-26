@@ -34,9 +34,6 @@ setopt pushd_ignore_dups
 
 {{ if eq .chezmoi.os "darwin" -}}
 export HOMEBREW_GITHUB_API_TOKEN={{ (onepasswordItemFields "zpohjouf2jauxhpfngmiynuyyq").Homebrew.v | quote}}
-
-export ANTIBODY_HOME=~/Library/antibody
-export PATH="/usr/local/sbin:$PATH"
 {{- end }}
 
 PATH="$HOME/.local/bin:$PATH"
@@ -45,19 +42,16 @@ if [[ -f "$HOME/.pythonrc" ]]; then
     export PYTHONSTARTUP="$HOME/.pythonrc"
 fi
 
-# TODO: Make this configurable maybe?
-export LANG="de_DE.UTF-8"
-export LC_ALL="de_DE.UTF-8"
-
 # Editor and Browser integration
 export EDITOR='nano'
 {{- if eq .chezmoi.os "darwin" }}
-export BROWSER='Safari'
+export BROWSER='open'
 if command -v /usr/local/bin/nova > /dev/null; then
     export VISUAL='/usr/local/bin/nova open --wait'
 else
     export VISUAL='open -t -n -W'
 fi
+export KUBE_EDITOR="$VISUAL"
 {{- else if eq .chezmoi.os "linux" }}
 export BROWSER='firefox'
 {{- end }}

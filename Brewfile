@@ -7,6 +7,7 @@ tap "homebrew/cask-versions"
 # Formulae
 brew "azure-cli"
 brew "bat"
+brew "coreutils"
 brew "chezmoi"
 brew "fluxcd/tap/flux"
 brew "jq"
@@ -16,8 +17,6 @@ brew "nano"
 brew "codello/brewery/srtlab"
 brew "trash"
 brew "watch"
-
-brew "getantibody/tap/antibody"
 
 
 # Casks
