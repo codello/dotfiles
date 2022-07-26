@@ -1,0 +1,17 @@
+[user]
+    name = {{ .name | quote }}
+    email = {{ .email | quote }}
+
+[core]
+    excludesfile = ~/.gitignore
+
+{{ if eq .chezmoi.os "darwin" -}}
+[credential]
+    helper = osxkeychain
+{{- end }}
+
+[filter "lfs"]
+	required = true
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	clean = git-lfs clean -- %f

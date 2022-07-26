@@ -1,0 +1,22 @@
+##### macOS #####
+.DS_Store
+Icon
+
+##### Windows #####
+Desktop.ini
+
+##### DSM #####
+@eaDir/
+
+##### Thumbnail cache files #####
+._*
+Thumbs.db
+
+##### Files that might appear on external disks #####
+.Spotlight-V100
+.Trashes
+
+
+##### Project Files #####
+.idea
+.nova
