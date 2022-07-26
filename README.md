@@ -10,6 +10,8 @@ In order to configure a new macOS system you need to run multiple commands
 # Install Homebrew, see https://brew.sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # Install chezmoi
+brew install chezmpi
+# Configure dotfiles
 chezmoi init --apply codello
 ```
 
