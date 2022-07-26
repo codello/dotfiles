@@ -1,0 +1,7 @@
+{{ if eq .chezmoi.os "darwin" -}}
+{{ template "sane-script.sh" }}
+
+# Brewfile checksum: {{ include "../Brewfile" | sha256sum }}
+brew bundle --no-lock --file={{ joinPath .chezmoi.workingTree "Brewfile" | quote }}
+
+{{ end -}}

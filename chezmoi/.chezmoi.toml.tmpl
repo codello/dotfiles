@@ -1,0 +1,4 @@
+{{ $computerName := promptString "What is this machine's name" -}}
+
+[data]
+computerName = {{ $computerName | quote }}
