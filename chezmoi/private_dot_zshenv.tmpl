@@ -51,7 +51,14 @@ if command -v /usr/local/bin/nova > /dev/null; then
 else
     export VISUAL='open -t -n -W'
 fi
-export KUBE_EDITOR="$VISUAL"
 {{- else if eq .chezmoi.os "linux" }}
 export BROWSER='firefox'
 {{- end }}
+
+# Special Editors
+if [ -z "$SSH_CONNECTION" ]; then
+    export KUBE_EDITOR="$VISUAL"
+    {{- if eq .chezmoi.os "darwin" }}
+    export HOMEBREW_EDITOR="$VISUAL"
+    {{- end }}
+fi

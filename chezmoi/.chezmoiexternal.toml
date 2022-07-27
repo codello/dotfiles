@@ -9,3 +9,8 @@ type  = "archive"
 url   = "https://github.com/marlonrichert/zsh-snap/archive/refs/tags/22.06.22.zip"
 exact = false # Znap generates its own files
 stripComponents = 1
+
+[".local/share/zsh/site-functions/_pip"]
+type  = "file"
+url   = "https://gist.github.com/blueyed/54a257c411310a28805a/raw/_pip.zsh"
+refreshPeriod = "168h" # once a week

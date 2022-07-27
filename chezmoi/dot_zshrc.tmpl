@@ -2,7 +2,8 @@
 zstyle ':znap:*' plugins-dir ~/.zsh/plugins
 source ~/.zsh/zsh-snap/znap.zsh
 
-source ~/.zsh/aliases
+[ ! -f ~/.zsh/aliases ] || source ~/.zsh/aliases
+[ ! -f ~/.zsh/completions ] || source ~/.zsh/completions
 
 # Poverlevel10k Theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -15,6 +16,7 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source ael-code/zsh-colored-man-pages
 
+znap source ohmyzsh/ohmyzsh lib/clipboard.zsh
 {{- if eq .chezmoi.os "darwin" }}
 znap source ohmyzsh/ohmyzsh plugins/macos
 znap source sinetoami/web-search
@@ -28,6 +30,7 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export CLICOLOR=1 # Colored ls by default
 znap source trapd00r/LS_COLORS
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
 
 # This should be loaded last
 znap source zsh-users/zsh-syntax-highlighting
