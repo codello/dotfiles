@@ -140,7 +140,11 @@
 
   # Connect left prompt lines with these symbols. You'll probably want to use the same color
   # as POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND below.
+  {{- if eq .chezmoi.os "darwin" }}
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%{$(iterm2_prompt_mark)%}"
+  {{- else }}
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
+  {{- end }}
   typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=
   typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=
   # Connect right prompt lines with these symbols.
@@ -1091,7 +1095,8 @@
   #################[ docker_version: docker version (https://www.docker.com) ]##################
 
   function prompt_docker_version() {
-      _p9k_cached_cmd 0 '' docker version --format '{{ .Client.Version }}' || return
+      {{- /* Because this is a Go Template we have to escape curly braces. */}}
+      _p9k_cached_cmd 0 '' docker version --format '{{ "{{ .Client.Version }}" }}' || return
       p10k segment -i '' -t "$_p9k__ret"
     }
 
