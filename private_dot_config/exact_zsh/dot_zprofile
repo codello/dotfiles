@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+##############################################################################
+# ZSH Login Shell Configuration
+##############################################################################
+
+# The following are used by Apple in /etc/zshrc, which
+# is sourced _before_ `.zshrc`
+# Wouldn't have to go in .zprofile otherwise.
+# We could put them in .zshenv, but that file is best
+# kept as small as possible.
+export SHELL_SESSION_DIR=$XDG_STATE_HOME/zsh/sessions
+export SHELL_SESSION_FILE=$SHELL_SESSION_DIR/$TERM_SESSION_ID
+
+#Import the shell-agnostic (Bash or Zsh) environment config
+test ! -f ~/.profile || source ~/.profile

@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+
+# Setup Znap Plugin Manager
+zstyle ':znap:*' plugins-dir "$XDG_DATA_HOME/zsh/plugins"
+source "$XDG_DATA_HOME/zsh-snap/znap.zsh"
+
+# Configure ZSH interactive history
+test ! -f "$ZDOTDIR/history.zsh" || source "$ZDOTDIR/history.zsh"
+# Custom aliases
+test ! -f "$ZDOTDIR/aliases.zsh" || source "$ZDOTDIR/aliases.zsh"
+# Environment for interactive shells
+test ! -f "$ZDOTDIR/interactive-env.zsh" || source "$ZDOTDIR/interactive-env.zsh"
+
+# Autocompletion
+zstyle ':autocomplete:*' insert-unambiguous yes
+znap source marlonrichert/zsh-autocomplete
+znap source zsh-users/zsh-autosuggestions
+znap source zsh-users/zsh-completions
+
+# Quality of Life
+{{- if eq .chezmoi.os "darwin" }}
+znap source ohmyzsh/ohmyzsh plugins/macos
+{{- end }}
+znap source ohmyzsh/ohmyzsh lib/clipboard.zsh
+znap source ael-code/zsh-colored-man-pages
+znap source sineto/web-search
+
+# Don't know if this is needed...
+# znap source chrissicool/zsh-256color
+
+# LSCOLORS is used as a fallback for LS_COLORS
+export CLICOLOR=1 LSCOLORS="Gxfxcxdxbxegedabagacad"
+znap source trapd00r/LS_COLORS
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# iTerm Integration
+{{- if eq .chezmoi.os "darwin" }}
+znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
+{{- end }}
+
+# Powerlevel10k Theme
+test ! -f "$ZDOTDIR/.p10k.zsh" || source "$ZDOTDIR/.p10k.zsh"
+znap source romkatv/powerlevel10k
+
+# This should be loaded last
+znap source zsh-users/zsh-syntax-highlighting

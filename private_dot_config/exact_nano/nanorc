@@ -35,4 +35,4 @@ set tabstospaces
 set wordbounds
 
 # Syntax Hightlighting
-include ~/.nano/*.nanorc
+include "$XDG_CONFIG_HOME/syntax-highlighting/*.nanorc"

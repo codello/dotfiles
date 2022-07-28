@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+##############################################################################
+# Interactive Shell Environment
+##############################################################################
+
+export XDG_CACHE_HOME XDG_CONFIG_HOME XDG_DATA_HOME XDG_STATE_HOME
+
+# Homebrew GitHub API Token
+{{ if eq .chezmoi.os "darwin" -}}
+export HOMEBREW_GITHUB_API_TOKEN={{ .homebrewtoken | quote }}
+{{- end }}
+
+# Python History Config
+if [[ -f "$XDG_CONFIG_HOME/python/pythonrc.py" ]]; then
+    export PYTHONHISTFILE="$XDG_STATE_HOME/python/history"
+    export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc.py"
+fi
+
+# Editor and Browser integration
+export EDITOR='nano'
+{{- if eq .chezmoi.os "darwin" }}
+export BROWSER='open'
+if command -v /usr/local/bin/nova > /dev/null; then
+    export VISUAL='/usr/local/bin/nova open --wait'
+else
+    export VISUAL='open -t -n -W'
+fi
+{{- else if eq .chezmoi.os "linux" }}
+export BROWSER='firefox'
+{{- end }}
+
+# Special Editors
+if [ -z "$SSH_CONNECTION" ]; then
+    export KUBE_EDITOR="$VISUAL"
+    {{- if eq .chezmoi.os "darwin" }}
+    export HOMEBREW_EDITOR="$VISUAL"
+    {{- end }}
+fi
