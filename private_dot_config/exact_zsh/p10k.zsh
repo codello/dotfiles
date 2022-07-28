@@ -140,7 +140,7 @@
 
   # Connect left prompt lines with these symbols. You'll probably want to use the same color
   # as POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND below.
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%{$(iterm2_prompt_mark)%}"
   typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=
   typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=
   # Connect right prompt lines with these symbols.
@@ -959,7 +959,7 @@
   ###################[ python_version: python version (https://www.python.org) ]################
 
     function prompt_python_version() {
-      _p9k_cached_cmd 1 python --version || return
+      _p9k_cached_cmd 1 '' python --version || return
       [[ $_p9k__ret == (#b)'Python '([[:digit:].]##) ]] || return
       p10k segment -i ' ' -t "${match[1]}"
     }
@@ -970,7 +970,7 @@
   ###################[ python3_version: python version (https://www.python.org) ]###############
 
     function prompt_python3_version() {
-      _p9k_cached_cmd 1 python3 --version || return
+      _p9k_cached_cmd 1 '' python3 --version || return
       [[ $_p9k__ret == (#b)'Python '([[:digit:].]##) ]] || return
       p10k segment -i ' ' -t "${match[1]}"
     }
@@ -981,7 +981,7 @@
   ######################[ npm_version: npm version (https://www.npmjs.com) ]####################
 
     function prompt_npm_version() {
-      _p9k_cached_cmd 0 npm --version || return
+      _p9k_cached_cmd 0 '' npm --version || return
       p10k segment -i ' ' -t "$_p9k__ret"
     }
 
@@ -1029,7 +1029,7 @@
   ################[ composer_version: composer version (https://getcomposer.org) ]##############
 
     function prompt_composer_version() {
-      _p9k_cached_cmd 0 composer --version || return
+      _p9k_cached_cmd 0 '' composer --version || return
       [[ $_p9k__ret == (#b)'Composer version '([[:digit:].]##)* ]] || return
       p10k segment -i '' -t "${match[1]}"
     }
@@ -1080,7 +1080,7 @@
   ################[ ansible_version: ansible version (https://www.ansible.com) ]################
 
   function prompt_ansible_version() {
-      _p9k_cached_cmd 0 ansible --version || return
+      _p9k_cached_cmd 0 '' ansible --version || return
       [[ $_p9k__ret == (#b)'ansible '([[:digit:].]##)* ]] || return
       p10k segment -i '' -t "${match[1]}"
     }
@@ -1091,9 +1091,8 @@
   #################[ docker_version: docker version (https://www.docker.com) ]##################
 
   function prompt_docker_version() {
-      _p9k_cached_cmd 0 docker --version || return
-      [[ $_p9k__ret == (#b)'Docker version '([[:digit:].]##)* ]] || return
-      p10k segment -i '' -t "${match[1]}"
+      _p9k_cached_cmd 0 '' docker version --format '{{ .Client.Version }}' || return
+      p10k segment -i '' -t "$_p9k__ret"
     }
 
   typeset -g POWERLEVEL9K_DOCKER_VERSION_FOREGROUND=39
@@ -1228,7 +1227,7 @@
   #############[ kubecontext: current kubernetes context (https://kubernetes.io/) ]#############
   # Show kubecontext only when the the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show kubecontext.
-  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito'
+  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|flux'
 
   # Kubernetes context classes for the purpose of using different colors, icons and expansions with
   # different contexts.
