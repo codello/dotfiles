@@ -5,6 +5,12 @@
 
 export XDG_CACHE_HOME XDG_CONFIG_HOME XDG_DATA_HOME XDG_STATE_HOME
 
+# ASDF
+function() {
+    local asdf_path=$(brew --prefix asdf)/libexec/asdf.sh
+    test ! -f "$asdf_path" || source "$asdf_path"
+}
+
 # Homebrew GitHub API Token
 {{ if eq .chezmoi.os "darwin" -}}
 export HOMEBREW_GITHUB_API_TOKEN={{ .homebrewtoken | quote }}
