@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+{{ template "sane-script.sh" }}
+
+defaults write com.googlecode.iterm2 PrefsCustomFolder "{{ .chezmoi.homeDir }}/.config/iterm2"
