@@ -7,7 +7,6 @@
 HISTSIZE=5000
 # Where to save history to disk
 HISTFILE="$XDG_STATE_HOME/zsh/history"
-mkdir -p "$(dirname "$HISTFILE")"
 #Number of history entries to save to disk
 SAVEHIST=5000
 #Erase duplicates in the history file
