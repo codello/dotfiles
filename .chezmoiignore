@@ -1,3 +1,7 @@
+# Various Repo Files
 LICENSE
 README.md
 Brewfile
+
+# Compiled version of Powerlevel10k theme
+.config/zsh/p10k.zsh.zwc
