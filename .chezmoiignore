@@ -5,3 +5,4 @@ Brewfile
 
 # Compiled version of Powerlevel10k theme
 .config/zsh/p10k.zsh.zwc
+.config/zsh/.zshrc.zwc
