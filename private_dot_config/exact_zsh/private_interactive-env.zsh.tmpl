@@ -11,6 +11,9 @@ function() {
     test ! -f "$asdf_path" || source "$asdf_path"
 }
 
+# Go
+export GOPATH=~/.go
+
 # Homebrew GitHub API Token
 {{ if eq .chezmoi.os "darwin" -}}
 export HOMEBREW_GITHUB_API_TOKEN={{ .homebrewtoken | quote }}
