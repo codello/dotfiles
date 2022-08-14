@@ -18,7 +18,7 @@ set regexp
 #set smooth
 
 # Allow nano to be suspended.
-set suspend
+#set suspend
 
 # Use a tab size of "n" columns. The value of n must be greater than 0. The
 # default value is 8.
@@ -35,4 +35,4 @@ set tabstospaces
 set wordbounds
 
 # Syntax Hightlighting
-include "$XDG_CONFIG_HOME/syntax-highlighting/*.nanorc"
+include "~/.config/nano/syntax-highlighting/*.nanorc"
