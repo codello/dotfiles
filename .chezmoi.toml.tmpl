@@ -1,12 +1,4 @@
 {{ $computerName := promptString "What is this machine's name" -}}
 
-{{ $homebrewToken := "" }}
-{{ if output "command" "-v" "op" ":" | replace ":" "" | trim -}}
-  {{ $homebrewToken = (onepasswordItemFields "zpohjouf2jauxhpfngmiynuyyq").Homebrew.v -}}
-{{ else -}}
-  {{ $homebrewToken = promptString "What GitHub PAT should homebrew use" -}}
-{{ end -}}
-
 [data]
 computerName = {{ $computerName | quote }}
-homebrewToken = {{ $homebrewToken | quote }}

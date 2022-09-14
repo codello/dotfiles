@@ -23,7 +23,7 @@ brew "watch"
 
 # Casks
 cask "1password"
-cask "1password-cli1"
+cask "1password-cli"
 cask "appcleaner"
 cask "paragon-ntfs"
 cask "parallels"

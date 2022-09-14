@@ -16,7 +16,7 @@ export GOPATH=~/.go
 
 # Homebrew GitHub API Token
 {{ if eq .chezmoi.os "darwin" -}}
-export HOMEBREW_GITHUB_API_TOKEN={{ .homebrewtoken | quote }}
+export HOMEBREW_GITHUB_API_TOKEN={{ onepasswordRead "op://Personal/GitHub/Personal Access Tokens/Homebrew" | trim | quote }}
 {{- end }}
 
 # Python History Config
