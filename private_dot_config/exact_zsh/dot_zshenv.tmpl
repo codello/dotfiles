@@ -5,11 +5,19 @@ XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
 XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
 
+# Kubectl Krew
+export KREW_ROOT="$XDG_DATA_HOME/.krew"
+
+# Go
+export GOPATH="$HOME/.go"
+
+# Path
 typeset -U path
 path=(
     "$HOME/.local/bin"
     "/usr/local/sbin"
     "$HOME/.gem/ruby/2.6.0/bin"
+    "${KREW_ROOT:-$HOME/.krew}/bin"
     $path
 )
 export PATH

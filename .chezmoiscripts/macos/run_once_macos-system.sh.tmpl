@@ -3,10 +3,10 @@
 {{ template "macos-settings.sh" }}
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo systemsetup -f -setcomputername {{ .computername | quote }} >/dev/null
-sudo scutil --set HostName {{ .computername | quote }}
-{{- if not (.computername | lower | contains "macbook") }}
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string {{ .computername | quote }}
+sudo systemsetup -f -setcomputername {{ .computerName | quote }} >/dev/null
+sudo scutil --set HostName {{ .computerName | quote }}
+{{- if not (.computerName | lower | contains "macbook") }}
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string {{ .computerName | quote }}
 {{- end }}
 
 # Restart automatically if the computer freezes

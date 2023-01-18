@@ -2,7 +2,6 @@
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "codello/brewery"
-tap "int128/kubelogin"
 
 
 # Formulae
@@ -13,8 +12,8 @@ brew "chezmoi"
 brew "fluxcd/tap/flux"
 brew "jq"
 brew "kubernetes-cli"
+brew "krew"
 brew "kustomize"
-brew "int128/kubelogin/kubelogin"
 brew "nano"
 brew "codello/brewery/srtlab"
 brew "trash"

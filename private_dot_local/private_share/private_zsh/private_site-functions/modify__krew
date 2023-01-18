@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+command -v kubectl-krew >/dev/null && kubectl-krew completion zsh || true
