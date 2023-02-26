@@ -15,7 +15,9 @@ brew "kubernetes-cli"
 brew "krew"
 brew "kustomize"
 brew "nano"
+brew "ocrmypdf"
 brew "codello/brewery/srtlab"
+brew "tesseract-lang"
 brew "trash"
 brew "watch"
 
@@ -34,11 +36,9 @@ cask "jetbrains-toolbox"
 cask "nova"
 cask "docker"
 cask "firefox"
-cask "lens"
 
 # Utilities
 cask "downie"
-cask "dupeguru"
 cask "typora"
 
 # Media Apps
@@ -53,9 +53,9 @@ cask "basictex"
 #cask latexit
 
 # QuickLook
-cask "qlstephen"  # QLStephen
-cask "qlmarkdown" # QLMarkdown
-cask "qlvideo"    # QLVideo
+cask "qlstephen"   # QLStephen
+cask "qlmarkdown"  # QLMarkdown
+cask "qlvideo"     # QLVideo
 
 # Fonts
 cask "font-jetbrains-mono"

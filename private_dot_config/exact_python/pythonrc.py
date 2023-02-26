@@ -262,7 +262,7 @@ def _pythonrc_fix_linecache():
             else:
                 return []
         try:
-            fp = open(fullname, 'rU')
+            fp = open(fullname, 'r')
             lines = fp.readlines()
             fp.close()
         except IOError:
