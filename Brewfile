@@ -20,6 +20,10 @@ brew "codello/brewery/srtlab"
 brew "tesseract-lang"
 brew "trash"
 brew "watch"
+# Containers
+brew "docker"
+brew "podman"
+brew "podman-compose"
 
 
 # Casks
@@ -34,7 +38,6 @@ cask "iterm2"
 cask "tower"
 cask "jetbrains-toolbox"
 cask "nova"
-cask "docker"
 cask "firefox"
 
 # Utilities
@@ -46,7 +49,7 @@ cask "iina"
 cask "imageoptim"
 cask "invisor-lite"
 cask "subler"
-cask "xld"
+#cask "xld"
 
 # LaTeX
 cask "basictex"
