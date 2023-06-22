@@ -75,6 +75,11 @@ znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
 znap source zsh-users/zsh-completions
 
+function reset-autocomplete() {
+  rm -rf "$XDG_CACHE_HOME"/zsh/comp*
+  compinit
+}
+
 # Quality of Life
 {{- if eq .chezmoi.os "darwin" }}
 znap source ohmyzsh/ohmyzsh plugins/macos
