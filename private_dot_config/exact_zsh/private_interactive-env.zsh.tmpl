@@ -34,8 +34,8 @@ export EDITOR='nano'
 export BROWSER='open'
 if command -v nova > /dev/null; then
     export VISUAL='nova open --wait'
-    export ZLE_EDITOR='nova open --wait --type zshrc'
-    export KUBE_EDITOR='nova open --wait --type yaml'
+    export ZLE_EDITOR='nova open --wait --no-recent --type zshrc'
+    export KUBE_EDITOR='nova open --wait --no-recent --type yaml'
     export HOMEBREW_EDITOR='nova open --wait --type rb'
 else
     export VISUAL='open -t -n -W'
