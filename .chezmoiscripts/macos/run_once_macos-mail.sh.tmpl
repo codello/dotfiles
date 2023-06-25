@@ -1,8 +1,8 @@
 {{ if eq .chezmoi.os "darwin" -}}
 {{ template "sane-script.sh" }}
 
-# Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+# Copy email addresses as `Foo Bar <foo@example.com>` instead of `foo@example.com` in Mail.app
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool true
 
 # Disable inline attachments (just show the icons)
 defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
