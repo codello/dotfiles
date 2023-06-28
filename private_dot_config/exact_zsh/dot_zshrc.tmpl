@@ -45,6 +45,9 @@ fi
 
 alias la='ls -lAh'
 alias ll='ls -lah'
+{{- if eq .chezmoi.os "darwin" }}
+alias reveal='open -R'
+{{- end }}
 
 function edit() {
   "${(@z)${VISUAL:-${EDITOR:-vi}}}" "$@"
