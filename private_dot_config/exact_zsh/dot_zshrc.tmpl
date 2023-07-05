@@ -1,6 +1,12 @@
 #!/usr/bin/env zsh
 
 ##############################################################################
+# ZSH History and Environment Settings
+##############################################################################
+test ! -f "$ZDOTDIR/history.zsh" || source "$ZDOTDIR/history.zsh"
+test ! -f "$ZDOTDIR/interactive-env.zsh" || source "$ZDOTDIR/interactive-env.zsh"
+
+##############################################################################
 # Plugin Manager
 ##############################################################################
 zstyle ':znap:*' plugins-dir "$XDG_DATA_HOME/zsh/plugins"
@@ -64,12 +70,6 @@ if command -v kubectl-oidc_login >/dev/null; then
 fi
 
 ##############################################################################
-# ZSH History and Environment Settings
-##############################################################################
-test ! -f "$ZDOTDIR/history.zsh" || source "$ZDOTDIR/history.zsh"
-test ! -f "$ZDOTDIR/interactive-env.zsh" || source "$ZDOTDIR/interactive-env.zsh"
-
-##############################################################################
 # ZSH Plugins
 ##############################################################################
 # Autocompletion
@@ -84,6 +84,7 @@ function reset-autocomplete() {
 }
 
 # Quality of Life
+znap source agkozak/zsh-z
 {{- if eq .chezmoi.os "darwin" }}
 znap source ohmyzsh/ohmyzsh plugins/macos
 {{- end }}
