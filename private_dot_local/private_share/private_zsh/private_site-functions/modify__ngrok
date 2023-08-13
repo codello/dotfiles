@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+command -v ngrok >/dev/null && ngrok completion || true
