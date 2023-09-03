@@ -1,5 +1,5 @@
 {
     "github-oauth": {
-        "github.com": "{{ onepasswordRead "op://Personal/GitHub/Personal Access Tokens/Composer" | trim }}"
+        "github.com": {{ onepasswordRead "op://Personal/GitHub/Personal Access Tokens/Composer" "wittenburg.1password.com" | quote }}
     }
 }

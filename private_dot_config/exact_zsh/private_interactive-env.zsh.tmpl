@@ -12,9 +12,9 @@ ZSHZ_UNCOMMON=1
 
 # Homebrew GitHub API Token
 {{ if eq .chezmoi.os "darwin" -}}
-export HOMEBREW_GITHUB_API_TOKEN={{ onepasswordRead "op://Personal/GitHub/Personal Access Tokens/Homebrew" | trim | quote }}
-export HOMEBREW_B2_KEY_ID={{ onepasswordRead "op://Personal/Backblaze/Homebrew Key ID" | trim | quote }}
-export HOMEBREW_B2_APPLICATION_KEY={{ onepasswordRead "op://Personal/Backblaze/Homebrew Key" | trim | quote }}
+export HOMEBREW_GITHUB_API_TOKEN={{ onepasswordRead "op://Personal/GitHub/Personal Access Tokens/Homebrew" "wittenburg.1password.com" | quote }}
+export HOMEBREW_B2_KEY_ID={{ onepasswordRead "op://Personal/Backblaze/Homebrew Key ID" "wittenburg.1password.com" | quote }}
+export HOMEBREW_B2_APPLICATION_KEY={{ onepasswordRead "op://Personal/Backblaze/Homebrew Key" "wittenburg.1password.com" | quote }}
 {{- end }}
 
 # Python History Config
