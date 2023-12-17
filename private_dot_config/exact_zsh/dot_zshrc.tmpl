@@ -61,7 +61,6 @@ function edit() {
 
 if command -v kubectl-krew >/dev/null; then
   alias krew=kubectl-krew
-  compdef kubectl-krew=krew
 fi
 
 if command -v kubectl-oidc_login >/dev/null; then
