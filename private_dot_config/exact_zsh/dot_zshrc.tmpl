@@ -59,10 +59,6 @@ function edit() {
   "${(@z)${VISUAL:-${EDITOR:-vi}}}" "$@"
 }
 
-if command -v kubectl-krew >/dev/null; then
-  alias krew=kubectl-krew
-fi
-
 if command -v kubectl-oidc_login >/dev/null; then
   alias kubelogin=kubectl-oidc_login
   compdef kubectl-oidc_login=kubelogin

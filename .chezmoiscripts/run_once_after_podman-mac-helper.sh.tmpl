@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env sh
+set -eufo pipefail
+
+sudo /opt/homebrew/Cellar/podman/5.0.0/bin/podman-mac-helper install
+{{ end -}}

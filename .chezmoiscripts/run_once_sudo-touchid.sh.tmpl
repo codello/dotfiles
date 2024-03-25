@@ -1,0 +1,10 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env sh
+set -eufo pipefail
+
+if ! grep -q "pam_tid.so" "/etc/pam.d/sudo"; then
+	sudo sed -i '' '/auth       sufficient     pam_smartcard.so/a\
+auth       sufficient     pam_tid.so\
+' /etc/pam.d/sudo
+fi
+{{ end -}}

@@ -1,7 +1,5 @@
 # Taps
-tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
-tap "codello/brewery"
 
 
 # Formulae
@@ -9,21 +7,31 @@ brew "azure-cli"
 brew "bat"
 brew "coreutils"
 brew "chezmoi"
-brew "fluxcd/tap/flux"
 brew "jq"
-brew "kubernetes-cli"
-brew "kubectx"
-brew "krew"
-brew "kustomize"
 brew "nano"
 brew "ocrmypdf"
-brew "codello/brewery/srtlab"
 brew "tesseract-lang"
 brew "trash"
 brew "watch"
 # Containers
 brew "docker"
 brew "podman"
+
+
+# Kubernetes Management
+tap "fluxcd/tap"
+tap "int128/kubelogin"
+
+brew "kubernetes-cli"
+brew "kustomize"
+brew "fluxcd/tap/flux"
+brew "kubectx"
+brew "int128/kubelogin/kubelogin"
+
+
+# Custom Formulae
+tap "codello/brewery"
+brew "codello/brewery/srtlab"
 
 
 # Casks
@@ -56,11 +64,12 @@ cask "subler"
 # QuickLook
 cask "qlstephen"   # QLStephen
 cask "qlmarkdown"  # QLMarkdown
-cask "qlvideo"     # QLVideo
+# cask "qlvideo"     # QLVideo
 
 # Fonts
+tap "homebrew/cask-fonts"
 cask "font-jetbrains-mono"
-cask "font-jetbrainsmono-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
 
 
 # Mac App Store Apps
