@@ -24,7 +24,6 @@ brew "watch"
 # Containers
 brew "docker"
 brew "podman"
-brew "podman-compose"
 
 
 # Casks
@@ -38,8 +37,6 @@ cask "parallels"
 cask "iterm2"
 cask "tower"
 cask "jetbrains-toolbox"
-cask "nova"
-cask "firefox"
 
 # Utilities
 cask "downie"
@@ -50,11 +47,11 @@ cask "iina"
 cask "imageoptim"
 cask "invisor-lite"
 cask "subler"
-#cask "xld"
+# cask "xld"
 
 # LaTeX
-cask "basictex"
-#cask latexit
+# cask "basictex"
+# cask latexit
 
 # QuickLook
 cask "qlstephen"   # QLStephen
