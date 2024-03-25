@@ -9,6 +9,11 @@ export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export XDG_DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
 export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
 
+# Homebrew
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+
 # Kubectl Krew
 export KREW_ROOT="$XDG_DATA_HOME/krew"
 
@@ -17,14 +22,33 @@ export GOPATH="$XDG_DATA_HOME/go"
 export GOMODCACHE="$XDG_CACHE_HOME/go"
 # GOCACHE, GOBIN are default
 
-# Path
-typeset -U path
+# Paths
+typeset -gxU path PATH
+typeset -gxU fpath FPATH
+typeset -gxU manpath MANPATH
+typeset -gxU infopath INFOPATH
+# Tie new paths
+typeset -gxTU INFOPATH infopath
+
+# Set the list of directories that cd searches for directories.
 path=(
     "$HOME/.local/bin"
-    "/usr/local/sbin"
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
     "${GOBIN:-$GOPATH/bin}"
     "${KREW_ROOT:-$HOME/.krew}/bin"
     "$HOME/.gem/ruby/2.6.0/bin"
     $path
 )
-export PATH
+
+# Set the list of directories that man searches for manuals.
+manpath=(
+    "/opt/homebrew/share/man"
+    $manpath
+)
+
+# Set the list of directories that info searches for manuals.
+infopath=(
+    "/opt/homebrew/share/info"
+    $infopath
+)
