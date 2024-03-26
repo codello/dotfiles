@@ -2,18 +2,20 @@
 tap "homebrew/cask-versions"
 
 
-# Formulae
+# Utilities
 brew "azure-cli"
+brew "chezmoi"
 brew "bat"
 brew "coreutils"
-brew "chezmoi"
-brew "jq"
-brew "nano"
 brew "ocrmypdf"
 brew "tesseract-lang"
 brew "trash"
 brew "watch"
-# Containers
+
+# Development Tools
+brew "nano"
+brew "jq"
+brew "git-lfs"
 brew "docker"
 brew "podman"
 
@@ -38,7 +40,7 @@ brew "codello/brewery/srtlab"
 cask "1password"
 cask "1password-cli"
 cask "appcleaner"
-cask "paragon-ntfs"
+# cask "paragon-ntfs"
 cask "parallels"
 
 # Development Tools
