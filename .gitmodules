@@ -1,0 +1,3 @@
+[submodule "private_dot_config/exact_nano/external_syntax-highlighting"]
+	path = private_dot_config/exact_nano/external_syntax-highlighting
+	url = https://github.com/scopatz/nanorc

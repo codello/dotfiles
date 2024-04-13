@@ -9,7 +9,7 @@ test ! -f "$ZDOTDIR/.zshrc-env" || source "$ZDOTDIR/.zshrc-env"
 ##############################################################################
 # Plugin Manager
 ##############################################################################
-zstyle ':znap:*' plugins-dir "$XDG_DATA_HOME/zsh/plugins"
+zstyle ':znap:*' repos-dir "$XDG_DATA_HOME/zsh/plugins"
 source "$XDG_DATA_HOME/zsh-snap/znap.zsh"
 
 # iTerm Integration
@@ -60,7 +60,7 @@ function edit() {
 zstyle ':autocomplete:*' insert-unambiguous yes
 znap source marlonrichert/zsh-autocomplete
 znap source zsh-users/zsh-autosuggestions
-znap source zsh-users/zsh-completions
+znap install zsh-users/zsh-completions
 
 # Quality of Life
 znap source agkozak/zsh-z
