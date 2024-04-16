@@ -9,6 +9,8 @@ git config --file "$file" user.email {{ .email | quote }}
 git config --file "$file" core.excludesfile "~/.config/git/ignore"
 git config --file "$file" core.precomposeunicode true
 
+git config --file "$file" rebase.updateRefs true
+
 {{ if eq .chezmoi.os "darwin" -}}
 git config --file "$file" credential.helper "osxkeychain"
 
