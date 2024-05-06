@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+command -v docker >/dev/null && docker completion zsh || true

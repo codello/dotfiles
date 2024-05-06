@@ -44,11 +44,16 @@ bindkey '^[eol' end-of-line
 test ! -f "$XDG_CONFIG_HOME/.aliases" || source "$XDG_CONFIG_HOME/.aliases"
 test ! -f "$HOME/.aliases" || source "$HOME/.aliases" # Old path, as a backup
 
+# Named Directories
+hash -d dev=~/Developer
+
+# Autocomplete Reset
 function reset-autocomplete() {
   rm -rf "$XDG_CACHE_HOME"/zsh/comp*
   compinit
 }
 
+# Interactive Command Editing
 function edit() {
   "${(@z)${VISUAL:-${EDITOR:-vi}}}" "$@"
 }
