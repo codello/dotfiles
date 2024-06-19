@@ -2,6 +2,9 @@
 #!/usr/bin/env sh
 set -eufo pipefail
 
+# {{ output "sw_vers" "--productName" -}}
+# {{ output "sw_vers" "--productVersion" -}}
+# {{ output "sw_vers" "--buildVersion" -}}
 if ! grep -q "pam_tid.so" "/etc/pam.d/sudo"; then
 	sudo sed -i '' '/auth       sufficient     pam_smartcard.so/a\
 auth       sufficient     pam_tid.so\
