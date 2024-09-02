@@ -25,9 +25,9 @@ tap "fluxcd/tap"
 tap "int128/kubelogin"
 
 brew "kubernetes-cli"
-brew "kustomize"
-brew "fluxcd/tap/flux"
+brew "kubecolor"
 brew "kubectx"
+brew "fluxcd/tap/flux"
 brew "int128/kubelogin/kubelogin"
 
 
@@ -39,6 +39,7 @@ brew "codello/brewery/srtlab"
 # Casks
 cask "1password"
 cask "1password-cli"
+cask "keka"
 cask "appcleaner"
 # cask "paragon-ntfs"
 cask "parallels"
@@ -75,6 +76,6 @@ cask "font-jetbrains-mono-nerd-font"
 
 
 # Mac App Store Apps
-mas "The Unarchiver", id: 425424353
+# mas "The Unarchiver", id: 425424353
 mas "Xcode", id: 497799835
 mas "Things", id: 904280696

@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
-
 # Shell-agnostic aliases
+
+# Enable alias expansion for watch command
+alias watch='watch --color '
 
 if command -v bat > /dev/null; then
 	alias cat='bat --paging=never'
@@ -18,6 +20,12 @@ alias reveal='open -R'
 
 if command -v kubectl >/dev/null; then
   alias k=kubectl
+  if command -v kubecolor >/dev/null; then
+    alias kubectl=kubecolor
+    if [ "$ZSH_VERSION" ]; then
+      compdef kubecolor=kubectl
+    fi
+  fi
 fi
 
 if command -v kubectl-oidc_login >/dev/null; then
