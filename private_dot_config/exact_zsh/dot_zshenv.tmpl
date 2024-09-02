@@ -1,13 +1,29 @@
 #!/usr/bin/env zsh
 
+# XDG Paths
+# https://specifications.freedesktop.org/basedir-spec/latest/
+
 {{ if eq .chezmoi.os "darwin" -}}
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/Library/Caches}"
 {{- else }}
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 {{- end }}
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export XDG_DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
-export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
+export XDG_CONFIG_DIRS="$HOME/Library/Preferences:$HOME/Library/Application Support:/Library/Preferences:/Library/Application Support:/etc/xdg"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_DATA_DIRS="$HOME/Library/Application Support:/usr/local/share:/usr/share"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
+#export XDG_RUNTIME_DIR=
+
+export XDG_MUSIC_DIR="${XDG_MUSIC_DIR:-$HOME/Music}"
+export XDG_DESKTOP_DIR="${XDG_DESKTOP_DIR:-$HOME/Desktop}"
+export XDG_DOCUMENTS_DIR="${XDG_DOCUMENTS_DIR:-$HOME/Documents}"
+export XDG_DOWNLOADS_DIR="${XDG_DOWNLOADS_DIR:-$HOME/Downloads}"
+export XDG_PICTURES_DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}"
+export XDG_PUBLICSHARE_DIR="${XDG_PUBLICSHARE_DIR:-$HOME/Public}"
+#export XDG_TEMPLATES_DIR
+export XDG_VIDEOS_DIR="${XDG_VIDEOS_DIR:-$HOME/Movies}"
 
 # Homebrew
 export HOMEBREW_PREFIX="/opt/homebrew"
