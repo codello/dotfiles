@@ -6,3 +6,6 @@ Brewfile
 # Compiled version of Powerlevel10k theme
 .config/zsh/p10k.zsh.zwc
 .config/zsh/.zshrc.zwc
+
+# iTerm Sockets
+.config/iterm2/sockets

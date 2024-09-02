@@ -1,0 +1,316 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "version": 2,
+  "final_space": true,
+  "pwd": "osc7",
+  "shell_integration": true,
+  "iterm_features": ["remote_host", "current_dir"],
+  "enable_cursor_positioning": true,
+  "blocks": [
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [{
+        "type": "os",
+        "template": " {{ if .WSL }}  {{ end }}{{ .Icon }} ",
+        "style": "diamond",
+        "leading_diamond": " ",
+        "trailing_diamond": "",
+        "background": "p:gray",
+        "foreground": "p:white"
+      }, {
+        "type": "path",
+        "properties": {
+          "style": "powerlevel",
+          "mapped_locations": {
+            "~/Developer/*": " "
+          },
+          "folder_separator_icon": "/",
+          "max_width": 65,
+          "edge_format": "<b>%s</b>"
+        },
+        "template": "{{$git := .Segments.Git}}{{$gitSubDir := trimPrefix (or $git.Dir \"\") $.PWD}} {{if not .Writable}} {{end}}{{ path (not $git | ternary .Path (print \"<b><p:blue-highlight>󰊢 \" $git.RepoName \"</b></>\" (and (ne $git.Dir $.PWD) (ne (dir $gitSubDir) \"/\") | ternary (dir $gitSubDir) \"\") (ne $git.Dir $.PWD | ternary (print \"/<b><p:blue-highlight>\" (base $.PWD) \"</></b>\") \"\"))) .Location}} ",
+        "style": "powerline",
+        "leading_powerline_symbol": " ",
+        "powerline_symbol": "",
+        "foreground": "p:blue",
+        "background": "p:gray",
+        "foreground_templates": [
+          "{{ if not .Writable }}p:yellow{{ end }}"
+        ],
+        "background_templates": [
+          "{{ if not .Writable }}p:red{{ end }}"
+        ]
+      }, {
+        "type": "git",
+        "properties": {
+          "branch_max_length": 25,
+          "fetch_status": true,
+          "fetch_upstream_icon": true,
+          "branch_icon": "\uf126 ",
+          "truncate_symbol": "…"
+        },
+        "template": "  {{ if .UpstreamURL }}{{ url .UpstreamIcon .UpstreamURL }} {{ end }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+        "style": "powerline",
+        "powerline_symbol": "",
+        "background": "p:green",
+        "foreground": "p:black",
+        "foreground_templates": [
+          "{{ if or (.Working.Changed) (.Staging.Changed) }}p:black{{ end }}",
+          "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:white{{ end }}",
+          "{{ if gt .Ahead 0 }}p:white{{ end }}"
+        ],
+        "background_templates": [
+          "{{ if or (.Working.Changed) (.Staging.Changed) }}p:yellow{{ end }}",
+          "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:red{{ end }}",
+          "{{ if gt .Ahead 0 }}#49416D{{ end }}",
+          "{{ if gt .Behind 0 }}#7A306C{{ end }}"
+        ]
+      }]
+    },
+    {
+      "type": "prompt",
+      "alignment": "right",
+      "filler": "<240,transparent>·</>",
+      "overflow": "hide",
+      "segments": [{
+        "type": "text",
+        "template": "·",
+        "style": "plain",
+        "foreground": "240",
+        "background": "transparent"
+      }, {
+        "type": "go",
+        "properties": {
+          "parse_mod_file": true
+        },
+        "template": " {{ if not .Error }}\ue627 {{ .Full }}{{ end }} ",
+        "style": "powerline",
+        "leading_powerline_symbol": " ",
+        "powerline_symbol": " ",
+        "background": "#7ad4fd",
+        "foreground": "p:gray"
+      }, {
+        "type": "dotnet",
+        "template": "  {{ .Full }} ",
+        "style": "powerline",
+        "leading_powerline_symbol": " ",
+        "powerline_symbol": " ",
+        "foreground": "white",
+        "background": "#502ad3"
+      }, {
+        "type": "python",
+        "template": "  {{ .Full }} ",
+        "properties": {
+          "display_mode": "context"
+        },
+        "style": "powerline",
+        "leading_powerline_symbol": " ",
+        "powerline_symbol": " ",
+        "foreground": "#ffe873",
+        "background": "#306998"
+      }]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "type": "session",
+          "style": "diamond",
+          "leading_diamond": "\ue0b6",
+          "trailing_diamond": "\ue0b0",
+          "template": " {{ if .SSHSession }}\ueba9 {{ end }}{{ .UserName }} ",
+          "background": "p:yellow",
+          "foreground": "p:black"
+        },
+        {
+          "type": "docker",
+          "style": "diamond",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "foreground": "#000000",
+          "background": "#0B59E7",
+          "template": "  {{ .Context }} "
+        },
+        {
+          "type": "root",
+          "style": "powerline",
+          "powerline_symbol": "\ue0b0",
+          "template": " \uf0e7 ",
+          "background": "p:yellow",
+          "foreground": "p:white"
+        },
+        {
+          "type": "status",
+          "style": "diamond",
+          "background_templates": [
+            "{{ if gt .Code 0 }}p:red{{ end }}"
+          ],
+          "leading_diamond": "\ue0d7",
+          "trailing_diamond": "\ue0b4",
+          "template": " {{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }} ",
+          "properties": {
+            "always_enabled": true
+          },
+          "background": "p:blue",
+          "foreground": "p:white"
+        },
+        {
+          "type": "python",
+          "template": "{{with .Venv}}  {{ . }} {{end}}",
+          "properties": {
+            "display_mode": "context"
+          },
+          "style": "powerline",
+          "leading_powerline_symbol": " ",
+          "powerline_symbol": " ",
+          "foreground": "#ffd43b",
+          "background": "#306998"
+        }
+      ]
+    },
+    {
+      "type": "rprompt",
+      "segments": [
+        {
+          "type": "node",
+          "style": "plain",
+          "template": "\ue718 ",
+          "properties": {
+            "display_mode": "files",
+            "fetch_package_manager": false,
+            "home_enabled": false
+          },
+          "background": "transparent",
+          "foreground": "p:green"
+        },
+        {
+          "type": "time",
+          "style": "plain",
+          "template": "at <p:blue><b>{{ .CurrentDate | date \"15:04:05\" }}</b></>",
+          "background": "transparent",
+          "foreground": "p:white"
+        }
+      ]
+    }
+  ],
+  "secondary_prompt": {
+    "template": "<p:yellow,transparent>\ue0b6</><,p:yellow> -> </><p:yellow,transparent>\ue0b0</> ",
+    "background": "transparent",
+    "foreground": "p:black",
+    "Text": "",
+    "Duration": 0,
+    "NameLength": 0
+  },
+  "transient_prompt": {
+    "template": "<p:yellow,transparent>\ue0b6</><,p:yellow> {{ path .Folder .AbsolutePWD }} </><p:yellow,transparent>\ue0b0</>{{ if .Segments.Contains \"Sudo\" }} dsads {{ end }} ",
+    "background": "transparent",
+    "foreground": "p:black"
+  },
+  "tooltips": [
+    {
+      "tips": ["sudo"],
+      "alias": "Sudo",
+      "type": "text",
+      "template": "sudo",
+      "style": "diamond",
+      "leading_diamond": "",
+      "trailing_diamond": "",
+      "foreground": "p:yellow",
+      "background": "p:red"
+    },
+    {
+      "tips": ["git"],
+      "type": "git",
+      "properties": {
+        "fetch_user": true
+      },
+      "template": "󰊢 {{.User.Name}} {{url .User.Email (print \"mailto:\" .User.Email) }}",
+      "style": "diamond",
+      "leading_diamond": "",
+      "trailing_diamond": ""
+    },
+    {
+      "type": "docker",
+      "tips": [
+        "docker",
+        "docker-compose"
+      ],
+      "style": "diamond",
+      "leading_diamond": "",
+      "trailing_diamond": "",
+      "foreground": "#000000",
+      "background": "#0B59E7",
+      "template": "  {{ .Context }} "
+    },
+    {
+      "type": "kubectl",
+      "tips": [
+        "kubectl",
+        "k"
+      ],
+      "style": "powerline",
+      "powerline_symbol": "",
+      "foreground": "#000000",
+      "background": "#ebcc34",
+      "template": " ⎈ {{ .Context }}{{if .Namespace}} :: {{.Namespace}}{{end}} ",
+      "properties": {
+        "parse_kubeconfig": true
+      }
+    },
+    {
+      "type": "npm",
+      "tips": [
+        "npm"
+      ],
+      "style": "powerline",
+      "powerline_symbol": "",
+      "foreground": "#193549",
+      "background": "#ffeb3b",
+      "template": "  {{ .Full }} ",
+      "properties": {
+        "display_mode": "always"
+      }
+    },
+    {
+      "type": "terraform",
+      "tips": [
+        "terraform"
+      ],
+      "style": "powerline",
+      "powerline_symbol": "",
+      "foreground": "#000000",
+      "background": "#ebcc34",
+      "template": "{{ .WorkspaceName }}"
+    },
+    {
+      "type": "az",
+      "tips": [
+        "az"
+      ],
+      "style": "diamond",
+      "leading_diamond": "\ue0b0",
+      "trailing_diamond": "\ue0b4",
+      "template": " \uebd8 {{ .Name }} ",
+      "properties": {
+        "display_default": true
+      },
+      "background": "p:blue",
+      "foreground": "p:white"
+    }
+  ],
+  "palette": {
+    "gray": "236",
+    "blue": "31",
+    "blue-highlight": "39",
+    "black": "#262B44",
+    "green": "76",
+    "orange": "#F07623",
+    "red": "196",
+    "white": "#E0DEF4",
+    "yellow": "226"
+  }
+}

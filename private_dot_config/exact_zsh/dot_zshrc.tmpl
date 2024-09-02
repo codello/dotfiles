@@ -12,14 +12,16 @@ test ! -f "$ZDOTDIR/.zshrc-env" || source "$ZDOTDIR/.zshrc-env"
 zstyle ':znap:*' repos-dir "$XDG_DATA_HOME/zsh/plugins"
 source "$XDG_DATA_HOME/zsh-snap/znap.zsh"
 
-# iTerm Integration
 {{- if eq .chezmoi.os "darwin" }}
+{{/* Terminal-Shell integration is handled by the Oh-My-Posh prompt natively */}}
+# iTerm Integration
 znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
 {{- end }}
 
 # Powerlevel10k Theme
 test ! -f "$ZDOTDIR/p10k.zsh" || source "$ZDOTDIR/p10k.zsh"
 znap source romkatv/powerlevel10k
+# znap eval ohmyposh "oh-my-posh init zsh --config=$ZDOTDIR/oh-my-posh.json"
 
 ##############################################################################
 # Command Line Editor
@@ -34,7 +36,7 @@ zle -N edit-command-line edit-command-line-custom
 bindkey '^xe' edit-command-line
 bindkey '^x^e' edit-command-line
 
-# Custom Keybindings (⌘⬅️ and ⌘➡️)
+# Custom Keybindings (⌘← and ⌘→)
 bindkey '^[bol' beginning-of-line
 bindkey '^[eol' end-of-line
 
@@ -46,6 +48,7 @@ test ! -f "$HOME/.aliases" || source "$HOME/.aliases" # Old path, as a backup
 
 # Named Directories
 hash -d dev=~/Developer
+hash -d dotfiles=$XDG_DATA_HOME/chezmoi
 
 # Autocomplete Reset
 function reset-autocomplete() {
@@ -55,7 +58,7 @@ function reset-autocomplete() {
 
 # Interactive Command Editing
 function edit() {
-  "${(@z)${VISUAL:-${EDITOR:-vi}}}" "$@"
+  ${(@z)${VISUAL:-${EDITOR:-vi}}} "$@"
 }
 
 ##############################################################################
@@ -63,8 +66,16 @@ function edit() {
 ##############################################################################
 # Autocompletion
 zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+zstyle ':autocomplete:*' min-input 3
 znap source marlonrichert/zsh-autocomplete
+# Auto Suggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_MANUAL_REBIND=true
+ZSH_AUTOSUGGEST_HISTORY_IGNORE="(cd *|?(#c250,))"
 znap source zsh-users/zsh-autosuggestions
+# Completion Database
 znap install zsh-users/zsh-completions
 
 # Quality of Life
@@ -82,4 +93,5 @@ znap source trapd00r/LS_COLORS
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # This should be loaded last
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 znap source zsh-users/zsh-syntax-highlighting
