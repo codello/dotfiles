@@ -13,7 +13,7 @@ zstyle ':znap:*' repos-dir "$XDG_DATA_HOME/zsh/plugins"
 source "$XDG_DATA_HOME/zsh-snap/znap.zsh"
 
 {{- if eq .chezmoi.os "darwin" }}
-{{/* Terminal-Shell integration is handled by the Oh-My-Posh prompt natively */}}
+# {{/* Terminal-Shell integration is handled by the Oh-My-Posh prompt natively */}}
 # iTerm Integration
 znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
 {{- end }}

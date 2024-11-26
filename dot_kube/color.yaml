@@ -5,4 +5,4 @@ preset: protanopia-dark
 # See https://kubecolor.github.io/customizing/obj-fresh/
 objFreshThreshold: 2h
 
-paging: auto
+paging: never
