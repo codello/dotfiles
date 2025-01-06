@@ -22,7 +22,7 @@ path=(
 manpath=(
 	"${(@f)$(cat $XDG_CONFIG_HOME/manpaths)}"
 	"${(@f)$(cat $XDG_CONFIG_HOME/manpaths.d/*(n))}"
-	$path
+	$manpath
 )
 
 #Import the shell-agnostic (Bash or Zsh) environment config
