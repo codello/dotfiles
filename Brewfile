@@ -41,6 +41,7 @@ cask "1password"
 cask "1password-cli"
 cask "keka"
 cask "appcleaner"
+cask "thingsmacsandboxhelper"
 # cask "paragon-ntfs"
 cask "parallels"
 
