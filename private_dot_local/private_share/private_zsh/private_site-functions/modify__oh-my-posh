@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-command -v oh-my-posh >/dev/null && oh-my-posh completion zsh || true

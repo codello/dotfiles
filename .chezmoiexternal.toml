@@ -8,3 +8,14 @@ refreshPeriod = "168h" # once a week
 type  = "file"
 url   = "https://gist.github.com/blueyed/54a257c411310a28805a/raw/_pip.zsh"
 refreshPeriod = "168h" # once a week
+
+[".config/k9s/plugins/flux.yaml"]
+type = "file"
+url  = "https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/plugins/flux.yaml"
+refreshPeriod = "168h" # once a week
+
+[".config/k9s/plugins/cert-manager.yaml"]
+type = "file"
+url  = "https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/plugins/cert-manager.yaml"
+refreshPeriod = "168h" # once a week
+
