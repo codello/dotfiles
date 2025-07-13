@@ -14,6 +14,11 @@ type = "file"
 url  = "https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/plugins/flux.yaml"
 refreshPeriod = "168h" # once a week
 
+[".config/k9s/plugins/external-secrets.yaml"]
+type = "file"
+url  = "https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/plugins/external-secrets.yaml"
+refreshPeriod = "168h" # once a week
+
 [".config/k9s/plugins/cert-manager.yaml"]
 type = "file"
 url  = "https://raw.githubusercontent.com/derailed/k9s/refs/heads/master/plugins/cert-manager.yaml"
