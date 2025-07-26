@@ -1,0 +1,25 @@
+[user]
+	name = {{ .name }}
+	email = {{ .email }}
+	signingkey = {{ onepasswordRead "op://Personal/Git Signing Key/public key" "wittenburg.1password.com" }}
+
+[core]
+	excludesFile = ~/.config/git/ignore
+	precomposeunicode = true
+	compression = 9
+
+[rebase]
+	updateRefs = true
+
+[diff]
+	algorithm = histogram
+	mnemonicPrefix = true
+
+[maintenance]
+	auto = true
+	strategy = incremental
+
+[include]
+	{{- range glob ".config/git/config.d/*" }}
+	path = {{ trimPrefix ".config/git/" . }}
+	{{- end }}

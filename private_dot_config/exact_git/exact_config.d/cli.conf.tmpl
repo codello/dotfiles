@@ -1,0 +1,26 @@
+[core]
+	whitespace = trailing-space,space-before-tab,space-in-empty-line
+
+[init]
+	defaultBranch = main
+
+[commit]
+	verbose = true
+
+[status]
+	branch = true
+	short = true
+	showStash = true
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = -version:refname
+
+[column]
+	ui = auto
+
+[alias]
+	graph = log --all --graph --decorate --oneline
+	ignore = "!gi() { for lang in $@; do curl -fsSL https://raw.githubusercontent.com/github/gitignore/refs/heads/main/\"$lang\".gitignore; done }; gi"
