@@ -1,7 +1,0 @@
-context: wittenbude
-contexts:
-  wittenbude:
-    endpoints: [cluster.int.wittenbude.de]
-    ca: {{ onepasswordRead "op://Wittenbude/Kubernetes/Talos/ca.crt" "wittenburg.1password.com" }}
-    crt: {{ onepasswordRead "op://Personal/Talos Client Certificate/Certificate" "wittenburg.1password.com" }}
-    key: {{ onepasswordRead "op://Personal/Talos Client Certificate/Key" "wittenburg.1password.com" }}

@@ -24,23 +24,6 @@ znap source romkatv/powerlevel10k
 # znap eval ohmyposh "oh-my-posh init zsh --config=$ZDOTDIR/oh-my-posh.json"
 
 ##############################################################################
-# Command Line Editor
-##############################################################################
-# Visual Command Line Editor (key binding ^x^e)
-autoload -U edit-command-line
-function edit-command-line-custom() {
-  local VISUAL="${ZLE_EDITOR:-$VISUAL}"
-  edit-command-line
-}
-zle -N edit-command-line edit-command-line-custom
-bindkey '^xe' edit-command-line
-bindkey '^x^e' edit-command-line
-
-# Custom Keybindings (⌘← and ⌘→)
-bindkey '^[bol' beginning-of-line
-bindkey '^[eol' end-of-line
-
-##############################################################################
 # ZSH Aliases and Functions
 ##############################################################################
 test ! -f "$XDG_CONFIG_HOME/.aliases" || source "$XDG_CONFIG_HOME/.aliases"
@@ -65,10 +48,10 @@ function edit() {
 # ZSH Plugins
 ##############################################################################
 # Autocompletion
-zstyle ':autocomplete:*' insert-unambiguous yes
-zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
-zstyle ':autocomplete:*' min-input 3
 znap source marlonrichert/zsh-autocomplete
+zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
+zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+
 # Auto Suggestions
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -95,3 +78,58 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # This should be loaded last
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 znap source zsh-users/zsh-syntax-highlighting
+# But this should be even after syntax highlighting
+znap source zsh-users/zsh-history-substring-search
+
+##############################################################################
+# Command Line Editor
+##############################################################################
+
+# Visual Command Line Editor Widget
+autoload -U edit-command-line
+function edit-command-line-custom() {
+  local VISUAL="${ZLE_EDITOR:-$VISUAL}"
+  edit-command-line
+}
+zle -N edit-command-line edit-command-line-custom
+
+# When pressing Up arrow, we do a history substring search,
+# but only if there is any text in the prompt.
+function _zle_up-line-or-search-or-history() {
+  if [ "$BUFFER" ]; then
+    zle history-substring-search-up
+  else
+    zle up-line-or-search
+  fi
+}
+zle -N up-line-or-search-or-history _zle_up-line-or-search-or-history
+
+# Step through the substring search history if it is visible, otherwise
+# use the default down-line-or-select.
+function _zle_down-line-or-select-or-history() {
+  if [[ -n $BUFFER && $BUFFER == ${_history_substring_search_result:-} ]]; then
+    zle history-substring-search-down
+  else
+    zle down-line-or-select
+  fi
+}
+zle -N down-line-or-select-or-history _zle_down-line-or-select-or-history
+
+# Ctrl+X E: Open command line editor
+bindkey             '^xe' edit-command-line
+# Ctrl+X Ctrl+E: Open command line editor
+bindkey            '^x^e' edit-command-line
+# ⌘←Delete: Delete to beginning of line (mapped by iTerm)
+bindkey              '^H' backward-kill-line
+# ⌘Del→: Delete to end of line (mapped by iTerm)
+bindkey         '^[[3;5~' kill-line
+ # Tab: Cycle through completions
+bindkey              '^I' menu-complete
+ # Shift-Tab: Cycle through completions
+bindkey "$terminfo[kcbt]" reverse-menu-complete
+# Up-Arrow: Search History or Default
+bindkey            '^[[A' up-line-or-search-or-history
+# Down-Arrow: Search History or Default
+bindkey            '^[[B' down-line-or-select-or-history
+# Ctrl+R: Backwards history search
+bindkey              '^R' history-incremental-pattern-search-backward
