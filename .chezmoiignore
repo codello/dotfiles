@@ -1,7 +1,6 @@
 # Various Repo Files
 LICENSE
 README.md
-Brewfile
 
 # Compiled version of Powerlevel10k theme
 .config/zsh/p10k.zsh.zwc
@@ -9,3 +8,9 @@ Brewfile
 
 # iTerm Sockets
 .config/iterm2/sockets
+
+{{ if .personal }}
+# Personal Configuration
+.config/1Password
+.config/ngrok
+{{ end }}

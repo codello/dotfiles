@@ -1,0 +1,11 @@
+{{- if eq .chezmoi.os "darwin" -}}
+{{- $brewfile := includeTemplate "private_dot_config/exact_homebrew/Brewfile.tmpl" . -}}
+
+#!/usr/bin/env sh
+set -eufo pipefail
+
+# Brewfile checksum: {{ sha256sum $brewfile }}
+brew bundle --file=- <<-EOF
+{{ $brewfile }}
+EOF
+{{ end -}}

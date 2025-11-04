@@ -1,14 +1,12 @@
-# Taps
-tap "homebrew/cask-versions"
-
-
 # Utilities
 brew "azure-cli"
 brew "chezmoi"
 brew "bat"
 brew "coreutils"
+{{ if .personal -}}
 brew "ocrmypdf"
 brew "tesseract-lang"
+{{- end }}
 brew "trash"
 brew "watch"
 
@@ -31,9 +29,11 @@ brew "fluxcd/tap/flux"
 brew "int128/kubelogin/kubelogin"
 
 
+{{ if .personal -}}
 # Custom Formulae
 tap "codello/brewery"
 brew "codello/brewery/srtlab"
+{{- end }}
 
 
 # Casks
@@ -42,8 +42,10 @@ cask "1password-cli"
 cask "keka"
 cask "appcleaner"
 cask "thingsmacsandboxhelper"
+{{ if .personal -}}
 # cask "paragon-ntfs"
 cask "parallels"
+{{- end }}
 
 # Development Tools
 cask "iterm2"
@@ -56,27 +58,32 @@ cask "typora"
 
 # Media Apps
 cask "iina"
+{{ if .personal -}}
 cask "imageoptim"
 cask "invisor-lite"
 cask "subler"
 # cask "xld"
+{{- end }}
 
+{{ if .personal -}}
 # LaTeX
 # cask "basictex"
 # cask latexit
+{{- end }}
 
 # QuickLook
 cask "qlstephen"   # QLStephen
 cask "qlmarkdown"  # QLMarkdown
-# cask "qlvideo"     # QLVideo
+cask "qlvideo"     # QLVideo
 
 # Fonts
-tap "homebrew/cask-fonts"
 cask "font-jetbrains-mono"
 cask "font-jetbrains-mono-nerd-font"
 
 
+{{ if .personal -}}
 # Mac App Store Apps
 # mas "The Unarchiver", id: 425424353
 mas "Xcode", id: 497799835
 mas "Things", id: 904280696
+{{- end }}

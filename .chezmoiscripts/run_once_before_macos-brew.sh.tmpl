@@ -1,7 +1,0 @@
-{{ if eq .chezmoi.os "darwin" -}}
-#!/usr/bin/env sh
-set -eufo pipefail
-
-# Brewfile checksum: {{ include "./Brewfile" | sha256sum }}
-brew bundle --no-lock --file={{ joinPath .chezmoi.workingTree "Brewfile" | quote }}
-{{ end -}}

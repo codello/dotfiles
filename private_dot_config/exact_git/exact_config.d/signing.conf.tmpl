@@ -1,3 +1,4 @@
+{{ if .personal -}}
 [credential]
 	helper = osxkeychain
 
@@ -10,3 +11,4 @@
 
 [commit]
 	gpgsign = true
+{{- end }}

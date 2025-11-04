@@ -1,0 +1,11 @@
+{{ if .personal -}}
+Host rzssh1 rzssh
+  Hostname     rzssh1.informatik.uni-hamburg.de
+  User     5wittenb
+  ForwardAgent yes
+
+Host tgipm
+  Hostname  tgipm.informatik.uni-hamburg.de
+  User      wittenburg
+  ProxyJump rzssh1
+{{- end }}

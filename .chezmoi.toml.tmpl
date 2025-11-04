@@ -1,7 +1,15 @@
+{{- $work  := promptBoolOnce . "work" "Is this a work device?" -}}
+{{- $email := promptStringOnce . "email" "Email address" -}}
+
+[data]
+email    = {{ $email | quote }}
+work     = {{ $work }}     # Is this a work device?
+personal = {{ not $work }} # Is this a personal device?
+
 [diff]
 pager = ""
 
 [[textconv]]
 pattern = "**/*.plist"
 command = "plutil"
-args = ["-convert", "xml1", "-o", "-", "-"]
+args    = ["-convert", "xml1", "-o", "-", "-"]
