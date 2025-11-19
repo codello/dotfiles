@@ -9,8 +9,9 @@ README.md
 # iTerm Sockets
 .config/iterm2/sockets
 
-{{ if .personal }}
+{{ if .work }}
 # Personal Configuration
 .config/1Password
 .config/ngrok
+.config/kanidm
 {{ end }}

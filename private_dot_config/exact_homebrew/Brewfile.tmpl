@@ -14,9 +14,11 @@ brew "watch"
 brew "nano"
 brew "jq"
 brew "git-lfs"
-brew "docker"
-brew "podman"
+brew "httpie"
 
+brew "container", restart_service: :changed
+brew "colima" {{- if .work }}, restart_service: :changed{{ end }}
+brew "docker"
 
 # Kubernetes Management
 tap "fluxcd/tap"
@@ -25,10 +27,19 @@ tap "int128/kubelogin"
 brew "kubernetes-cli"
 brew "kubecolor"
 brew "kubectx"
+brew "k9s"
+brew "minikube"
 brew "fluxcd/tap/flux"
 brew "int128/kubelogin/kubelogin"
+{{ if .personal -}}
+brew "talosctl"
+{{- end }}
 
 
+{{ if .work -}}
+# Tools for work
+brew "terraform"
+{{- end }}
 {{ if .personal -}}
 # Custom Formulae
 tap "codello/brewery"
@@ -37,12 +48,12 @@ brew "codello/brewery/srtlab"
 
 
 # Casks
-cask "1password"
-cask "1password-cli"
 cask "keka"
 cask "appcleaner"
-cask "thingsmacsandboxhelper"
 {{ if .personal -}}
+cask "1password"
+cask "1password-cli"
+cask "thingsmacsandboxhelper"
 # cask "paragon-ntfs"
 cask "parallels"
 {{- end }}
@@ -50,7 +61,9 @@ cask "parallels"
 # Development Tools
 cask "iterm2"
 cask "tower"
+{{ if .personal -}}
 cask "jetbrains-toolbox"
+{{- end }}
 
 # Utilities
 cask "downie"

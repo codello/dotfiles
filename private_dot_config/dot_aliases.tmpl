@@ -18,6 +18,25 @@ alias ll='ls -lah'
 alias reveal='open -R'
 {{- end }}
 
+if command -v container >/dev/null; then
+  {{- if .work }}
+  # There is currently an issue where DNS inside of the container doesn't work
+  # when there are other services using port 53. This is a temporary workaround.
+  #
+  # See: https://github.com/apple/container/issues/402
+  function c() {
+    local _dns=$([ "$1" = "run" ] && echo "--dns=$(cat /etc/resolv.conf | grep -m1 nameserver | cut -d' ' -f2)" || true)
+    container "$1" $_dns "${@:2}"
+  }
+  {{- end }}
+  {{- if .personal }}
+  alias c=container
+  {{- end }}
+  if [ "$ZSH_VERSION" ]; then
+    compdef c=container
+  fi
+fi
+
 if command -v kubectl >/dev/null; then
   alias k=kubectl
   if command -v kubecolor >/dev/null; then
