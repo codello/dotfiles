@@ -115,6 +115,8 @@ function _zle_down-line-or-select-or-history() {
 }
 zle -N down-line-or-select-or-history _zle_down-line-or-select-or-history
 
+# Space: Magic Space
+bindkey               ' ' magic-space
 # Ctrl+X E: Open command line editor
 bindkey             '^xe' edit-command-line
 # Ctrl+X Ctrl+E: Open command line editor
