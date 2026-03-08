@@ -45,14 +45,8 @@
   "project_panel": {
     "hide_root": true,
   },
-  "collaboration_panel": {
-    "button": false,
-  },
   "git_panel": {
     "sort_by_path": true,
-  },
-  "search": {
-    "button": false,
   },
 
   // Fonts
