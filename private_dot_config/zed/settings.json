@@ -1,0 +1,143 @@
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  // Extensions
+  "auto_install_extensions": {
+    // Themes and Visuals
+    "jetbrains-themes": true,
+    "catppuccin-icons": true,
+    // Languages
+    "comment": true, // highlights todo comments
+    "dockerfile": true,
+    "gotmpl": true,
+    "html": true,
+    "toml": true,
+  },
+
+  // General Settings
+  "base_keymap": "JetBrains",
+
+  // Appearance & Visuals
+  "icon_theme": "Catppuccin Latte",
+  "theme": {
+    "mode": "system",
+    "light": "JetBrains Light",
+    "dark": "JetBrains Dark",
+  },
+  "drop_target_size": 0.35,
+  "title_bar": {
+    "show_branch_icon": true,
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+    "show_tab_bar_buttons": false,
+  },
+  "tabs": {
+    "close_position": "left",
+    "file_icons": true,
+    "git_status": true,
+    "show_diagnostics": "all",
+  },
+  "status_bar": {
+    "line_endings_button": true,
+  },
+  "project_panel": {
+    "hide_root": true,
+  },
+  "collaboration_panel": {
+    "button": false,
+  },
+  "git_panel": {
+    "sort_by_path": true,
+  },
+  "search": {
+    "button": false,
+  },
+
+  // Fonts
+  "ui_font_family": ".SystemUIFont",
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_size": 13.0,
+  "buffer_font_weight": 300.0,
+  "buffer_line_height": {
+    "custom": 1.35,
+  },
+
+  // Editor Experience
+  "format_on_save": "on",
+  "autosave": "on_focus_change",
+  "close_on_file_delete": true,
+  "auto_signature_help": true,
+  "gutter": {
+    "min_line_number_digits": 3,
+  },
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.75,
+  },
+  "colorize_brackets": true,
+  "wrap_guides": [80, 120],
+  "indent_guides": {
+    "coloring": "indent_aware",
+  },
+  "sticky_scroll": {
+    "enabled": true,
+  },
+  "unnecessary_code_fade": 0.4,
+
+  // Code Intelligence
+  "inlay_hints": {
+    "enabled": true,
+    "edit_debounce_ms": 0,
+    "scroll_debounce_ms": 0,
+  },
+  "diagnostics": {
+    "inline": {
+      "enabled": true,
+      "padding": 8,
+    },
+  },
+
+  // Git Integration
+  "diff_view_style": "unified",
+  "git": {
+    "branch_picker": {
+      "show_author_name": true,
+    },
+  },
+
+  // AI Settings
+  "disable_ai": true,
+  "terminal": {
+    "font_weight": 300.0,
+    "font_family": "JetBrainsMono Nerd Font",
+  },
+
+  // Telemetry
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": false,
+  },
+
+  // Profiles
+  "profiles": {
+    "Presenting (Dark)": {
+      "theme": "JetBrains Dark",
+      "agent_buffer_font_size": 18.0,
+      "buffer_font_size": 18.0,
+      "ui_font_size": 18.0,
+    },
+    "Presenting (Light)": {
+      "theme": "JetBrains Light",
+      "agent_buffer_font_size": 18.0,
+      "buffer_font_size": 18.0,
+      "ui_font_size": 18.0,
+    },
+  },
+
+  // Fily Type Associations
+  "file_types": {},
+
+  // Language-specific Settings
+  "languages": {},
+}

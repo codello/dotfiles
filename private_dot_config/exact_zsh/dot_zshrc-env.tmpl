@@ -23,7 +23,12 @@ export PAGER='less'
 
 {{- if eq .chezmoi.os "darwin" }}
 export BROWSER='open'
-if command -v nova > /dev/null; then
+if command -v zed > /dev/null; then
+    export VISUAL='zed --wait'
+    export ZLE_EDITOR='zed --wait'
+    export KUBE_EDITOR='zed --wait'
+    export HOMEBREW_EDITOR='zed --wait'
+elif command -v nova > /dev/null; then
     export VISUAL='nova open --wait'
     export ZLE_EDITOR='nova open --wait --no-recent --type zshrc'
     export KUBE_EDITOR='nova open --wait --no-recent --type yaml'
