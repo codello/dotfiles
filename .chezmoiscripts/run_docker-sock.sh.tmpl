@@ -1,0 +1,17 @@
+{{- if ne .chezmoi.os "darwin" }}
+{{ abortEmpty }}
+{{- end }}
+
+{{- $path := "/var/run/docker.sock" }}
+{{- $link := "" }}
+{{- if lstat $path }}
+  {{- $link = output "readlink" $path | trim }}
+{{- end }}
+{{- $target := joinPath .chezmoi.homeDir ".config/colima/default/docker.sock" }}
+
+{{- if ne $link $target -}}
+#!/usr/bin/env sh
+set -eufo pipefail
+
+sudo ln -s "{{ $target }}" "{{ $path }}"
+{{- end }}

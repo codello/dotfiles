@@ -66,7 +66,9 @@ cask "jetbrains-toolbox"
 {{- end }}
 
 # Utilities
+{{ if .personal -}}
 cask "downie"
+{{- end }}
 cask "typora"
 
 # Media Apps

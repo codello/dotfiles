@@ -23,7 +23,12 @@ export PAGER='less'
 
 {{- if eq .chezmoi.os "darwin" }}
 export BROWSER='open'
-if command -v zed > /dev/null; then
+if command -v zed-dev > /dev/null; then
+    export VISUAL='zed-dev --wait'
+    export ZLE_EDITOR='zed-dev --wait'
+    export KUBE_EDITOR='zed-dev --wait'
+    export HOMEBREW_EDITOR='zed-dev --wait'
+elif command -v zed > /dev/null; then
     export VISUAL='zed --wait'
     export ZLE_EDITOR='zed --wait'
     export KUBE_EDITOR='zed --wait'

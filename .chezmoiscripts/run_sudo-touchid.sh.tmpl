@@ -1,0 +1,20 @@
+{{- if ne .chezmoi.os "darwin" }}
+{{ abortEmpty }}
+{{- end }}
+
+{{- $want := `# sudo_local: local config file which survives system update and is included for sudo
+auth       sufficient     pam_tid.so
+` }}
+
+{{- $got := "" }}
+{{- if stat "/etc/pam.d/sudo_local" }}
+{{- $got = include "/etc/pam.d/sudo_local" }}
+{{- end }}
+{{- if ne $want $got -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+sudo tee "/etc/pam.d/sudo_local" >/dev/null <<-EOF
+{{ $want | trim }}
+EOF
+{{- end }}

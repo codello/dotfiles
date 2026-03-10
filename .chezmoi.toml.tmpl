@@ -7,6 +7,10 @@
 	work     = {{ eq $deviceType "work" }}     # Is this a work device?
 	personal = {{ eq $deviceType "personal" }} # Is this a personal device?
 
+[keepassxc]
+    mode     = "builtin"
+    database = "{{ joinPath .chezmoi.homeDir "Passwords.kdbx"}}"
+
 [diff]
 	pager = ""
 
