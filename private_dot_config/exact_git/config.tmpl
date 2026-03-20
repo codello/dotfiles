@@ -2,7 +2,7 @@
 	name = {{ .name }}
 	email = {{ .email }}
 	{{- if .personal }}
-	signingkey = {{ onepasswordRead "op://Personal/Git Signing Key/public key" "wittenburg.1password.com" }}
+	signingkey = {{ onepasswordRead "op://Private/Git Signing Key/public key" "my.1password.eu" }}
 	{{- end }}
 
 [core]
