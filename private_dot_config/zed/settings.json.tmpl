@@ -18,7 +18,7 @@
   // General Settings
   "base_keymap": "JetBrains",
 
-  // Appearance & Visuals
+  // Appearance & Layout
   "icon_theme": "Catppuccin Latte",
   "theme": {
     "mode": "system",
@@ -43,14 +43,22 @@
     "breadcrumbs": false,
     "quick_actions": false,
   },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "right",
+  },
   "status_bar": {
     "line_endings_button": true,
   },
   "project_panel": {
+    "dock": "left",
     "hide_root": true,
     "diagnostic_badges": true,
   },
   "git_panel": {
+    "dock": "left",
     "sort_by_path": true,
   },
 
@@ -67,7 +75,8 @@
   "format_on_save": "on",
   "autosave": "on_focus_change",
   "close_on_file_delete": true,
-  "auto_signature_help": true,
+  "auto_signature_help": false,
+  "show_signature_help_after_edits": true,
   "gutter": {
     "min_line_number_digits": 3,
   },
@@ -109,12 +118,19 @@
   },
 
   // AI Settings
-  "disable_ai": {{ .personal }},
   "show_edit_predictions": false,
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
     },
+  },
+  "agent": {
+    "dock": "right",
+    "sidebar_side": "right",
+    "enable_feedback": false,
+    "play_sound_when_agent_done": "always",
+    "default_profile": "ask",
+    "single_file_review": true,
   },
 
   // Terminal
@@ -133,16 +149,20 @@
   // Profiles
   "profiles": {
     "Presenting (Dark)": {
-      "theme": "JetBrains Dark",
-      "agent_buffer_font_size": 18.0,
-      "buffer_font_size": 18.0,
-      "ui_font_size": 18.0,
+      "settings": {
+        "theme": "JetBrains Dark",
+        "agent_buffer_font_size": 18.0,
+        "buffer_font_size": 18.0,
+        "ui_font_size": 18.0,
+      },
     },
     "Presenting (Light)": {
-      "theme": "JetBrains Light",
-      "agent_buffer_font_size": 18.0,
-      "buffer_font_size": 18.0,
-      "ui_font_size": 18.0,
+      "settings": {
+        "theme": "JetBrains Light",
+        "agent_buffer_font_size": 18.0,
+        "buffer_font_size": 18.0,
+        "ui_font_size": 18.0,
+      },
     },
   },
 
@@ -153,5 +173,9 @@
   },
 
   // Language-specific Settings
-  "languages": {},
+  "languages": {
+    "Go Text Template": {
+      "tab_size": 2,
+    },
+  },
 }
