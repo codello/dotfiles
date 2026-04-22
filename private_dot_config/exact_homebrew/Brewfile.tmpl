@@ -3,12 +3,15 @@ brew "azure-cli"
 brew "chezmoi"
 brew "bat"
 brew "coreutils"
+brew "trash"
+brew "watch"
 {{ if .personal -}}
 brew "ocrmypdf"
 brew "tesseract-lang"
 {{- end }}
-brew "trash"
-brew "watch"
+{{ if .work -}}
+brew "bitwarden-cli"
+{{- end }}
 
 # Development Tools
 brew "nano"
@@ -36,10 +39,6 @@ brew "talosctl"
 {{- end }}
 
 
-{{ if .work -}}
-# Tools for work
-brew "terraform"
-{{- end }}
 {{ if .personal -}}
 # Custom Formulae
 tap "codello/brewery"

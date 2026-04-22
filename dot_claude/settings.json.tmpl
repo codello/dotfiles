@@ -2,7 +2,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "{{ (keepassxc "Tokens/AI Keys").Password }}",
+    "ANTHROPIC_AUTH_TOKEN": "{{ (bitwarden "item" "AI Keys").login.password }}",
     "ANTHROPIC_BASE_URL": "https://aikeys.maibornwolff.de",
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4.6",
     "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4.6",

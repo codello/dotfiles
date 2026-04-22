@@ -24,15 +24,15 @@ export PAGER='less'
 {{- if eq .chezmoi.os "darwin" }}
 export BROWSER='open'
 if command -v zed-dev > /dev/null; then
-    export VISUAL='zed-dev --wait'
-    export ZLE_EDITOR='zed-dev --wait'
-    export KUBE_EDITOR='zed-dev --wait'
-    export HOMEBREW_EDITOR='zed-dev --wait'
+    export VISUAL='zed-dev --new --wait'
+    export ZLE_EDITOR='zed-dev --new --wait'
+    export KUBE_EDITOR='zed-dev --new --wait'
+    export HOMEBREW_EDITOR='zed-dev --new --wait'
 elif command -v zed > /dev/null; then
-    export VISUAL='zed --wait'
-    export ZLE_EDITOR='zed --wait'
-    export KUBE_EDITOR='zed --wait'
-    export HOMEBREW_EDITOR='zed --wait'
+    export VISUAL='zed --new --wait'
+    export ZLE_EDITOR='zed --new --wait'
+    export KUBE_EDITOR='zed --new --wait'
+    export HOMEBREW_EDITOR='zed --new --wait'
 elif command -v nova > /dev/null; then
     export VISUAL='nova open --wait'
     export ZLE_EDITOR='nova open --wait --no-recent --type zshrc'

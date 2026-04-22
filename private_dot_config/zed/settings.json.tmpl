@@ -124,6 +124,13 @@
       "type": "registry",
     },
   },
+  {{ if .work -}}
+  "language_models": {
+    "litellm": {
+      "api_url": "{{ (index (bitwarden "item" "AI Keys").login.uris 0).uri }}",
+    },
+  },
+  {{- end }}
   "agent": {
     "dock": "right",
     "sidebar_side": "right",
