@@ -1,9 +1,6 @@
 [user]
 	name = {{ .name }}
 	email = {{ .email }}
-	{{- if .personal }}
-	signingkey = {{ onepasswordRead "op://Private/Git Signing Key/public key" "my.1password.eu" }}
-	{{- end }}
 
 [core]
 	excludesFile = ~/.config/git/ignore

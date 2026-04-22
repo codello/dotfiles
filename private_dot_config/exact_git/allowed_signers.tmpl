@@ -1,4 +1,9 @@
-{{/* TODO: Make this work for work */}}
-{{ if .personal -}}
-{{ .email }} namespaces="git" {{ onepasswordRead "op://Private/Git Signing Key/public key" "my.1password.eu" }}
-{{- end }}
+{{- $myKey := "" }}
+{{- if .personal }}
+{{- $myKey = onepasswordRead "op://Private/Git Signing Key/public key" "my.1password.eu" }}
+{{- else }}
+{{- $myKey = (bitwarden "item" "Git Signing Key").sshKey.publicKey }}
+{{- end -}}
+
+{{ .email }} {{ $myKey }}
+kim@codello.dev {{ $myKey }}
