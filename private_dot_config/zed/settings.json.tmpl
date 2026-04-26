@@ -27,7 +27,7 @@
   },
   "drop_target_size": 0.35,
   "title_bar": {
-    "show_branch_icon": true,
+    "show_branch_status_icon": true,
   },
   "tab_bar": {
     "show_nav_history_buttons": false,
@@ -118,11 +118,12 @@
   },
 
   // AI Settings
-  "show_edit_predictions": false,
-  "agent_servers": {
-    "claude-acp": {
-      "type": "registry",
+  "show_edit_predictions": {{ .personal }},
+  "edit_predictions": {
+    "copilot": {
+      "enable_next_edit_suggestions": true,
     },
+    "provider": "copilot",
   },
   {{ if .work -}}
   "language_models": {
@@ -138,6 +139,11 @@
     "play_sound_when_agent_done": "always",
     "default_profile": "ask",
     "single_file_review": true,
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+    },
   },
 
   // Terminal
