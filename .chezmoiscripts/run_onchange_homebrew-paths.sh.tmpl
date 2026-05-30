@@ -4,6 +4,7 @@ set -eufo pipefail
 sudo tee /etc/paths.d/01-homebrew >/dev/null <<-EOF
 ${HOMEBREW_PREFIX:-/opt/homebrew}/bin
 ${HOMEBREW_PREFIX:-/opt/homebrew}/sbin
+${HOMEBREW_PREFIX:-/opt/homebrew}/share/google-cloud-sdk/bin
 EOF
 
 sudo tee /etc/manpaths.d/01-homebrew >/dev/null <<-EOF
