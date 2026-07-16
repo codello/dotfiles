@@ -6,6 +6,7 @@
     "hashicorp/tap",
     "int128/kubelogin",
     "jandedobbeleer/oh-my-posh",
-    "k0sproject/tap"
+    "k0sproject/tap",
+    "stackitcloud/tap"
   ]
 }

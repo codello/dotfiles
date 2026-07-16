@@ -17,4 +17,10 @@
       "shift-enter": "search::SelectPreviousMatch",
     },
   },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-cmd-s": "workspace::SaveWithoutFormat",
+    },
+  },
 ]

@@ -134,12 +134,42 @@
   },
   {{- end }}
   "agent": {
+    "profiles": {
+      "write": {
+        "name": "Write",
+        "enable_all_context_servers": true,
+        "context_servers": {
+          "GitHub": {
+            "tools": {
+              "run_secret_scanning": false,
+              "request_copilot_review": false,
+              "get_copilot_job_status": false,
+              "fork_repository": false,
+              "create_repository": false,
+              "create_pull_request_with_copilot": false,
+              "assign_copilot_to_issue": false,
+              "add_issue_comment": true,
+            },
+          },
+        },
+      },
+    },
+    "show_turn_stats": true,
+    "sandbox_permissions": {
+      "network_hosts": [
+        "github.com",
+        "raw.githubusercontent.com",
+        "docs.api.stackit.cloud",
+      ],
+      "allow_all_hosts": false,
+    },
+    "thinking_display": "auto",
     "dock": "right",
     "sidebar_side": "right",
     "enable_feedback": false,
     "play_sound_when_agent_done": "always",
     "default_profile": "write",
-    "single_file_review": true,
+    "single_file_review": true
   },
   "agent_servers": {
     "{{ if .personal }}github-copilot-cli{{ end }}{{ if .work }}claude-acp{{ end }}": {
