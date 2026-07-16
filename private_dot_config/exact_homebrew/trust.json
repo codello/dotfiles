@@ -1,0 +1,11 @@
+{
+  "trustedtaps": [
+    "codello/brewery",
+    "controlplaneio-fluxcd/tap",
+    "fluxcd/tap",
+    "hashicorp/tap",
+    "int128/kubelogin",
+    "jandedobbeleer/oh-my-posh",
+    "k0sproject/tap"
+  ]
+}

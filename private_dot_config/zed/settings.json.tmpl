@@ -59,7 +59,7 @@
   },
   "git_panel": {
     "dock": "left",
-    "sort_by_path": true,
+    "sort_by": "path",
   },
 
   // Fonts
@@ -138,12 +138,12 @@
     "sidebar_side": "right",
     "enable_feedback": false,
     "play_sound_when_agent_done": "always",
-    "default_profile": "ask",
+    "default_profile": "write",
     "single_file_review": true,
   },
   "agent_servers": {
-    "claude-acp": {
-      "type": "registry",
+    "{{ if .personal }}github-copilot-cli{{ end }}{{ if .work }}claude-acp{{ end }}": {
+      "type": "registry"
     },
   },
 
