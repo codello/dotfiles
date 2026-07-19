@@ -1,0 +1,211 @@
+#!/usr/bin/env zsh
+
+##############################################################################
+# iTerm2 Synchronized Updates (DEC mode 2026)
+##############################################################################
+# Some plugins (e.g., zsh-autocomplete, zsh-history-substring-search, Powerlevel10k)
+# redraw the screen in multiple steps, producing a visible one-frame blink in iTerm2.
+# DEC mode 2026 (Synchronized Updates) are special escape sequences that tell iTerm2
+# to batch multiple screen writes into a single frame.
+
+typeset -gi _zshrc_bsu_count=0
+# Counter for "pending" p10k BSU references. Each `_p9k_reset_prompt` call
+# increments this; the complete fd-widget (or safety timeout) decrements it.
+# This allows multiple overlapping p10k resets to be tracked correctly.
+typeset -gi _zshrc_bsu_pending=0
+
+.zshrc:bsu-start() {
+  (( _zshrc_bsu_count++ == 0 )) && print -n '\e[?2026h'
+}
+
+.zshrc:bsu-end() {
+  (( --_zshrc_bsu_count == 0 )) && print -n '\e[?2026l'
+}
+
+# End one "pending" p10k BSU reference. Called from the complete fd-widget
+# wrapper below and from the p10k safety timeout.
+.zshrc:bsu-end-pending() {
+  (( _zshrc_bsu_pending > 0 && _zshrc_bsu_pending-- )) && .zshrc:bsu-end
+}
+
+# Safety net: if BSU is still on when ZLE exits, end it before running the
+# next command or showing the next prompt. Without this, command output would
+# be buffered by iTerm's BSU mode until the next prompt.
+.zshrc:bsu-cleanup() {
+  if (( _zshrc_bsu_count > 0 )); then
+    print -n '\e[?2026l'
+    _zshrc_bsu_count=0
+    _zshrc_bsu_pending=0
+  fi
+}
+precmd_functions+=(.zshrc:bsu-cleanup)
+preexec_functions+=(.zshrc:bsu-cleanup)
+
+
+##############################################################################
+# zsh-autocomplete: Prevent recursive completion in MENUSELECT mode
+##############################################################################
+# The async fd-widget callback calls `._list_choices` to refresh the completion
+# list. If this fires while we're in MENUSELECT mode (e.g., after pressing Tab
+# with the menu-select binding, while the async pty roundtrip is in flight),
+# it triggers a recursive-completion crash (`completion cannot be used
+# recursively (yet)`) that can leave pty shells spinning at 100% CPU.
+() {
+  local body="${functions[.autocomplete:async:complete:fd-widget]}"
+  [[ -z $body ]] && return 0  # plugin not loaded
+
+  local old=$'if ! builtin zle ._list_choices'
+  local new=$'if [[ ${LASTWIDGET##.} == ((|reverse-)menu-complete|menu-select) ]] || ! builtin zle ._list_choices'
+
+  local patched="${body//$old/$new}"
+  if [[ "$body" != "$patched" ]]; then
+    functions[.autocomplete:async:complete:fd-widget]="$patched"
+  else
+    print -u2 "zshrc: warning: failed to patch .autocomplete:async:complete:fd-widget (upstream changed?)"
+  fi
+}
+
+##############################################################################
+# Autocomplete Flicker Fix
+##############################################################################
+# zsh-autocomplete redraws the completion list in multiple steps, producing a
+# visible one-frame blink in iTerm2. We wrap the complete fd-widget with BSU so
+# that the list is cleared and redrawn in a single frame.
+functions[.autocomplete:async:complete:fd-widget:original]="${functions[.autocomplete:async:complete:fd-widget]}"
+.autocomplete:async:complete:fd-widget() {
+  .zshrc:bsu-start
+  {
+    .autocomplete:async:complete:fd-widget:original "$@"
+  } always {
+    .zshrc:bsu-end
+    # Also end any pending p10k prompt-redraw BSU. This is what eliminates
+    # the list blink: BSU stays on from the prompt redraw through the list
+    # re-display, so iTerm batches them into a single frame.
+    .zshrc:bsu-end-pending
+  }
+}
+
+##############################################################################
+# zsh-autocomplete: Suppress list-clear on special characters
+##############################################################################
+# `.autocomplete:async:complete` calls `builtin zle -Rc` when $KEYS matches the
+# pattern `[- +*]` (space ! " # $ % & ' ( ) * +). This clears the current
+# completion list synchronously, then schedules an async redraw
+# ~50ms later. The gap between clear and redraw is visible as a multi-frame
+# flicker, and because it spans an async boundary, our BSU/ESU wrapper above
+# can't help.
+() {
+  local body="${functions[.autocomplete:async:complete]}"
+  [[ -z $body ]] && return 0  # plugin not loaded
+  local patched="${body//\$KEYS == /false == }"
+  if [[ "$body" != "$patched" ]]; then
+    functions[.autocomplete:async:complete]="$patched"
+  else
+    print -u2 "zshrc: warning: failed to patch .autocomplete:async:complete (upstream changed?)"
+  fi
+}
+
+##############################################################################
+# zsh-history-substring-search: Batch highlight removal via BSU
+##############################################################################
+# When using zsh-history-substring-search the redraw of the highlight region
+# produces a visible one-frame blink. We patch the widget to send BSU right
+# before the highlight removal, and schedule ESU via a `zle -F` fd-handler.
+# The fd-handler fires on the next ZLE main-loop iteration, after the
+# post-widget redraw — batching both writes into a single frame.
+
+# `zsh/system` provides `sysopen`; zsh-autocomplete already loads it, but load
+# it explicitly so this patch is self-sufficient.
+zmodload -F zsh/system b:sysopen 2>/dev/null
+
+# The fd-handler that ends BSU. Uses the reference-counted `.zshrc:bsu-end`
+# so that overlapping BSU windows (e.g. when a subsequent async completion
+# refresh fires within our window) are merged instead of producing two frames.
+.zshrc:send-esu() {
+  local -i fd=$1
+  builtin zle -F $fd 2>/dev/null  # unregister fd from ZLE
+  { exec {fd}<&- } 2>/dev/null    # close fd
+  .zshrc:bsu-end                  # End Synchronized Update (refcount-aware)
+}
+
+() {
+  local body="${functions[_history-substring-search-end]}"
+  [[ -z $body ]] && return 0  # plugin not loaded
+
+  # Match the `read -k -t ... && zle -U ...` line followed by the
+  # `region_highlight=` line that removes the search highlight. zsh stores
+  # function bodies reindented with tabs, so the pattern uses literal tabs.
+  local pattern=$'\t\tread -k -t ${HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT:-1} && zle -U -- "$REPLY"\n\t\tregion_highlight=("${(@)region_highlight:#*${highlight_memo}*}")'
+
+  # Insert BSU before the removal, and schedule ESU via a fd-handler on
+  # /dev/null (always ready → fires on the next main-loop iteration, after
+  # the post-widget redraw). `$` and `\e` in the replacement are literal text
+  # (no parameter expansion in variable replacements).
+  local replacement=$'\t\tread -k -t ${HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_TIMEOUT:-1} && zle -U -- "$REPLY"\n\t\t.zshrc:bsu-start\n\t\tregion_highlight=("${(@)region_highlight:#*${highlight_memo}*}")\n\t\t() { local fd; sysopen -r -o cloexec -u fd /dev/null; zle -F "$fd" .zshrc:send-esu }'
+
+  local patched="${body//$pattern/$replacement}"
+  if [[ "$body" != "$patched" ]]; then
+    functions[_history-substring-search-end]="$patched"
+  else
+    print -u2 "zshrc: warning: failed to patch _history-substring-search-end (upstream changed?)"
+  fi
+}
+
+##############################################################################
+# Powerlevel10k: Batch prompt re-renders via BSU
+##############################################################################
+# When SHOW_ON_COMMAND segments appear/disappear (or any other prompt refresh),
+# `_p9k_reset_prompt` calls `zle .reset-prompt` + `zle -R`. The intermediate
+# state where the old prompt is cleared but the new one isn't fully drawn yet
+# is visible as a one-frame blink in iTerm2. We wrap `_p9k_reset_prompt` with
+# BSU.
+#
+# `zle .reset-prompt` also clears the completion list via TCCLEAREOD. The list
+# is restored asynchronously by `.autocomplete:async:complete:fd-widget` after
+# the pty roundtrip (~50-200ms). To avoid a visible blink during that gap, we
+# keep BSU on until the complete fd-widget fires. The complete fd-widget wrapper
+# (above) calls `.zshrc:bsu-end-pending` to end our BSU portion.
+#
+# A safety timeout handles the case where no async refresh is scheduled (e.g.,
+# `.autocomplete:async:complete` returned early). The `precmd`/`preexec` hooks
+# (above) handle the case where ZLE exits before either fires (e.g., Ctrl-C).
+
+# Already loaded by Powerlevel10k, we load it explicitly so this patch is
+# self-sufficient.
+zmodload zsh/zselect 2>/dev/null
+
+# Safety timeout for p10k BSU. Ends one pending BSU if the complete fd-widget
+# never fires. Without this, BSU would stay on indefinitely if no async
+# refresh was scheduled.
+.zshrc:bsu-safety-timeout() {
+  local -i fd=$1
+  builtin zle -F $fd 2>/dev/null
+  { exec {fd}<&- } 2>/dev/null
+  .zshrc:bsu-end-pending
+}
+
+() {
+  (( ${+functions[_p9k_reset_prompt]} )) || return 0  # plugin not loaded
+
+  functions[_p9k_reset_prompt:original]="${functions[_p9k_reset_prompt]}"
+  _p9k_reset_prompt() {
+    # The original function is a no-op outside ZLE; mirror that here so we
+    # don't try to register a `zle -F` fd-handler in a non-ZLE context.
+    zle || return 0
+    .zshrc:bsu-start
+    (( _zshrc_bsu_pending++ ))
+    {
+      _p9k_reset_prompt:original "$@"
+    } always {
+      # Schedule a 1-second safety timeout. If the complete fd-widget fires
+      # before this (the common case), it will end BSU via
+      # `.zshrc:bsu-end-pending`. Otherwise, this timeout fires and ends BSU
+      # as a fallback.
+      () {
+        local fd
+        sysopen -r -o cloexec -u fd <(zselect -t 100; print)
+        zle -F "$fd" .zshrc:bsu-safety-timeout
+      }
+    }
+  }
+}

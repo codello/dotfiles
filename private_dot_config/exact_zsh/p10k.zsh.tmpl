@@ -60,8 +60,8 @@
     nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
     nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
-    python_version 					# python version - custom prompt segment (https://www.python.org)
-    python3_version 				# python3 version - custom prompt segment (https://www.python.org)
+    python_version 			# python version - custom prompt segment (https://www.python.org)
+    python3_version 		# python3 version - custom prompt segment (https://www.python.org)
     npm_version             # npm version – custom prompt segment (https://www.npmjs.com)
     node_version            # node.js version
     go_version              # go version (https://golang.org)
@@ -73,7 +73,7 @@
     java_version            # java version (https://www.java.com/)
     # package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
     ansible_version         # ansible version - custom prompt segment (https://www.ansible.com)
-    docker_version          # docker version - custom prompt segment (https://www.docker.com
+    docker_version          # docker version - custom prompt segment (https://www.docker.com)
     rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
     rvm                     # ruby version from rvm (https://rvm.io)
     fvm                     # flutter version management (https://github.com/leoafarias/fvm)
@@ -1062,7 +1062,7 @@
   typeset -g POWERLEVEL9K_JAVA_VERSION_FOREGROUND=32
   # Show java version only when in a java project subdirectory.
   #typeset -g POWERLEVEL9K_JAVA_VERSION_PROJECT_ONLY=true
-  # Show when running a php command.
+  # Show when running a java command.
   typeset -g POWERLEVEL9K_JAVA_VERSION_SHOW_ON_COMMAND='java|javac|jar'
   # Show brief version.
   typeset -g POWERLEVEL9K_JAVA_VERSION_FULL=false
@@ -1084,10 +1084,10 @@
   ################[ ansible_version: ansible version (https://www.ansible.com) ]################
 
   function prompt_ansible_version() {
-      _p9k_cached_cmd 0 '' ansible --version || return
-      [[ $_p9k__ret == (#b)'ansible '([[:digit:].]##)* ]] || return
-      p10k segment -i '' -t "${match[1]}"
-    }
+    _p9k_cached_cmd 0 '' ansible --version || return
+    [[ $_p9k__ret == (#b)'ansible '([[:digit:].]##)* ]] || return
+    p10k segment -i '' -t "${match[1]}"
+  }
 
   typeset -g POWERLEVEL9K_ANSIBLE_VERSION_FOREGROUND=196
   typeset -g POWERLEVEL9K_ANSIBLE_VERSION_SHOW_ON_COMMAND='ansible|ansible-playbook|ansible-vault'
@@ -1095,10 +1095,10 @@
   #################[ docker_version: docker version (https://www.docker.com) ]##################
 
   function prompt_docker_version() {
-      {{- /* Because this is a Go Template we have to escape curly braces. */}}
-      _p9k_cached_cmd 0 '' docker version --format '{{ "{{ .Client.Version }}" }}' || return
-      p10k segment -i '' -t "$_p9k__ret"
-    }
+    {{- /* Because this is a Go Template we have to escape curly braces. */}}
+    _p9k_cached_cmd 0 '' docker version --format '{{ "{{ .Client.Version }}" }}' || return
+    p10k segment -i '' -t "$_p9k__ret"
+  }
 
   typeset -g POWERLEVEL9K_DOCKER_VERSION_FOREGROUND=39
   typeset -g POWERLEVEL9K_DOCKER_VERSION_SHOW_ON_COMMAND='docker|docker-compose'
@@ -1232,7 +1232,7 @@
   #############[ kubecontext: current kubernetes context (https://kubernetes.io/) ]#############
   # Show kubecontext only when the the command you are typing invokes one of these tools.
   # Tip: Remove the next line to always show kubecontext.
-  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|k|helm|kubens|kubectx|oc|istioctl|kogito|flux'
+  typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|kubecolor|k|helm|kubens|kubectx|oc|istioctl|kogito|flux'
 
   # Kubernetes context classes for the purpose of using different colors, icons and expansions with
   # different contexts.

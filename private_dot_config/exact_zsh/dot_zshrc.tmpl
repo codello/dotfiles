@@ -49,11 +49,12 @@ function edit() {
 ##############################################################################
 # Autocompletion
 znap source marlonrichert/zsh-autocomplete
+zstyle ':autocomplete:*' add-semicolon no
 zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
 zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
 
 # Auto Suggestions
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 ZSH_AUTOSUGGEST_MANUAL_REBIND=true
 ZSH_AUTOSUGGEST_HISTORY_IGNORE="(cd *|?(#c250,))"
@@ -82,6 +83,9 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 znap source zsh-users/zsh-syntax-highlighting
 # But this should be even after syntax highlighting
 znap source zsh-users/zsh-history-substring-search
+
+# Patches for issues with plugins
+test ! -f "$ZDOTDIR/.zshrc-patches" || source "$ZDOTDIR/.zshrc-patches"
 
 ##############################################################################
 # Command Line Editor

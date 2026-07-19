@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env sh
 set -eufo pipefail
 
@@ -10,3 +11,4 @@ EOF
 sudo tee /etc/manpaths.d/01-homebrew >/dev/null <<-EOF
 ${HOMEBREW_PREFIX:-/opt/homebrew}/share/man
 EOF
+{{- end }}

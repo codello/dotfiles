@@ -26,9 +26,9 @@ export XDG_PUBLICSHARE_DIR="${XDG_PUBLICSHARE_DIR:-$HOME/Public}"
 export XDG_VIDEOS_DIR="${XDG_VIDEOS_DIR:-$HOME/Movies}"
 
 # Homebrew
-export HOMEBREW_PREFIX="/opt/homebrew"
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-export HOMEBREW_REPOSITORY="/opt/homebrew"
+export HOMEBREW_PREFIX="{{ default "/opt/homebrew" (env "HOMEBREW_PREFIX") }}"
+export HOMEBREW_CELLAR="{{ default "/opt/homebrew" (env "HOMEBREW_PREFIX") }}/Cellar"
+export HOMEBREW_REPOSITORY="{{ default "/opt/homebrew" (env "HOMEBREW_PREFIX") }}"
 export HOMEBREW_NO_ENV_HINTS="true"
 
 {{- if .work }}
@@ -54,5 +54,6 @@ typeset -gxU manpath MANPATH
 
 fpath=(
 	${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh/site-functions
+	$HOME/.orbstack/shell/completions/zsh
 	$fpath
 )

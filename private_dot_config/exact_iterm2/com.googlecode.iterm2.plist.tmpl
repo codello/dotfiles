@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>AI Timeout</key>
+	<integer>30</integer>
+	<key>AI Web Search Enabled</key>
+	<false/>
 	<key>AIFeatureFunctionCalling</key>
 	<true/>
 	<key>AIFeatureHostedCodeInterpeter</key>
@@ -13,17 +17,17 @@
 	<key>AIFeatureStreamingResponses</key>
 	<true/>
 	<key>AITermAPI</key>
-	<integer>2</integer>
+	<integer>4</integer>
 	<key>AIVectorStore</key>
 	<integer>0</integer>
 	<key>AiMaxTokens</key>
-	<integer>400000</integer>
+	<integer>1050000</integer>
 	<key>AiModel</key>
-	<string>gpt-5.2</string>
+	<string>z-ai/glm-5.2</string>
 	<key>AiResponseMaxTokens</key>
 	<integer>128000</integer>
 	<key>AitermURL</key>
-	<string>https://api.openai.com/v1/responses</string>
+	<string>https://openrouter.ai/api/v1/chat/completions</string>
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>AutoCommandHistory</key>
@@ -994,6 +998,8 @@
 			<integer>80</integer>
 			<key>Command</key>
 			<string></string>
+			<key>Composer Top Offset</key>
+			<real>0.0</real>
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
@@ -1342,6 +1348,8 @@
 	<key>UnderlineHyperlinks</key>
 	<false/>
 	<key>UseBorder</key>
+	<false/>
+	<key>UseRecommendedAIModel</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>

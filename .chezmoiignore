@@ -5,6 +5,8 @@ README.md
 # Compiled version of Powerlevel10k theme
 .config/zsh/p10k.zsh.zwc
 .config/zsh/.zshrc.zwc
+.config/zsh/.zshrc-env.zwc
+.config/zsh/.zshrc-patches.zwc
 
 # iTerm Sockets
 .config/iterm2/sockets

@@ -154,6 +154,25 @@
         },
       },
     },
+    {{- if .personal }}
+    "favorite_models": [
+      {
+        "provider": "openrouter",
+        "model": "openrouter/auto",
+        "enable_thinking": true,
+      },
+      {
+        "provider": "openrouter",
+        "model": "openrouter/free",
+        "enable_thinking": true,
+      },
+      {
+        "provider": "openrouter",
+        "model": "z-ai/glm-5.2",
+        "enable_thinking": true,
+      },
+    ],
+    {{- end }}
     "show_turn_stats": true,
     "sandbox_permissions": {
       "network_hosts": [
@@ -169,11 +188,20 @@
     "enable_feedback": false,
     "play_sound_when_agent_done": "always",
     "default_profile": "write",
-    "single_file_review": true
+    "single_file_review": true,
+  },
+  "context_servers": {
+    "GitHub": {
+    "enabled": true,
+    "url": "https://api.githubcopilot.com/mcp/",
+    "headers": {
+        "Authorization": "Bearer {{ onepasswordRead "op://Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}",
+      },
+    },
   },
   "agent_servers": {
     "{{ if .personal }}github-copilot-cli{{ end }}{{ if .work }}claude-acp{{ end }}": {
-      "type": "registry"
+      "type": "registry",
     },
   },
 
