@@ -1,4 +1,6 @@
 {
-	"container-runtime": "containerd",
-	"driver": "docker"
+  "container-runtime": "containerd",
+  "driver": "docker",
+  "memory": "max",
+  "cpus": "max"
 }

@@ -1,1 +1,3 @@
+{{ if .personal -}}
 {"apiKey":"{{ onepasswordRead "op://Private/OpenRouter/API Keys/Default" "my.1password.eu" }}"}
+{{- end }}

@@ -195,7 +195,7 @@
     "enabled": true,
     "url": "https://api.githubcopilot.com/mcp/",
     "headers": {
-        "Authorization": "Bearer {{ onepasswordRead "op://Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}",
+        "Authorization": "{{if .personal }}Bearer {{ onepasswordRead "op://Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}{{ end }}{{ if .work }}{{ range (bitwarden "item" "d1778be8-ddc4-4f0d-94e3-677cad06bc1c").fields }}{{ if eq .name "MCP PAT" }}{{ .value }}{{ end }}{{ end }}{{ end }}",
       },
     },
   },
