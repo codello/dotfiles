@@ -135,23 +135,213 @@
   {{- end }}
   "agent": {
     "profiles": {
-      "write": {
-        "name": "Write",
+      "agent": {
+        "name": "Coding Agent",
         "enable_all_context_servers": true,
+        "tools": {
+          "copy_path": true,
+          "create_directory": true,
+          "create_thread": true,
+          "delete_path": true,
+          "diagnostics": true,
+          "apply_code_action": true,
+          "edit_file": true,
+          "write_file": true,
+          "fetch": true,
+          "find_path": true,
+          "find_references": true,
+          "get_code_actions": true,
+          "go_to_definition": true,
+          "list_agents_and_models": true,
+          "list_directory": true,
+          "move_path": true,
+          "rename_symbol": true,
+          "read_file": true,
+          "grep": true,
+          "skill": true,
+          "spawn_agent": true,
+          "terminal": true,
+          "search_web": true,
+        },
         "context_servers": {
-          "GitHub": {
+          "github": {
+            // See https://github.com/github/github-mcp-server#tools
             "tools": {
-              "run_secret_scanning": false,
-              "request_copilot_review": false,
-              "get_copilot_job_status": false,
-              "fork_repository": false,
-              "create_repository": false,
-              "create_pull_request_with_copilot": false,
+              // Actions
+              "actions_get": true,
+              "actions_list": true,
+              "actions_run_trigger": true,
+              "get_job_logs": true,
+              // Code Quality
+              "get_code_quality_finding": false,
+              // Code Security
+              "get_code_scanning_alert": false,
+              "list_code_scanning_alerts": false,
+              // Context
+              "get_team_members": false,
+              "get_teams": false,
+              // Copilot
               "assign_copilot_to_issue": false,
-              "add_issue_comment": true,
+              "request_copilot_review": false,
+              // Copilot Issue Intents
+              "assign_copilot_to_issue_with_intent": false,
+              // Dependabot
+              "get_dependabot_alert": false,
+              "list_dependabot_alerts": false,
+              // Discussions
+              "discussion_comment_write": false,
+              "get_discussion": false,
+              "get_discussion_comments": false,
+              "list_discussion_categories": false,
+              "list_discussions": false,
+              // Gists
+              "create_gist": false,
+              "get_gist": true,
+              "list_gists": false,
+              "update_gist": false,
+              // Git
+              "get_repository_tree": true,
+              // Issues
+              "add_issue_comment": false,
+              "issue_read": true,
+              "issue_write": true,
+              "list_issue_fields": false,
+              "list_issue_types": false,
+              "list_issues": true,
+              "search_issues": true,
+              "sub_issue_write": true,
+              // Labels
+              "get_label": false,
+              "label_write": false,
+              "list_label": false,
+              // Notifications
+              "dismiss_notification": false,
+              "get_notification_details": false,
+              "list_notifications": false,
+              "manage_notification_subscription": false,
+              "manage_repository_notification_subscription": false,
+              "mark_all_notifications_read": false,
+              // Organizations
+              "search_orgs": false,
+              // Projects
+              "projects_get": true,
+              "projects_list": true,
+              "projects_write": false,
+              // Pull Requests
+              "add_comment_to_pending_review": true,
+              "add_reply_to_pull_request_comment": false,
+              "create_pull_request": true,
+              "list_pull_requests": true,
+              "merge_pull_request": false,
+              "pull_request_read": true,
+              "pull_request_review_write": true,
+              "search_pull_requests": true,
+              "update_pull_request": true,
+              "update_pull_request_branch": false,
+              // Repositories
+              "create_branch": false,
+              "create_or_update_file": false,
+              "create_repository": false,
+              "delete_file": false,
+              "fork_repository": false,
+              "get_commit": true,
+              "get_file_contents": true,
+              "get_latest_release": false,
+              "get_release_by_tag": false,
+              "get_tag": false,
+              "list_branches": false,
+              "list_commits": true,
+              "list_releases": false,
+              "list_repository_collaborators": false,
+              "list_tags": false,
+              "push_files": false,
+              "search_code": true,
+              "search_commits": true,
+              "search_repositories": true,
+              // Secret Protection
+              "get_secret_scanning_alert": false,
+              "list_secret_scanning_alerts": false,
+              "run_secret_scanning": false,
+              // Security Advisories
+              "get_global_security_advisory": false,
+              "list_global_security_advisories": false,
+              "list_org_repository_security_advisories": false,
+              "list_repository_security_advisories": false,
+              // Stargazers
+              "list_starred_repositories": false,
+              "star_repository": false,
+              "unstar_repository": false,
+              // Users
+              "search_users": false,
+              // Copilot Remote
+              "create_pull_request_with_copilot": false,
+              "get_copilot_space": false,
+              "github_support_docs_search": true,
+            },
+          },
+          "dataverse": {
+            // See https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-mcp#list-of-tools
+            "tools": {
+              "search_data": true,
+              "search": true,
+              "create_record": false,
+              "update_record": false,
+              "delete_record": false,
+              "create_table": true,
+              "update_table": true,
+              "delete_table": false,
+              "read_query": true,
+              "describe": true,
+              "upsert_skill": false,
+              "delete_skill": false,
+              "init_file_upload": false,
+              "commit_file_upload": false,
+              "file_download": false,
             },
           },
         },
+      },
+      "write": {
+        "name": "Write",
+        "enable_all_context_servers": false,
+      },
+    },
+    "tool_permissions": {
+      "tools": {
+        "fetch": { "default": "allow" },
+        "create_directory": { "default": "allow" },
+
+        // See https://github.com/github/github-mcp-server#tools
+        "mcp:github:actions_get": { "default": "allow" },
+        "mcp:github:get_job_logs": { "default": "allow" },
+        "mcp:github:actions_list": { "default": "allow" },
+        "mcp:github:get_me": { "default": "allow" },
+        "mcp:github:get_gist": { "default": "allow" },
+        "mcp:github:get_repository_tree": { "default": "allow" },
+        "mcp:github:issue_read": { "default": "allow" },
+        "mcp:github:list_issues": { "default": "allow" },
+        "mcp:github:search_issues": { "default": "allow" },
+        "mcp:github:projects_list": { "default": "allow" },
+        "mcp:github:add_comment_to_pending_review": { "default": "allow" },
+        "mcp:github:list_pull_requests": { "default": "allow" },
+        "mcp:github:pull_request_read": { "default": "allow" },
+        "mcp:github:search_pull_requests": { "default": "allow" },
+        "mcp:github:get_commit": { "default": "allow" },
+        "mcp:github:get_file_contents": { "default": "allow" },
+        "mcp:github:list_commits": { "default": "allow" },
+        "mcp:github:search_code": { "default": "allow" },
+        "mcp:github:search_commits": { "default": "allow" },
+        "mcp:github:search_repositories": { "default": "allow" },
+        "mcp:github:github_support_docs_search": { "default": "allow" },
+
+        // See https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-mcp#list-of-tools
+        "mcp:dataverse:search": { "default": "allow" },
+        "mcp:dataverse:read_query": { "default": "allow" },
+        "mcp:dataverse:describe": { "default": "allow" },
+
+        "mcp:mslearn:microsoft_docs_search": { "default": "allow" },
+        "mcp:mslearn:microsoft_docs_fetch": { "default": "allow" },
+        "mcp:mslearn:microsoft_docs_code_sample_search": { "default": "allow" },
       },
     },
     {{- if .personal }}
@@ -187,7 +377,7 @@
     "sidebar_side": "right",
     "enable_feedback": false,
     "play_sound_when_agent_done": "always",
-    "default_profile": "write",
+    "default_profile": "agent",
     "single_file_review": true,
   },
   "context_servers": {
@@ -214,7 +404,7 @@
 
   // Telemetry
   "telemetry": {
-    "diagnostics": true,
+    "diagnostics": false,
     "metrics": false,
   },
 
