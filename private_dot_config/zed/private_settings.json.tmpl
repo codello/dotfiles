@@ -380,6 +380,43 @@
     "default_profile": "agent",
     "single_file_review": true,
   },
+  "language_models": {
+    "open_router": {
+      "available_models": [
+        {
+          "display_name": "DeepSeek V4 Flash (Custom)",
+          "name": "deepseek/deepseek-v4-flash",
+          "max_tokens": 1048576,
+          "supports_tools": true,
+          "max_output_tokens": 65536,
+          "mode": { "type": "default" },
+          "provider": {
+          "quantizations": ["fp8"],
+        },
+      },
+    ],
+  },
+  "openai_compatible": {
+    "OpenRouter (OpenAI Compatible)": {
+    "api_url": "https://openrouter.ai/api/v1",
+    "available_models": [
+      {
+        "name": "z-ai/glm-5.2",
+        "display_name": "GLM 5.2 (OpenRouter)",
+        "max_tokens": 1048576,
+        "max_output_tokens": 131072,
+        "reasoning_effort": "high",
+        "capabilities": {
+          "images": false,
+          "tools": true,
+          "parallel_tool_calls": true,
+          "chat_completions": true,
+          "interleaved_reasoning": true,
+          "prompt_cache_key": false,
+        },
+      },
+    ],
+  },
   "context_servers": {
     "GitHub": {
     "enabled": true,
