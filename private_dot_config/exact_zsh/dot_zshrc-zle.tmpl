@@ -1,0 +1,133 @@
+#!/usr/bin/env zsh
+
+##############################################################################
+# Command Line Editor
+##############################################################################
+# Respect the ZLE_EDITOR variable for the visual command line editor.
+
+# Visual Command Line Editor Widget
+autoload -U edit-command-line
+function edit-command-line-custom() {
+  local VISUAL="${ZLE_EDITOR:-$VISUAL}"
+  edit-command-line
+}
+zle -N edit-command-line edit-command-line-custom
+
+
+##############################################################################
+# History menu: Left/Right accept-and-move
+##############################################################################
+# zsh-autocomplete's `up-line-or-search` opens the history menu via zsh's
+# menu-select mode. We want Left/Right to accept the history entry and move the
+# cursor, but in normal completion menus they should navigate the menu
+# (complist's default behavior).
+
+# Bind Left/Right in menuselect to the accept-and-move widget.
+.zshrc:bind-menu-accept-and-key() {
+  bindkey -M menuselect '^[[D' _zle_menu-accept-and-key   # Left  (xterm)
+  bindkey -M menuselect '^[OD' _zle_menu-accept-and-key   # Left  (app cursor)
+  bindkey -M menuselect '^[[C' _zle_menu-accept-and-key   # Right (xterm)
+  bindkey -M menuselect '^[OC' _zle_menu-accept-and-key   # Right (app cursor)
+}
+
+# Restore default complist menuselect Left/Right bindings, and bind Escape
+# to close the menu
+.zshrc:restore-menu-bindings() {
+  bindkey -M menuselect '^[[D' backward-char
+  bindkey -M menuselect '^[OD' backward-char
+  bindkey -M menuselect '^[[C' forward-char
+  bindkey -M menuselect '^[OC' forward-char
+  bindkey -M menuselect '^['   send-break
+}
+
+# Accept the selected history entry, restore default menuselect bindings,
+# and move the cursor.
+function _zle_menu-accept-and-key() {
+  .zshrc:restore-menu-bindings
+  zle .accept-search 2>/dev/null  # exit menu text search if active
+  case "$KEYS" in
+    # The `.` prefix on widgets calls the builtin, exiting menu-select
+    $'\e[D'|$'\eOD') zle .backward-char ;;
+    $'\e[C'|$'\eOC') zle .forward-char  ;;
+  esac
+}
+zle -N _zle_menu-accept-and-key
+
+# Wrapped to restore default menuselect Left/Right before opening a completion menu
+function _zle_menu-complete-restore() {
+  .zshrc:restore-menu-bindings
+  zle menu-complete
+}
+zle -N _zle_menu-complete-restore
+
+# Wrapped to restore default menuselect Left/Right before opening a completion menu
+function _zle_reverse-menu-complete-restore() {
+  .zshrc:restore-menu-bindings
+  zle reverse-menu-complete
+}
+zle -N _zle_reverse-menu-complete-restore
+
+# Catch-all: restore defaults before each new prompt (handles Esc, Ctrl-C,
+# Enter, and any other menu exit path we don't explicitly wrap).
+precmd_functions+=(.zshrc:restore-menu-bindings)
+
+
+##############################################################################
+# History Susbtring Search: Up/Down arrow behavior
+##############################################################################
+# When pressing up/down arrow with an non-empty prompt, we want to do a history
+# substring search. When the prompt is empty, we want to allow zsh-autocomplete
+# to open the history menu.
+
+# When pressing Up arrow, we do a history substring search,
+# but only if there is any text in the prompt.
+function _zle_up-line-or-search-or-history() {
+  if [ "$BUFFER" ]; then
+    zle history-substring-search-up
+  else
+    # Rebind Left/Right so that they accept the history entry
+    .zshrc:bind-menu-accept-and-key
+    zle up-line-or-search
+  fi
+}
+zle -N up-line-or-search-or-history _zle_up-line-or-search-or-history
+
+# Step through the substring search history if it is visible, otherwise
+# use the default down-line-or-select.
+function _zle_down-line-or-select-or-history() {
+  # Restore default menuselect Left/Right (in case the history menu was
+  # exited via Esc and a completion menu is about to open).
+  .zshrc:restore-menu-bindings
+  if [[ -n $BUFFER && $BUFFER == ${_history_substring_search_result:-} ]]; then
+    zle history-substring-search-down
+  else
+    zle down-line-or-select
+  fi
+}
+zle -N down-line-or-select-or-history _zle_down-line-or-select-or-history
+
+
+##############################################################################
+# Key Bindings
+##############################################################################
+
+# Space: Magic Space
+bindkey               ' ' magic-space
+# Ctrl+X E: Open command line editor
+bindkey             '^xe' edit-command-line
+# Ctrl+X Ctrl+E: Open command line editor
+bindkey            '^x^e' edit-command-line
+# ⌘←Delete: Delete to beginning of line (mapped by iTerm)
+bindkey              '^H' backward-kill-line
+# ⌘Del→: Delete to end of line (mapped by iTerm)
+bindkey         '^[[3;5~' kill-line
+ # Tab: Cycle through completions
+bindkey              '^I' _zle_menu-complete-restore
+ # Shift-Tab: Cycle through completions
+bindkey "$terminfo[kcbt]" _zle_reverse-menu-complete-restore
+# Up-Arrow: Search History or Default
+bindkey            '^[[A' up-line-or-search-or-history
+# Down-Arrow: Search History or Default
+bindkey            '^[[B' down-line-or-select-or-history
+# Ctrl+R: Backwards history search
+bindkey              '^R' history-incremental-pattern-search-backward

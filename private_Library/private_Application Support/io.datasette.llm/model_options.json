@@ -1,0 +1,8 @@
+{
+  "openrouter/deepseek/glm-5.2": {
+    "provider": "{\"quantizations\": [\"fp8\"]}"
+  },
+  "openrouter/deepseek/deepseek-v4-flash": {
+    "provider": "{\"quantizations\": [\"fp8\"]}"
+  }
+}

@@ -1,5 +1,7 @@
 {
   "free": "openrouter/openrouter/free",
   "auto": "openrouter/openrouter/auto",
-  "glm-5.2": "openrouter/z-ai/glm-5.2"
+  "glm-5.2": "openrouter/z-ai/glm-5.2",
+  "deepseek-v4-flash": "openrouter/deepseek/deepseek-v4-flash",
+  "ds4": "openrouter/deepseek/deepseek-v4-flash"
 }
