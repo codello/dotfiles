@@ -1,3 +1,6 @@
 {{ if .personal -}}
 {"apiKey":"{{ onepasswordRead "op://Private/OpenRouter/API Keys/Personal" "my.1password.eu" }}"}
 {{- end }}
+{{ if .work -}}
+{"apiKey":"{{ range (bitwarden "item" "OpenRouter").fields }}{{ if eq .name "API Key" }}{{ .value }}{{ end }}{{ end }}"}
+{{- end }}
