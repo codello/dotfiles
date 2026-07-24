@@ -2,6 +2,11 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  // Feature Flags
+  "feature_flags": {
+    "sandboxing": "on",
+  },
+
   // Extensions
   "auto_install_extensions": {
     // Themes and Visuals
@@ -17,6 +22,7 @@
 
   // General Settings
   "base_keymap": "JetBrains",
+  "cli_default_open_behavior": "new_window",
 
   // Appearance & Layout
   "icon_theme": "Catppuccin Latte",
@@ -158,6 +164,12 @@
 
   // Language-specific Settings
   "languages": {
+    "JavaScript": {
+      "preferred_line_length": 120,
+      "prettier": {
+        "singleQuote": false,
+      },
+    },
     "Go Text Template": {
       "tab_size": 2,
     },
@@ -172,13 +184,6 @@
     },
     "provider": "copilot",
   },
-  {{ if .work -}}
-  "language_models": {
-    "litellm": {
-      "api_url": "{{ (index (bitwarden "item" "AI Keys").login.uris 0).uri }}",
-    },
-  },
-  {{- end }}
   "agent": {
     "dock": "right",
     "sidebar_side": "right",
@@ -210,6 +215,14 @@
         "model": "@preset/deepseek-v4-flash",
         "enable_thinking": true,
       },
+      {{- if .work }}
+      {
+        "provider": "litellm",
+        "model": "claude-sonnet-4.6",
+        "enable_thinking": true,
+        "effort": "high",
+      },
+      {{- end }}
     ],
     "default_model": {
       "provider": "OpenRouter (OpenAI Compatible)",
@@ -423,6 +436,9 @@
             {
               "pattern": "^(ls|grep|sed|git|awk|find|xargs|cat|head|tail)",
             },
+            {
+              "pattern": "^pre-commit run",
+            },
           ],
         },
 
@@ -458,6 +474,11 @@
         "mcp:MSLearn:microsoft_docs_search": { "default": "allow" },
         "mcp:MSLearn:microsoft_docs_fetch": { "default": "allow" },
         "mcp:MSLearn:microsoft_docs_code_sample_search": { "default": "allow" },
+
+        // Terraform MCP
+        "mcp:terraform-context-server:get_provider_capabilities": {
+          "default": "allow",
+        },
       },
     },
     "sandbox_permissions": {
@@ -471,6 +492,11 @@
     },
   },
   "language_models": {
+    {{ if .work -}}
+    "litellm": {
+      "api_url": "{{ (index (bitwarden "item" "AI Keys").login.uris 0).uri }}",
+    },
+    {{- end }}
     "openai_compatible": {
       "OpenRouter (OpenAI Compatible)": {
         "api_url": "https://openrouter.ai/api/v1",
@@ -511,11 +537,18 @@
     },
   },
   "context_servers": {
+    {{- if .work }}
+    "terraform-context-server": {
+      "enabled": true,
+      "remote": false,
+      "settings": {},
+    },
+    {{- end }}
     "GitHub": {
       "enabled": true,
       "url": "https://api.githubcopilot.com/mcp/",
       "headers": {
-        "Authorization": "{{if .personal }}Bearer {{ onepasswordRead "op://Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}{{ end }}{{ if .work }}{{ range (bitwarden "item" "d1778be8-ddc4-4f0d-94e3-677cad06bc1c").fields }}{{ if eq .name "MCP PAT" }}{{ .value }}{{ end }}{{ end }}{{ end }}",
+        "Authorization": "Bearer {{if .personal }}{{ onepasswordRead "op://Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}{{ end }}{{ if .work }}{{ range (bitwarden "item" "d1778be8-ddc4-4f0d-94e3-677cad06bc1c").fields }}{{ if eq .name "MCP PAT" }}{{ .value }}{{ end }}{{ end }}{{ end }}",
       },
     },
   },
