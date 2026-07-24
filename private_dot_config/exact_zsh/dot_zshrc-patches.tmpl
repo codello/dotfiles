@@ -19,7 +19,7 @@ typeset -gi _zshrc_bsu_pending=0
 }
 
 .zshrc:bsu-end() {
-  (( --_zshrc_bsu_count == 0 )) && print -n '\e[?2026l'
+  (( _zshrc_bsu_count > 0 && --_zshrc_bsu_count == 0 )) && print -n '\e[?2026l'
 }
 
 # End one "pending" p10k BSU reference. Called from the complete fd-widget
@@ -40,30 +40,6 @@ typeset -gi _zshrc_bsu_pending=0
 }
 precmd_functions+=(.zshrc:bsu-cleanup)
 preexec_functions+=(.zshrc:bsu-cleanup)
-
-
-##############################################################################
-# zsh-autocomplete: Prevent recursive completion in MENUSELECT mode
-##############################################################################
-# The async fd-widget callback calls `._list_choices` to refresh the completion
-# list. If this fires while we're in MENUSELECT mode (e.g., after pressing Tab
-# with the menu-select binding, while the async pty roundtrip is in flight),
-# it triggers a recursive-completion crash (`completion cannot be used
-# recursively (yet)`) that can leave pty shells spinning at 100% CPU.
-() {
-  local body="${functions[.autocomplete:async:complete:fd-widget]}"
-  [[ -z $body ]] && return 0  # plugin not loaded
-
-  local old=$'if ! builtin zle ._list_choices'
-  local new=$'if [[ ${LASTWIDGET##.} == ((|reverse-)menu-complete|menu-select) ]] || ! builtin zle ._list_choices'
-
-  local patched="${body//$old/$new}"
-  if [[ "$body" != "$patched" ]]; then
-    functions[.autocomplete:async:complete:fd-widget]="$patched"
-  else
-    print -u2 "zshrc: warning: failed to patch .autocomplete:async:complete:fd-widget (upstream changed?)"
-  fi
-}
 
 ##############################################################################
 # Autocomplete Flicker Fix
@@ -166,9 +142,14 @@ zmodload -F zsh/system b:sysopen 2>/dev/null
 # keep BSU on until the complete fd-widget fires. The complete fd-widget wrapper
 # (above) calls `.zshrc:bsu-end-pending` to end our BSU portion.
 #
-# A safety timeout handles the case where no async refresh is scheduled (e.g.,
-# `.autocomplete:async:complete` returned early). The `precmd`/`preexec` hooks
-# (above) handle the case where ZLE exits before either fires (e.g., Ctrl-C).
+# On interrupt (Ctrl-C / send-break / Escape), the synchronous transient-
+# prompt redraw inside the INT trap is skipped entirely (avoids a one-frame
+# flash of the transient prompt).  Instead, a "pending" BSU is opened that
+# holds the screen until the async completion fd-widget fires, batching
+# the menu-clear, prompt restore, and completion-list refresh into a single
+# frame.  A short safety timeout (100 ms) prevents a visible delay if
+# completions are slow; the `precmd`/`preexec` hooks (above) act as an
+# additional safety net, ending BSU if it is still on when ZLE exits.
 
 # Already loaded by Powerlevel10k, we load it explicitly so this patch is
 # self-sufficient.
@@ -192,20 +173,40 @@ zmodload zsh/zselect 2>/dev/null
     # The original function is a no-op outside ZLE; mirror that here so we
     # don't try to register a `zle -F` fd-handler in a non-ZLE context.
     zle || return 0
-    .zshrc:bsu-start
-    (( _zshrc_bsu_pending++ ))
-    {
-      _p9k_reset_prompt:original "$@"
-    } always {
-      # Schedule a 1-second safety timeout. If the complete fd-widget fires
-      # before this (the common case), it will end BSU via
-      # `.zshrc:bsu-end-pending`. Otherwise, this timeout fires and ends BSU
-      # as a fallback.
+
+    # INT trap (Ctrl-C): skip the synchronous transient-prompt redraw entirely.
+    # The deferred _p9k_restore_prompt (scheduled via `zle -F` on /dev/null)
+    # will rebuild and display the full prompt on the very next ZLE iteration.
+    # Drawing the transient prompt here would cause a one-frame flicker
+    # (transient → full).
+    #
+    # Start a "pending" BSU that stays open until the async completion
+    # fd-widget fires (batching the menu-clear + prompt-restore +
+    # completion-list-refresh into a single frame). A short safety
+    # timeout (100 ms) prevents a visible delay if completions are slow.
+    if (( ${funcstack[(I)_p9k_trapint]} )) || [[ $_p9k__must_restore_prompt == 1 ]]; then
+      .zshrc:bsu-start
+      (( _zshrc_bsu_pending++ ))
       () {
         local fd
-        sysopen -r -o cloexec -u fd <(zselect -t 100; print)
+        sysopen -r -o cloexec -u fd <(zselect -t 20; print)
         zle -F "$fd" .zshrc:bsu-safety-timeout
       }
-    }
+      return
+    fi
+
+    # Called from the deferred _p9k_restore_prompt: the INT-trap's
+    # pending BSU already covers this redraw, so just run the original
+    # without opening another pending BSU window.
+    if (( ${funcstack[(I)_p9k_restore_prompt]} )); then
+      _p9k_reset_prompt:original "$@"
+      return
+    fi
+
+    # Normal (non-interrupt) prompt refresh — batch the prompt redraw
+    # with the upcoming async completion list refresh.
+    .zshrc:bsu-start
+    (( _zshrc_bsu_pending++ ))
+    _p9k_reset_prompt:original "$@"
   }
 }
