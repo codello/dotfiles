@@ -442,6 +442,9 @@
               "pattern": "^(ls|grep|sed|git|awk|find|xargs|cat|head|tail)",
             },
             {
+              "pattern": "^gh repo read-file",
+            },
+            {
               "pattern": "^pre-commit run",
             },
           ],
@@ -575,6 +578,21 @@
             "capabilities": {
               "tools": true,
               "images": false,
+              "parallel_tool_calls": true,
+              "chat_completions": true,
+              "interleaved_reasoning": true,
+              "prompt_cache_key": false,
+              "max_tokens_parameter": true,
+            },
+          },
+          {
+            "display_name": "Kimi K3 (Default)",
+            "name": "moonshotai/kimi-k3",
+            "max_tokens": 1048576,
+            "max_output_tokens": 1048576,
+            "capabilities": {
+              "tools": true,
+              "images": true,
               "parallel_tool_calls": true,
               "chat_completions": true,
               "interleaved_reasoning": true,
