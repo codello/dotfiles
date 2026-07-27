@@ -73,15 +73,18 @@ znap source sineto/web-search
 # direnv
 znap eval direnv 'direnv hook zsh'
 
-# LSCOLORS is used as a fallback for LS_COLORS
-export CLICOLOR=1 LSCOLORS="Gxfxcxdxbxegedabagacad"
+# File Listing Colors
+export CLICOLOR=1
 znap source trapd00r/LS_COLORS
+znap source marlonrichert/zcolors
+GIT_CONFIG_GLOBAL="$XDG_CONFIG_HOME/git/config.d/colors.conf" zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
 # Do NOT feed the full LS_COLORS database to list-colors: complist re-matches
 # it against every entry on every menu redraw (~670 patterns ≈ 250 ms CPU per
 # selection move for entries that match nothing, e.g. git subcommands).
 # Keep LS_COLORS intact for `ls`, but let completion use only the file-type
 # codes (di/ln/ex/...), dropping all per-extension patterns (*.tar, *.md, ...).
-zstyle ':completion:*' list-colors ${${(s.:.)LS_COLORS}:#\*.[^=]*}
+# zstyle ':completion:*' list-colors ${${(s.:.)LS_COLORS}:#\*.[^=]*}
 
 # This should be loaded last
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)

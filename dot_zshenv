@@ -1,2 +1,2 @@
-export ZDOTDIR="${ZDOTDIR:-~/.config/zsh}"
+export ZDOTDIR=${ZDOTDIR:-~/.config/zsh}
 test ! -f "$ZDOTDIR/.zshenv" || source "$ZDOTDIR/.zshenv"
