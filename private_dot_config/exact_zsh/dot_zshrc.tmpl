@@ -74,17 +74,21 @@ znap source sineto/web-search
 znap eval direnv 'direnv hook zsh'
 
 # File Listing Colors
-export CLICOLOR=1
+export CLICOLOR=1 LSCOLORS="Gxfxcxdxbxegedabagacad"
 znap source trapd00r/LS_COLORS
-znap source marlonrichert/zcolors
-GIT_CONFIG_GLOBAL="$XDG_CONFIG_HOME/git/config.d/colors.conf" zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # Do NOT feed the full LS_COLORS database to list-colors: complist re-matches
 # it against every entry on every menu redraw (~670 patterns ≈ 250 ms CPU per
 # selection move for entries that match nothing, e.g. git subcommands).
 # Keep LS_COLORS intact for `ls`, but let completion use only the file-type
 # codes (di/ln/ex/...), dropping all per-extension patterns (*.tar, *.md, ...).
-# zstyle ':completion:*' list-colors ${${(s.:.)LS_COLORS}:#\*.[^=]*}
+zstyle ':completion:*' list-colors ${${(s.:.)LS_COLORS}:#\*.[^=]*}
+# Exception: restore the full database for `ls` completion only. _ls completes
+# files via _arguments, which places file matches in the `argument-rest` group,
+# so scope the full database to that tag *and* the ls command. complist matches
+# *.ext against file names with a cheap suffix compare, so `ls` menus stay fast
+# while non-file menus (git, ...) keep the lean list above.
+zstyle ':completion:*:(ls|gls):*:argument-rest' list-colors "${(s.:.)LS_COLORS}"
 
 # This should be loaded last
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
