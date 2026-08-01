@@ -1,1 +1,1 @@
-openrouter/openrouter/free
+openrouter/deepseek/deepseek-v4-flash-0731

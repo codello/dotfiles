@@ -212,7 +212,7 @@
       },
       {
         "provider": "OpenRouter (OpenAI Compatible)",
-        "model": "@preset/deepseek-v4-flash",
+        "model": "@preset/deepseek-v4-flash-0731",
         "enable_thinking": true,
       },
       {
@@ -231,22 +231,22 @@
     ],
     "default_model": {
       "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "@preset/deepseek-v4-flash",
+      "model": "@preset/deepseek-v4-flash-0731",
       "enable_thinking": true,
     },
     "subagent_model": {
       "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "@preset/deepseek-v4-flash",
+      "model": "@preset/deepseek-v4-flash-0731",
       "enable_thinking": true,
     },
     "inline_assistant_model": {
       "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "@preset/deepseek-v4-flash",
+      "model": "@preset/deepseek-v4-flash-0731",
       "enable_thinking": true,
     },
     "commit_message_model": {
       "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "@preset/deepseek-v4-flash",
+      "model": "@preset/deepseek-v4-flash-0731",
       "enable_thinking": false,
     },
     "thread_summary_model": {
@@ -529,7 +529,22 @@
             "display_name": "DeepSeek V4 Flash (High)",
             "name": "@preset/deepseek-v4-flash",
             "max_tokens": 1048576,
-            "max_output_tokens": 65536,
+            "max_output_tokens": 393200,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": true,
+              "chat_completions": true,
+              "interleaved_reasoning": true,
+              "prompt_cache_key": false,
+              "max_tokens_parameter": true,
+            },
+          },
+          {
+            "display_name": "DeepSeek V4 Flash 0731 (High)",
+            "name": "@preset/deepseek-v4-flash-0731",
+            "max_tokens": 1048576,
+            "max_output_tokens": 393200,
             "capabilities": {
               "tools": true,
               "images": false,
