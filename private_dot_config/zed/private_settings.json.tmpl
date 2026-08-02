@@ -439,13 +439,20 @@
         "terminal": {
           "always_allow": [
             {
-              "pattern": "^(ls|grep|sed|git|awk|find|xargs|cat|head|tail)",
+              // standard unix commands that are safe to run in a terminal
+              "pattern": "^(ls|grep|sed|git|awk|find|xargs|cat|head|tail|echo|cat|wc|cut|sort|uniq|tr|diff|comm|cmp|stat|file|dirname|basename|readlink|realpath|which|whereis|type)",
             },
             {
-              "pattern": "^gh repo read-file",
+              "pattern": "^command -v",
+            },
+            {
+              "pattern": "^gh (repo read-file|repo read-dir|--version)",
             },
             {
               "pattern": "^pre-commit run",
+            },
+            {
+              "pattern": "^kustomize build|kubectl kustomize",
             },
           ],
         },
