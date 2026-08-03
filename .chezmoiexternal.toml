@@ -3,6 +3,7 @@ type  = "git-repo"
 url   = "https://github.com/marlonrichert/zsh-snap.git"
 exact = true
 refreshPeriod = "168h" # once a week
+pull  = { args = ["--quiet"] } # suppress git's "Already up to date." output
 
 [".local/share/zsh/site-functions/_pip"]
 type  = "file"
