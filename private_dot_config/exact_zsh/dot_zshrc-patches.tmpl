@@ -10,7 +10,7 @@
 
 typeset -gi _zshrc_bsu_count=0
 # Counter for "pending" p10k BSU references. Each `_p9k_reset_prompt` call
-# increments this; the complete fd-widget (or safety timeout) decrements it.
+# increments this; the complete callback (or safety timeout) decrements it.
 # This allows multiple overlapping p10k resets to be tracked correctly.
 typeset -gi _zshrc_bsu_pending=0
 
@@ -22,7 +22,7 @@ typeset -gi _zshrc_bsu_pending=0
   (( _zshrc_bsu_count > 0 && --_zshrc_bsu_count == 0 )) && print -n '\e[?2026l'
 }
 
-# End one "pending" p10k BSU reference. Called from the complete fd-widget
+# End one "pending" p10k BSU reference. Called from the complete callback
 # wrapper below and from the p10k safety timeout.
 .zshrc:bsu-end-pending() {
   (( _zshrc_bsu_pending > 0 && _zshrc_bsu_pending-- )) && .zshrc:bsu-end
@@ -45,13 +45,18 @@ preexec_functions+=(.zshrc:bsu-cleanup)
 # Autocomplete Flicker Fix
 ##############################################################################
 # zsh-autocomplete redraws the completion list in multiple steps, producing a
-# visible one-frame blink in iTerm2. We wrap the complete fd-widget with BSU so
-# that the list is cleared and redrawn in a single frame.
-functions[.autocomplete:async:complete:fd-widget:original]="${functions[.autocomplete:async:complete:fd-widget]}"
-.autocomplete:async:complete:fd-widget() {
+# visible one-frame blink in iTerm2. We wrap the async complete callback with
+# BSU so that the list is cleared and redrawn in a single frame.
+#
+# NOTE: Since zsh-autocomplete 26.x, the async list draw moved from the
+# `.autocomplete:async:complete:fd-widget` fd-handler to
+# `.autocomplete:async:complete:callback` (z-async rework). Keep this wrapper
+# pointed at whichever function performs the async list redraw.
+functions[.autocomplete:async:complete:callback:original]="${functions[.autocomplete:async:complete:callback]}"
+.autocomplete:async:complete:callback() {
   .zshrc:bsu-start
   {
-    .autocomplete:async:complete:fd-widget:original "$@"
+    .autocomplete:async:complete:callback:original "$@"
   } always {
     .zshrc:bsu-end
     # Also end any pending p10k prompt-redraw BSU. This is what eliminates
@@ -65,7 +70,7 @@ functions[.autocomplete:async:complete:fd-widget:original]="${functions[.autocom
 # zsh-autocomplete: Suppress list-clear on special characters
 ##############################################################################
 # `.autocomplete:async:complete` calls `builtin zle -Rc` when $KEYS matches the
-# pattern `[- +*]` (space ! " # $ % & ' ( ) * +). This clears the current
+# pattern `([\ -+*]|$'\e\t')` (space, -, +, *, Esc-Tab). This clears the current
 # completion list synchronously, then schedules an async redraw
 # ~50ms later. The gap between clear and redraw is visible as a multi-frame
 # flicker, and because it spans an async boundary, our BSU/ESU wrapper above
@@ -137,15 +142,15 @@ zmodload -F zsh/system b:sysopen 2>/dev/null
 # BSU.
 #
 # `zle .reset-prompt` also clears the completion list via TCCLEAREOD. The list
-# is restored asynchronously by `.autocomplete:async:complete:fd-widget` after
+# is restored asynchronously by `.autocomplete:async:complete:callback` after
 # the pty roundtrip (~50-200ms). To avoid a visible blink during that gap, we
-# keep BSU on until the complete fd-widget fires. The complete fd-widget wrapper
+# keep BSU on until the complete callback fires. The complete callback wrapper
 # (above) calls `.zshrc:bsu-end-pending` to end our BSU portion.
 #
 # On interrupt (Ctrl-C / send-break / Escape), the synchronous transient-
 # prompt redraw inside the INT trap is skipped entirely (avoids a one-frame
 # flash of the transient prompt).  Instead, a "pending" BSU is opened that
-# holds the screen until the async completion fd-widget fires, batching
+# holds the screen until the async completion callback fires, batching
 # the menu-clear, prompt restore, and completion-list refresh into a single
 # frame.  A short safety timeout (100 ms) prevents a visible delay if
 # completions are slow; the `precmd`/`preexec` hooks (above) act as an
@@ -155,7 +160,7 @@ zmodload -F zsh/system b:sysopen 2>/dev/null
 # self-sufficient.
 zmodload zsh/zselect 2>/dev/null
 
-# Safety timeout for p10k BSU. Ends one pending BSU if the complete fd-widget
+# Safety timeout for p10k BSU. Ends one pending BSU if the complete callback
 # never fires. Without this, BSU would stay on indefinitely if no async
 # refresh was scheduled.
 .zshrc:bsu-safety-timeout() {
@@ -181,7 +186,7 @@ zmodload zsh/zselect 2>/dev/null
     # (transient → full).
     #
     # Start a "pending" BSU that stays open until the async completion
-    # fd-widget fires (batching the menu-clear + prompt-restore +
+    # callback fires (batching the menu-clear + prompt-restore +
     # completion-list-refresh into a single frame). A short safety
     # timeout (100 ms) prevents a visible delay if completions are slow.
     if (( ${funcstack[(I)_p9k_trapint]} )) || [[ $_p9k__must_restore_prompt == 1 ]]; then
