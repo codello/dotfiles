@@ -1,0 +1,129 @@
+[GitHub.config]
+enabled = true
+url = "https://api.githubcopilot.com/mcp/"
+
+[GitHub.config.headers]
+Authorization = """Bearer \
+    {{ if .personal }}
+        {{- onepasswordRead "op:#Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}
+    {{- end }}
+    {{- if .work }}
+    {{- range (bitwarden "item" "d1778be8-ddc4-4f0d-94e3-677cad06bc1c").fields }}
+        {{- if eq .name "MCP PAT" }}{{ .value }}{{ end }}
+    {{- end }}{{ end }}"""
+X-MCP-Toolsets = "all"
+
+# See https://github.com/github/github-mcp-server#tools
+[GitHub.tools]
+# Actions
+actions_get = "allow"
+actions_list = "allow"
+actions_run_trigger = true
+get_job_logs = "allow"
+# Code Quality
+get_code_quality_finding = false
+# Code Security
+get_code_scanning_alert = false
+list_code_scanning_alerts = false
+# Context
+get_me = "allow"
+get_team_members = false
+get_teams = false
+# Copilot
+assign_copilot_to_issue = false
+request_copilot_review = false
+get_copilot_job_status = false
+# Copilot Issue Intents
+assign_copilot_to_issue_with_intent = false
+# Dependabot
+get_dependabot_alert = false
+list_dependabot_alerts = false
+# Discussions
+discussion_comment_write = false
+get_discussion = false
+get_discussion_comments = false
+list_discussion_categories = false
+list_discussions = false
+# Gists
+create_gist = false
+get_gist = "allow"
+list_gists = false
+update_gist = false
+# Git
+get_repository_tree = "allow"
+# Issues
+add_issue_comment = false
+issue_read = "allow"
+issue_write = true
+list_issue_fields = false
+list_issue_types = false
+list_issues = "allow"
+search_issues = "allow"
+sub_issue_write = true
+# Labels
+get_label = false
+label_write = false
+list_label = false
+# Notifications
+dismiss_notification = false
+get_notification_details = false
+list_notifications = false
+manage_notification_subscription = false
+manage_repository_notification_subscription = false
+mark_all_notifications_read = false
+# Organizations
+search_orgs = false
+# Projects
+projects_get = true
+projects_list = "allow"
+projects_write = false
+# Pull Requests
+add_comment_to_pending_review = "allow"
+add_reply_to_pull_request_comment = false
+create_pull_request = true
+list_pull_requests = "allow"
+merge_pull_request = false
+pull_request_read = "allow"
+pull_request_review_write = true
+search_pull_requests = "allow"
+update_pull_request = true
+update_pull_request_branch = false
+# Repositories
+create_branch = false
+create_or_update_file = false
+create_repository = false
+delete_file = false
+fork_repository = false
+get_commit = "allow"
+get_file_contents = "allow"
+get_latest_release = false
+get_release_by_tag = false
+get_tag = false
+list_branches = false
+list_commits = "allow"
+list_releases = false
+list_repository_collaborators = false
+list_tags = false
+push_files = false
+search_code = "allow"
+search_commits = "allow"
+search_repositories = "allow"
+# Secret Protection
+get_secret_scanning_alert = false
+list_secret_scanning_alerts = false
+run_secret_scanning = false
+# Security Advisories
+get_global_security_advisory = false
+list_global_security_advisories = false
+list_org_repository_security_advisories = false
+list_repository_security_advisories = false
+# Stargazers
+list_starred_repositories = false
+star_repository = false
+unstar_repository = false
+# Users
+search_users = false
+# Copilot Remote
+create_pull_request_with_copilot = false
+get_copilot_space = false
+github_support_docs_search = "allow"

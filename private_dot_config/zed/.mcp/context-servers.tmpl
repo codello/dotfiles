@@ -1,0 +1,9 @@
+{{- $files := printf "%s/%s" .chezmoi.sourceDir "private_dot_config/zed/.mcp/*.toml" | glob }}
+{{- range $file := $files }}
+    {{- $mcps := fromToml (includeTemplate $file $) -}}
+    {{- range $name, $mcp := $mcps }}
+        {{- if hasKey $mcp "config" }}
+    "{{ $name }}": {{ $mcp.config | toPrettyJson | indent 4 | trim }},
+        {{- end }}
+    {{- end }}
+{{- end -}}

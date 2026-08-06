@@ -1,0 +1,25 @@
+{{ if .personal }}
+# See https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-mcp#list-of-tools
+[Dataverse.tools]
+search_data = true
+search = "allow"
+create_record = false
+update_record = false
+delete_record = false
+create_table = true
+update_table = true
+delete_table = false
+read_query = "allow"
+describe = "allow"
+upsert_skill = false
+delete_skill = false
+init_file_upload = false
+commit_file_upload = false
+file_download = false
+
+[MSLearn.tools]
+# See https://github.com/microsoftdocs/mcp#%EF%B8%8F-currently-supported-tools
+microsoft_docs_search = "allow"
+microsoft_docs_fetch = "allow"
+microsoft_docs_code_sample_search = "allow"
+{{- end }}

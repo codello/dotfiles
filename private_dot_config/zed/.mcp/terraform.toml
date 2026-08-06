@@ -1,0 +1,9 @@
+[terraform-context-server.config]
+enabled = true
+remote = false
+settings = {}
+
+[terraform-context-server.tools]
+search_providers = "allow"
+get_provider_details = "allow"
+get_provider_capabilities = "allow"

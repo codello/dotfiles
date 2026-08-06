@@ -1,0 +1,129 @@
+{{- if .work }}
+[Grafana.config]
+enabled = true
+command = "uvx"
+args = ["mcp-grafana"]
+
+[Grafana.config.env]
+GRAFANA_URL = ""
+GRAFANA_SERVICE_ACCOUNT_TOKEN = ""
+
+[Grafana.tools]
+# See https://github.com/grafana/mcp-grafana#tools
+list_teams = false
+list_users_by_org = false
+list_all_roles = false
+get_role_details = false
+get_role_assignments = false
+list_user_roles = false
+list_team_roles = false
+# Dashboards
+get_resource_permissions = false
+get_resource_description = "allow"
+search_dashboards = "allow"
+get_dashboard_by_uid = "allow"
+update_dashboard = false
+get_dashboard_panel_queries = "allow"
+run_panel_query = "allow"
+get_dashboard_property = "allow"
+get_dashboard_summary = "allow"
+# Datasources
+list_datasources = "allow"
+get_datasource = "allow"
+get_query_examples = "allow"
+# Prometheus
+query_prometheus = "allow"
+list_prometheus_metric_metadata = "allow"
+list_prometheus_metric_names = "allow"
+list_prometheus_label_names = "allow"
+list_prometheus_label_values = "allow"
+query_prometheus_histogram = "allow"
+# Incident
+list_incidents = false
+create_incident = false
+add_activity_to_incident = false
+get_incident = false
+# Loki
+query_loki_logs = "allow"
+list_loki_label_names = "allow"
+list_loki_label_values = "allow"
+query_loki_stats = "allow"
+query_loki_patterns = "allow"
+analyze_loki_labels = "allow"
+suggest_loki_alloy_label_config = "allow"
+# InfluxDB
+query_influxdb = false
+# ClickHouse
+list_clickhouse_tables = false
+describe_clickhouse_table = false
+query_clickhouse = false
+# CloudWatch
+list_cloudwatch_namespaces = false
+list_cloudwatch_metrics = false
+list_cloudwatch_dimensions = false
+query_cloudwatch = false
+# Athena
+list_athena_catalogs = false
+list_athena_databases = false
+list_athena_tables = false
+describe_athena_table = false
+query_athena = false
+# Elasticsearch/OpenSearch
+query_elasticsearch = false
+# Quickwit
+query_quickwit = false
+# Snowflake
+list_snowflake_tables = false
+describe_snowflake_table = false
+query_snowflake = false
+# Alerting
+alerting_manage_rules = false
+alerting_manage_routing = false
+# OnCall
+list_oncall_schedules = false
+get_oncall_shift = false
+get_current_oncall_users = false
+list_oncall_teams = false
+list_oncall_users = false
+list_alert_groups = false
+get_alert_group = false
+# Sift
+get_sift_investigation = false
+get_sift_analysis = false
+list_sift_investigations = false
+find_error_pattern_logs = false
+find_slow_requests = false
+# Pyroscope
+list_pyroscope_label_names = false
+list_pyroscope_label_values = false
+list_pyroscope_profile_types = false
+query_pyroscope = false
+# Asserts
+get_assertions = false
+# Agent Observability
+agento11y_manage_conversations = false
+agento11y_manage_generations = false
+agento11y_manage_agents = false
+agento11y_manage_evaluators = false
+agento11y_manage_eval_rules = false
+agento11y_manage_eval_collections = false
+# Assistant
+ask_assistant = false
+# Navigation
+generate_deeplink = false
+# Annotations
+get_annotations = false
+create_annotation = false
+update_annotation = false
+get_annotation_tags = false
+# Snapshots
+list_snapshots = false
+get_snapshot = false
+create_snapshot = false
+delete_snapshot = false
+# Rendering
+get_panel_image = false
+# Provisioning
+list_provisioning_repositories = false
+validate_provisioning_file = false
+{{- end }}

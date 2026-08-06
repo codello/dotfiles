@@ -1,0 +1,20 @@
+{{- $first := true -}}
+
+{{- $files := printf "%s/%s" .chezmoi.sourceDir "private_dot_config/zed/.mcp/*.toml" | glob }}
+{{- range $file := $files }}
+    {{- $mcps := fromToml (includeTemplate $file $) -}}
+    {{- range $name, $mcp := $mcps }}
+        {{- if hasKey $mcp "tools" }}
+        {{- if not $first }}
+        {{ end }}
+        {{- $first = false }}
+        // {{ $name }} Tools
+            {{- range $tool, $enabled := $mcp.tools }}
+                {{- if kindIs "string" $enabled }}
+        "mcp:{{ $name }}:{{ $tool }}": { "default": "{{ $enabled }}" },
+                {{- end }}
+            {{- end }}
+        {{- end }}
+
+    {{- end }}
+{{- end -}}
