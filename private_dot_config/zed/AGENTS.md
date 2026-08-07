@@ -1,5 +1,7 @@
 # Global Agent Instructions
 
+If you are not sure what the user means or how the user's instruction relate to the existing code, aks the user for clarification. Do not blindly guess. Do not immediately scan upstream code if the user may be able to provide clarification with a simple question.
+
 ## GitHub MCP
 
 When accessing GitHub, always use MCP tools (e.g. `github`-prefixed tools). Do not use `curl`, `gh`, `git`, `fetch`, or any other non-MCP mechanism to reach GitHub. If no GitHub MCP tools are available, pause and inform the user so that MCP access can be restored.

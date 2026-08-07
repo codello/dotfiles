@@ -1,9 +1,19 @@
-[terraform-context-server.config]
+# See https://github.com/hashicorp/terraform-mcp-server
+[Terraform.config]
 enabled = true
-remote = false
-settings = {}
+command = "docker"
+args = ["run", "-i", "--rm", "hashicorp/terraform-mcp-server", "--toolsets=registry"]
 
-[terraform-context-server.tools]
+[Terraform.tools]
+# Providers
 search_providers = "allow"
 get_provider_details = "allow"
 get_provider_capabilities = "allow"
+get_latest_provider_version = "allow"
+# Modules
+search_modules = false
+get_module_details = false
+get_latest_module_version = false
+# Policies
+search_policies = false
+get_policy_details = false
