@@ -5,7 +5,7 @@ url = "https://api.githubcopilot.com/mcp/"
 [GitHub.config.headers]
 Authorization = """Bearer \
     {{ if .personal }}
-        {{- onepasswordRead "op:#Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}
+        {{- onepasswordRead "op://Private/GitHub/Personal Access Tokens/MCP Personal" "my.1password.eu" }}
     {{- end }}
     {{- if .work }}
     {{- range (bitwarden "item" "d1778be8-ddc4-4f0d-94e3-677cad06bc1c").fields }}
@@ -127,3 +127,5 @@ search_users = false
 create_pull_request_with_copilot = false
 get_copilot_space = false
 github_support_docs_search = "allow"
+# Copilot Online (Undocumented)
+web_search = "allow"

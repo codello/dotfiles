@@ -1,0 +1,7 @@
+[Everything.config]
+enabled = false
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-everything"]
+
+[Everything.tools]
+get-env = false

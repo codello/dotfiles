@@ -1,10 +1,16 @@
 # Global Agent Instructions
 
-If you are not sure what the user means or how the user's instruction relate to the existing code, aks the user for clarification. Do not blindly guess. Do not immediately scan upstream code if the user may be able to provide clarification with a simple question.
+If you are not sure what the user means or how the user's instruction relate to the existing code, aks for clarification. Do not blindly guess. Do not immediately scan upstream code if the user may be able to provide clarification with a simple question.
+
+## Terminal Commands
+
+You have access to a directory for temporary files at `$TMPDIR`. However, you cannot use the `$TMPDIR` variable directly for shell substitutions. Instead run `printenv TMPDIR` to get the path use the path directly in your commands.
+
+Remember to use `head_lines` and `tail_lines` of the terminal command instead of piping the output to `head` or `tail`. This allows the user to see the full output, giving a better user experience.
 
 ## GitHub MCP
 
-When accessing GitHub, always use MCP tools (e.g. `github`-prefixed tools). Do not use `curl`, `gh`, `git`, `fetch`, or any other non-MCP mechanism to reach GitHub. If no GitHub MCP tools are available, pause and inform the user so that MCP access can be restored.
+When accessing GitHub, always use MCP tools (e.g. `github`-prefixed tools). Do not use `curl`, `gh`, `git`, `fetch`, or any other non-MCP mechanism to reach GitHub. If no GitHub MCP tools are available, stop and inform the user.
 
 There is one exception: the `get_file_contents` tool returns the file as an attachment. If you only see "successfully downloaded text file" but not the file contents, you can try the following alternatives:
 
