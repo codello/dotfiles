@@ -303,29 +303,59 @@
         "delete_path": { "default": "allow" },
         "terminal": {
           "always_allow": [
-            {
-              // standard unix commands that are safe to run in a terminal
-              "pattern": "^(ls|grep|sed|git|awk|find|xargs|cat|head|tail|echo|cat|wc|cut|sort|uniq|tr|diff|comm|cmp|stat|file|dirname|basename|readlink|realpath|which|whereis|type)",
-            },
-            { "pattern": "^command -v" },
             { "pattern": "^printenv TMPDIR$" },
-            { "pattern": "^gh (repo read-file|repo read-dir|--version)" },
-            { "pattern": "^pre-commit run" },
+            // Command Introspection
+            { "pattern": "^(which|whereis|type|command -v)" },
+            // File and Directory Operations
+            { "pattern": "^(pwd|dirname|basename|readlink|realpath|stat|file)" },
+            // Standard Unix Commands
+            { "pattern": "^(ls|grep|sed|awk|find|cat|head|tail|echo|wc|cut|sort|uniq|tr|diff|comm|cmp)" },
+            // Typical Development Tools
+            { "pattern": "^(jq|yq|git)" },
+            { "pattern": "^pre-commit (help|run|validate-config|validate-manifest)" },
+            // GitHub CLI read-only commands
+            { "pattern": "^gh (--version|auth status|status|config get)" },
+            { "pattern": "^gh repo (read-file|read-dir|gitignore|license)" },
+            // DevOps Tooling
+            { "pattern": "^(terraform|tofu) (init|plan|validate|fmt)" },
             { "pattern": "^kustomize build|kubectl kustomize" },
+            { "pattern": "^helm (template|show|lint|env|version|verify)" },
+            { "pattern": "^helm get (all|manifest|values|notes|hooks|metadata)" },
+            // Language-specific Tooling
             { "pattern": "^cargo (build|check|test|fmt|clippy)" },
+            { "pattern": "^go (build|test|fmt|vet|list|mod tidy)" },
+            // Dotfiles and Configuration Management
+            { "pattern": "^chezmoi (diff|status|data|execute-template)" },
+          ],
+          "always_confirm": [
+            // always confirm writes via terminal tools, these don't land in the agent diff
+            { "pattern": "^sed\\b.*(\\s-[a-z]*i[a-z]*\\b|--in-place\\b)" },
+            { "pattern": "^awk\\b.*(>>?\\s*[\"']|system\\s*\\()" },
+            { "pattern": "^find\\b.*(-delete\\b|-exec\\b|-execdir\\b|-ok\\b)" },
           ],
         },
-
         {{- includeTemplate "private_dot_config/zed/.mcp/tool-permissions.tmpl" . }}
       },
     },
     "sandbox_permissions": {
       "network_hosts": [
+        // GitHub Content and Docs
         "github.com",
         "docs.github.com",
         "raw.githubusercontent.com",
+
+        // STACKIT Docs
+        "https://docs.stackit.cloud",
         "docs.api.stackit.cloud",
-        "docs.renovatebot.com",
+
+        // Docs for Development Tooling
+        "docs.renovatebot.com", // Renovate
+        "pkg.go.dev",
+      ],
+      "write_paths": [
+        // Helm config and caches
+        "{{ .chezmoi.homeDir }}/.config/helm",
+        "{{ .chezmoi.homeDir }}/Library/Caches/helm",
       ],
       "allow_all_hosts": false,
     },
@@ -339,7 +369,7 @@
     },
   },
   "language_models": {
-    {{ if .work -}}
+    {{- if .work }}
     "litellm": {
       "api_url": "{{ (index (bitwarden "item" "AI Keys").login.uris 0).uri }}",
     },

@@ -8,7 +8,7 @@
               {{- range $tool, $enabled := $mcp.tools }}
               "{{ $tool }}": {{ $enabled | not | not }},
               {{- end }}
-            }
+            },
           },
         {{- end }}
     {{- end }}

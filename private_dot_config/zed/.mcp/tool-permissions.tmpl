@@ -5,8 +5,7 @@
     {{- $mcps := fromToml (includeTemplate $file $) -}}
     {{- range $name, $mcp := $mcps }}
         {{- if hasKey $mcp "tools" }}
-        {{- if not $first }}
-        {{ end }}
+        {{- if not $first }}{{ printf "\n" }}{{ end }}
         {{- $first = false }}
         // {{ $name }} Tools
             {{- range $tool, $enabled := $mcp.tools }}
