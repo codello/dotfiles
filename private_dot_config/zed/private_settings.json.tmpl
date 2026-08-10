@@ -334,6 +334,10 @@
             { "pattern": "^awk\\b.*(>>?\\s*[\"']|system\\s*\\()" },
             { "pattern": "^find\\b.*(-delete\\b|-exec\\b|-execdir\\b|-ok\\b)" },
           ],
+          "always_deny": [
+            // never run find against the home directory
+            { "pattern": "^find {{ .chezmoi.homeDir }}/?\\s" },
+          ],
         },
         {{- includeTemplate "private_dot_config/zed/.mcp/tool-permissions.tmpl" . }}
       },
@@ -344,9 +348,10 @@
         "github.com",
         "docs.github.com",
         "raw.githubusercontent.com",
+        "release-assets.githubusercontent.com",
 
         // STACKIT Docs
-        "https://docs.stackit.cloud",
+        "docs.stackit.cloud",
         "docs.api.stackit.cloud",
 
         // Docs for Development Tooling

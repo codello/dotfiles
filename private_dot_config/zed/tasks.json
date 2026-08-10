@@ -1,0 +1,13 @@
+[
+  {
+    "label": "Install pre-commit hooks",
+    "command": "[ -f .pre-commit-config.yaml ] || [ -f .pre-commit-config.yml ] && pre-commit install",
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "hooks": ["create_worktree"],
+    "reveal": "no_focus",
+    "hide": "on_success",
+    "show_command": false,
+    "show_summary": false,
+    "use_new_terminal": true,
+  },
+]
