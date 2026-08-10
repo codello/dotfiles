@@ -6,7 +6,7 @@ If you are not sure what the user means or how the user's instruction relate to 
 
 You have access to a directory for temporary files at `$TMPDIR`. However, you cannot use the `$TMPDIR` variable directly for shell substitutions. Instead run `printenv TMPDIR` to get the path use the path directly in your commands.
 
-Always use `head_lines` and `tail_lines` parameters of the terminal tool instead of piping the output to `head` or `tail`. This provides a much better user experience.
+Never pipe terminal output through `head`, `tail`, `sed -n`, or similar. Always use the `head_lines` / `tail_lines` parameters of the `terminal` tool instead. Piping hides valuable output from the user and significantly impacts user experience.
 
 ## GitHub MCP
 
