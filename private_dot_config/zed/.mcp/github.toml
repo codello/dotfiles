@@ -127,5 +127,6 @@ search_users = false
 create_pull_request_with_copilot = false
 get_copilot_space = false
 github_support_docs_search = "allow"
-# Copilot Online (Undocumented)
+
+# Copilot-hosted Features (undocumented)
 web_search = "allow"
