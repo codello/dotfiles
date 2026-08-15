@@ -125,6 +125,7 @@ unstar_repository = false
 search_users = false
 # Copilot Remote
 create_pull_request_with_copilot = false
+list_copilot_spaces = false
 get_copilot_space = false
 github_support_docs_search = "allow"
 
