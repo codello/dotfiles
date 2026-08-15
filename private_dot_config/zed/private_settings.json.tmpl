@@ -161,6 +161,14 @@
   "file_types": {
     "GitHub Actions": ["**/.github/workflows/*"],
     "Go Text Template": ["*.tpl", "**/templates/*.yaml"],
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml",
+      "**/values*.yaml"
+    ]
   },
 
   // Language-specific Settings
@@ -363,6 +371,8 @@
         // Helm config and caches
         "{{ .chezmoi.homeDir }}/.config/helm",
         "{{ .chezmoi.homeDir }}/Library/Caches/helm",
+        // uv caches
+        "{{ .chezmoi.homeDir }}/Library/Caches/uv",
       ],
       "allow_all_hosts": false,
     },
