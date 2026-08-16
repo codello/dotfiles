@@ -1,4 +1,3 @@
-{{- if .work }}
 [Grafana.config]
 enabled = true
 command = "uvx"
@@ -126,4 +125,3 @@ get_panel_image = false
 # Provisioning
 list_provisioning_repositories = false
 validate_provisioning_file = false
-{{- end }}
