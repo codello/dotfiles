@@ -12,14 +12,14 @@
     },
   },
   {
-    "context": "Editor && mode != full",
+    "context": "Editor",
     "bindings": {
-      "shift-enter": "search::SelectPreviousMatch",
+      "alt-cmd-s": "workspace::SaveWithoutFormat",
     },
   },
   {
     // workaround for https://github.com/zed-industries/zed/issues/62696
-    "context": "BufferSearchBar > Editor",
+    "context": "BufferSearchBar && !in_replace > Editor",
     "bindings": {
       "shift-enter": "search::SelectPreviousMatch",
     },
