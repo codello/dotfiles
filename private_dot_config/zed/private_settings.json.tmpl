@@ -274,6 +274,7 @@
         "name": "Coding Agent",
         "enable_all_context_servers": true,
         "tools": {
+          "ask_user": true,
           "copy_path": true,
           "create_directory": true,
           "create_thread": true,
@@ -318,7 +319,7 @@
             // File and Directory Operations
             { "pattern": "^(pwd|dirname|basename|readlink|realpath|stat|file)" },
             // Standard Unix Commands
-            { "pattern": "^(ls|grep|sed|awk|find|cat|head|tail|echo|wc|cut|sort|uniq|tr|diff|comm|cmp)" },
+            { "pattern": "^(ls|grep|sed|awk|find|cat|head|tail|echo|wc|cut|sort|uniq|tr|diff|comm|cmp|sleep)" },
             // Typical Development Tools
             { "pattern": "^(jq|yq|git)" },
             { "pattern": "^pre-commit (help|run|validate-config|validate-manifest)" },

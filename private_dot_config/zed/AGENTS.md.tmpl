@@ -12,6 +12,8 @@ Never pipe terminal output through `head`, `tail`, `sed -n`, or similar. Always 
 
 When accessing GitHub, always use MCP tools (e.g. `github`-prefixed tools). Do not use `curl`, `gh`, `git`, `fetch`, or any other non-MCP mechanism to reach GitHub. If no GitHub MCP tools are available, stop and inform the user.
 
+One exception to this rule: If you want to fetch a file from a public GitHub repository and you are sure that you want to read the entire file, you can use the `fetch` tool instead of the `get_file_contents` MCP tool. Do not do this for large files or files that contain non-text content.
+
 {{- if .personal }}
 There is one exception: the `get_file_contents` tool returns the file as an attachment. If you only see "successfully downloaded text file" but not the file contents, you can try the following alternatives:
 
