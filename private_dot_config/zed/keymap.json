@@ -18,9 +18,10 @@
     },
   },
   {
-    "context": "Editor",
+    // workaround for https://github.com/zed-industries/zed/issues/62696
+    "context": "BufferSearchBar > Editor",
     "bindings": {
-      "alt-cmd-s": "workspace::SaveWithoutFormat",
+      "shift-enter": "search::SelectPreviousMatch",
     },
   },
 ]
