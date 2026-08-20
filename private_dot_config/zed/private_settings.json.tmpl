@@ -346,7 +346,7 @@
           ],
           "always_deny": [
             // never run find against the home directory
-            { "pattern": "^find {{ .chezmoi.homeDir }}/?\\s" },
+            { "pattern": "^find ({{ .chezmoi.homeDir }}|~)/?\\s" },
           ],
         },
         {{- includeTemplate "private_dot_config/zed/.mcp/tool-permissions.tmpl" . }}
