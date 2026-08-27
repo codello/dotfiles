@@ -29,6 +29,7 @@ get_dashboard_summary = "allow"
 # Datasources
 list_datasources = "allow"
 get_datasource = "allow"
+check_datasources_health = "allow"
 get_query_examples = "allow"
 # Prometheus
 query_prometheus = "allow"

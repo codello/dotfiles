@@ -215,18 +215,18 @@
         "enable_thinking": true,
       },
       {
-        "provider": "OpenRouter (OpenAI Compatible)",
-        "model": "z-ai/glm-5.2@preset/high",
+        "provider": "open_router",
+        "model": "deepseek/deepseek-v4-flash-0731",
         "enable_thinking": true,
       },
       {
-        "provider": "OpenRouter (OpenAI Compatible)",
-        "model": "deepseek/deepseek-v4-flash-0731@preset/high",
+        "provider": "open_router",
+        "model": "z-ai/glm-5.2",
         "enable_thinking": true,
       },
       {
-        "provider": "OpenRouter (OpenAI Compatible)",
-        "model": "xiaomi/mimo-v2.5@preset/high",
+        "provider": "open_router",
+        "model": "xiaomi/mimo-v2.5",
         "enable_thinking": true,
       },
       {{- if .work }}
@@ -239,28 +239,28 @@
       {{- end }}
     ],
     "default_model": {
-      "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "deepseek/deepseek-v4-flash-0731@preset/high",
+      "provider": "open_router",
+      "model": "deepseek/deepseek-v4-flash-0731",
       "enable_thinking": true,
     },
     "subagent_model": {
-      "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "deepseek/deepseek-v4-flash-0731@preset/high",
+      "provider": "open_router",
+      "model": "deepseek/deepseek-v4-flash-0731",
       "enable_thinking": true,
     },
     "inline_assistant_model": {
-      "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "deepseek/deepseek-v4-flash-0731@preset/high",
+      "provider": "open_router",
+      "model": "deepseek/deepseek-v4-flash-0731",
       "enable_thinking": true,
     },
     "commit_message_model": {
-      "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "deepseek/deepseek-v4-flash-0731@preset/high",
+      "provider": "open_router",
+      "model": "deepseek/deepseek-v4-flash-0731",
       "enable_thinking": false,
     },
     "thread_summary_model": {
-      "provider": "OpenRouter (OpenAI Compatible)",
-      "model": "z-ai/glm-5.2@preset/high",
+      "provider": "open_router",
+      "model": "deepseek/deepseek-v4-flash-0731",
       "enable_thinking": false,
     },
 
@@ -392,103 +392,34 @@
       "api_url": "{{ (index (bitwarden "item" "AI Keys").login.uris 0).uri }}",
     },
     {{- end }}
-    "openai_compatible": {
-      "OpenRouter (OpenAI Compatible)": {
-        "api_url": "https://openrouter.ai/api/v1",
-        "available_models": [
-          {
-            "display_name": "GLM 5.2 (High)",
-            "name": "z-ai/glm-5.2@preset/high",
-            "max_tokens": 1048576,
-            "max_output_tokens": 131072,
-            "reasoning_effort": "high",
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "chat_completions": true,
-              "interleaved_reasoning": true,
-              "prompt_cache_key": false,
-              "max_tokens_parameter": true,
-            },
+    "open_router": {
+      "available_models": [
+        {
+          "display_name": "DeepSeek V4 Flash 0731",
+          "name": "deepseek/deepseek-v4-flash-0731",
+          "max_tokens": 1048576,
+          "max_output_tokens": 393200,
+          "mode": { "type": "adaptive" },
+          "reasoning_effort": "high",
+          "supports_images": false,
+          "supports_tools": true,
+          "provider": {
+            "only": ["relace", "decart", "deepinfra"], // deepinfra, novita
           },
-          {
-            "display_name": "DeepSeek V4 Flash (High)",
-            "name": "deepseek/deepseek-v4-flash@preset/high",
-            "max_tokens": 1048576,
-            "max_output_tokens": 393200,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "chat_completions": true,
-              "interleaved_reasoning": true,
-              "prompt_cache_key": false,
-              "max_tokens_parameter": true,
-            },
-          },
-          {
-            "display_name": "DeepSeek V4 Flash 0731 (High)",
-            "name": "deepseek/deepseek-v4-flash-0731@preset/high",
-            "max_tokens": 1048576,
-            "max_output_tokens": 393200,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "chat_completions": true,
-              "interleaved_reasoning": true,
-              "prompt_cache_key": false,
-              "max_tokens_parameter": true,
-            },
-          },
-          {
-            "display_name": "MiMo V2.5 (High)",
-            "name": "xiaomi/mimo-v2.5@preset/high",
-            "max_tokens": 1048576,
-            "max_output_tokens": 131072,
-            "capabilities": {
-              "tools": true,
-              "images": true,
-              "parallel_tool_calls": true,
-              "chat_completions": true,
-              "interleaved_reasoning": true,
-              "prompt_cache_key": false,
-              "max_tokens_parameter": true,
-            },
-          },
-          {
-            "display_name": "MiMo V2.5 Pro (High)",
-            "name": "xiaomi/mimo-v2.5-pro@preset/high",
-            "max_tokens": 1048576,
-            "max_output_tokens": 131072,
-            "capabilities": {
-              "tools": true,
-              "images": false,
-              "parallel_tool_calls": true,
-              "chat_completions": true,
-              "interleaved_reasoning": true,
-              "prompt_cache_key": false,
-              "max_tokens_parameter": true,
-            },
-          },
-          {
-            "display_name": "Kimi K3 (Default)",
-            "name": "moonshotai/kimi-k3",
-            "max_tokens": 1048576,
-            "max_output_tokens": 1048576,
-            "capabilities": {
-              "tools": true,
-              "images": true,
-              "parallel_tool_calls": true,
-              "chat_completions": true,
-              "interleaved_reasoning": true,
-              "prompt_cache_key": false,
-              "max_tokens_parameter": true,
-            },
-          },
-        ],
-      },
+        },
+        {
+          "display_name": "GLM 5.2",
+          "name": "z-ai/glm-5.2",
+          "max_tokens": 1048576,
+          "max_output_tokens": 131072,
+          "reasoning_effort": "high",
+          "supports_images": false,
+          "supports_tools": true,
+          "provider": {
+            "only": ["novita", "decart"],
+          }
+        }
+      ],
     },
   },
 }
