@@ -2,9 +2,20 @@
 
 If you are not sure what the user means or how the user's instruction relate to the existing code, aks for clarification. Do not blindly guess. Do not immediately scan upstream code if the user may be able to provide clarification with a simple question.
 
+## Comments
+
+Keep the length of code comments short. Do not write redundant comments that describe the code. Only write comments if an explanation is needed, why the code looks like it does.
+
+Make sure that comments only relate to the code in its final state. Do not comment why a certain approach was NOT chosen. Remove any historical approaches when the corresponding code is removed/updated. Do not document alternatives that were considered but not implemented.
+
 ## Terminal Commands
 
-You have access to a directory for temporary files at `$TMPDIR`. However, you cannot use the `$TMPDIR` variable directly for shell substitutions. Instead run `printenv TMPDIR` to get the path use the path directly in your commands.
+{{- if eq .chezmoi.os "darwin" }}
+You have access to a directory for temporary files at `$TMPDIR`. The directory is dedicated to this conversation. Do not use `/tmp`.
+{{- if not .work }}
+However, you cannot use the `$TMPDIR` variable directly for shell substitutions. Instead run `printenv TMPDIR` to get the path use the path directly in your commands.
+{{- end }}
+{{- end }}
 
 Never pipe terminal output through `head`, `tail`, `sed -n`, or similar. Always use the `head_lines` / `tail_lines` parameters of the `terminal` tool instead. Piping hides valuable output from the user and significantly impacts user experience.
 
