@@ -4,13 +4,11 @@
   "git-submodules": {
     "enabled": true
   },
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["(^|\\/).chezmoiexternal.toml$"],
-      "matchStrings": [
-        "url\\s*=\\s*\"https:\\/\\/github.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/archive\\/refs\\/tags\\/(?<currentValue>\\d+(\\.\\d+)*).zip\"",
-        "url\\s*=\\s*\"https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/refs\\/tags\\/(?<currentValue>[^\\/]+)\\/"
-      ],
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|\\/).chezmoiexternal.toml$/"],
+      "matchStrings": ["url\\s*=\\s*\"https:\\/\\/github.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/archive\\/refs\\/tags\\/(?<currentValue>\\d+(\\.\\d+)*).zip\"", "url\\s*=\\s*\"https:\\/\\/raw\\.githubusercontent\\.com\\/(?<depName>[^\\/]+\\/[^\\/]+)\\/refs\\/tags\\/(?<currentValue>[^\\/]+)\\/"],
       "datasourceTemplate": "github-tags",
       "versioningTemplate": "loose"
     }
