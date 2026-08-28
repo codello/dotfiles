@@ -48,6 +48,8 @@ function edit() {
 # ZSH Plugins
 ##############################################################################
 # Autocompletion
+znap clone marlonrichert/zasync # required by zsh-autocomplete
+fpath=( "$XDG_DATA_HOME/zsh/plugins/marlonrichert/zasync" $fpath )
 znap source marlonrichert/zsh-autocomplete
 zstyle ':autocomplete:*' add-semicolon no
 zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
