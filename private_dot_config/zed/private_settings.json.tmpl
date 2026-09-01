@@ -321,7 +321,7 @@
             // Standard Unix Commands
             { "pattern": "^(ls|grep|sed|awk|find|cat|head|tail|echo|wc|cut|sort|uniq|tr|diff|comm|cmp|sleep)" },
             // Typical Development Tools
-            { "pattern": "^(jq|yq|git)" },
+            { "pattern": "^(jq|yq|git|xmllint)" },
             { "pattern": "^pre-commit (help|run|validate-config|validate-manifest)" },
             // GitHub CLI read-only commands
             { "pattern": "^gh (--version|auth status|status|config get)" },
@@ -374,6 +374,8 @@
         "{{ .chezmoi.homeDir }}/Library/Caches/helm",
         // uv caches
         "{{ .chezmoi.homeDir }}/Library/Caches/uv",
+        // Terraform Cache
+        "{{ .chezmoi.homeDir }}/Library/Caches/terraform",
       ],
       "allow_all_hosts": false,
     },
