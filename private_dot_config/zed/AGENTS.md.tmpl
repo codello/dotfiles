@@ -18,6 +18,7 @@ However, you cannot use the `$TMPDIR` variable directly for shell substitutions.
 {{- end }}
 
 Never pipe terminal output through `head`, `tail`, `sed -n`, or similar. Always use the `head_lines` / `tail_lines` parameters of the `terminal` tool instead. Piping hides valuable output from the user and significantly impacts user experience.
+`head_lines` and `tail_lines` are **not** shell commands. They have to be supplied as parameters to the tool call.
 
 ## GitHub MCP
 
