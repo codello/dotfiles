@@ -318,6 +318,7 @@
             { "pattern": "^(which|whereis|type|command -v)" },
             // File and Directory Operations
             { "pattern": "^(pwd|dirname|basename|readlink|realpath|stat|file|mkdir)" },
+            { "pattern": "^> $TMPDIR/" },
             // Standard Unix Commands
             { "pattern": "^(ls|grep|sed|awk|find|cat|head|tail|echo|wc|cut|sort|uniq|tr|diff|comm|cmp|sleep)" },
             // Typical Development Tools
@@ -334,7 +335,7 @@
             { "pattern": "^helm get (all|manifest|values|notes|hooks|metadata)" },
             // Language-specific Tooling
             { "pattern": "^cargo (build|check|test|fmt|clippy)" },
-            { "pattern": "^go (build|test|fmt|vet|list|mod tidy)" },
+            { "pattern": "^go (env|build|test|fmt|vet|list|mod tidy)" },
             // Dotfiles and Configuration Management
             { "pattern": "^chezmoi (diff|status|data|execute-template)" },
           ],
@@ -370,12 +371,16 @@
       ],
       "write_paths": [
         // Helm config and caches
-        "{{ .chezmoi.homeDir }}/.config/helm",
-        "{{ .chezmoi.homeDir }}/Library/Caches/helm",
+        "{{ .chezmoi.homeDir }}/.config/helm/",
+        "{{ .chezmoi.homeDir }}/Library/Caches/helm/",
         // uv caches
-        "{{ .chezmoi.homeDir }}/Library/Caches/uv",
+        "{{ .chezmoi.homeDir }}/Library/Caches/uv/",
         // Terraform Cache
-        "{{ .chezmoi.homeDir }}/Library/Caches/terraform",
+        "{{ .chezmoi.homeDir }}/Library/Caches/terraform/",
+        // Go cache
+        "/Users/kim.wittenburg/.local/share/go/pkg/sumdb/",
+        "{{ .chezmoi.homeDir }}/Library/Caches/go/cache/",
+        "{{ .chezmoi.homeDir }}/Library/Caches/go-build/",
       ],
       "allow_all_hosts": false,
     },

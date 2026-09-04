@@ -9,6 +9,7 @@ GRAFANA_SERVICE_ACCOUNT_TOKEN = ""
 
 [Grafana.tools]
 # See https://github.com/grafana/mcp-grafana#tools
+user_info = false
 list_teams = false
 list_users_by_org = false
 list_all_roles = false
@@ -16,6 +17,9 @@ get_role_details = false
 get_role_assignments = false
 list_user_roles = false
 list_team_roles = false
+# Docs
+search_docs = "allow"
+get_doc = "allow"
 # Dashboards
 get_resource_permissions = false
 get_resource_description = "allow"
