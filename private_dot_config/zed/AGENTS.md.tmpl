@@ -4,9 +4,22 @@ If you are not sure what the user means or how the user's instruction relate to 
 
 ## Comments
 
+Comments describe intent and constraints, not implementation. When a change only alters the implementation of already-commented code (bug fix, refactor) and the documented behavior stays the same, keep the existing comments unchanged — do not reword, expand, or explain the new mechanism. Only touch a comment when it becomes factually wrong, or when the documented behavior itself changes.
+
 Keep the length of code comments short. Do not write redundant comments that describe the code. Only write comments if an explanation is needed, why the code looks like it does.
 
 Make sure that comments only relate to the code in its final state. Do not comment why a certain approach was NOT chosen. Remove any historical approaches when the corresponding code is removed/updated. Do not document alternatives that were considered but not implemented.
+
+## Documentation
+
+Documentation (READMEs, docstrings, etc.) formalizes contracts. It should be clear and concise and should not contain any implementation details.
+Not every behavior has to be part of the contract. If a behavior is not documented, it is not guaranteed to be stable and may change in the future. Explicitly mentioning "contract", "undefined behavior", "not guaranteed" or similar is a rare exception that should only be used when there is a high risk of confusion. If you are unsure whether a behavior is part of the contract, ask for clarification.
+A behavior-preserving change (bug fix, refactor) must not alter documentation. Documentation changes require a contract change."
+Do not duplicate documentation in multiple places.
+
+## Design Decisions
+
+Sometimes the user may make questionable design decisions. Do not blindly follow them. If you think a design decision is questionable, push back on it. If the user insists on a questionable design decision, you may implement it, but you should also provide a warning about the potential consequences.
 
 ## Terminal Commands
 
@@ -18,7 +31,7 @@ However, you cannot use the `$TMPDIR` variable directly for shell substitutions.
 {{- end }}
 
 Never pipe terminal output through `head`, `tail`, `sed -n`, or similar. Always use the `head_lines` / `tail_lines` parameters of the `terminal` tool instead. Piping hides valuable output from the user and significantly impacts user experience.
-`head_lines` and `tail_lines` are **not** shell commands. They have to be supplied as parameters to the tool call.
+`head_lines` and `tail_lines` are **not** shell commands. They have to be supplied as parameter to the tool call.
 
 ## GitHub MCP
 

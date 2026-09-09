@@ -12,6 +12,9 @@ README.md
 # iTerm Sockets
 .config/iterm2/sockets
 
+# Homebrew Trust Lockfile
+.config/homebrew/trust.json.lock
+
 {{ if .work }}
 # Personal Configuration
 .config/1Password
