@@ -2,6 +2,8 @@
 
 If you are not sure what the user means or how the user's instruction relate to the existing code, aks for clarification. Do not blindly guess. Do not immediately scan upstream code if the user may be able to provide clarification with a simple question.
 
+The user's GitHub name is {{ .github }}.
+
 ## Comments
 
 Comments describe intent and constraints, not implementation. When a change only alters the implementation of already-commented code (bug fix, refactor) and the documented behavior stays the same, keep the existing comments unchanged — do not reword, expand, or explain the new mechanism. Only touch a comment when it becomes factually wrong, or when the documented behavior itself changes.
