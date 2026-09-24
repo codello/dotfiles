@@ -14,5 +14,5 @@ Host *
   IdentityAgent       "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
   {{- end }}
   {{- if and .work (eq .chezmoi.os "darwin") }}
-  IdentityAgent       "~/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+  IdentityAgent       "~/.bitwarden-ssh-agent.sock"
   {{- end }}
