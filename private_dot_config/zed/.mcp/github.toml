@@ -108,6 +108,8 @@ push_files = false
 search_code = "allow"
 search_commits = "allow"
 search_repositories = "allow"
+# Repository Rulesets
+repository_ruleset_read = "allow"
 # Secret Protection
 get_secret_scanning_alert = false
 list_secret_scanning_alerts = false
