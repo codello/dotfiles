@@ -167,13 +167,10 @@
       "**/templates/**/*.yml",
       "**/helmfile.d/**/*.yaml",
       "**/helmfile.d/**/*.yml",
-      "**/values*.yaml"
+      "**/values*.yaml",
     ]
   },
-   "file_scan_exclusions": [
-    "...",
-    "**/._*",
-  ],
+  "file_scan_exclusions": ["...", "**/._*"],
 
   // Language-specific Settings
   "languages": {
@@ -199,7 +196,9 @@
   },
   "agent": {
     "dock": "right",
-    "sidebar_side": "right",
+    "threads_sidebar": {
+      "position": "right",
+    },
     "show_turn_stats": true,
     "thinking_display": "auto",
     "play_sound_when_agent_done": "always",
