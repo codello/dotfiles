@@ -185,6 +185,23 @@
     },
   },
 
+  // LSP Settings
+  "lsp": {
+    "powershell-es": {
+      "settings": {
+        "powershell": {
+          "codeFormatting": {
+            "openBraceOnSameLine": true,
+            "addWhitespaceAroundPipe": true,
+            "trimWhitespaceAroundPipe": true,
+            "ignoreOneLineBlock": true,
+            "useCorrectCasing": true,
+          },
+        },
+      },
+    },
+  },
+
   // AI Settings
   "show_edit_predictions": {{ .personal }},
   "edit_predictions": {
@@ -251,30 +268,30 @@
       {{- end }}
     ],
     "default_model": {
-      "provider": "open_router",
+      "provider": "openrouter",
       "model": "z-ai/glm-5.3-flash",
       "enable_thinking": true,
       "effort": "high",
     },
     "subagent_model": {
-      "provider": "open_router",
+      "provider": "openrouter",
       "model": "z-ai/glm-5.3-flash",
       "enable_thinking": true,
       "effort": "high",
     },
     "inline_assistant_model": {
-      "provider": "open_router",
+      "provider": "openrouter",
       "model": "z-ai/glm-5.3-flash",
       "enable_thinking": true,
       "effort": "low",
     },
     "commit_message_model": {
-      "provider": "open_router",
+      "provider": "openrouter",
       "model": "deepseek/deepseek-v4-flash-0731",
       "enable_thinking": false,
     },
     "thread_summary_model": {
-      "provider": "open_router",
+      "provider": "openrouter",
       "model": "deepseek/deepseek-v4-flash-0731",
       "enable_thinking": false,
     },
@@ -452,7 +469,7 @@
           "supports_images": true,
           "supports_tools": true,
           "provider": {
-            "only": ["relace"],
+            "only": ["together"], // fireworks, baseten, coreweave
           }
         }
       ],
