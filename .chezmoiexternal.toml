@@ -9,25 +9,3 @@ pull  = { args = ["--quiet"] } # suppress git's "Already up to date." output
 type  = "file"
 url   = "https://gist.github.com/blueyed/54a257c411310a28805a/raw/_pip.zsh"
 refreshPeriod = "168h" # once a week
-
-[".config/k9s/plugins/flux.yaml"]
-type = "file"
-url  = "https://raw.githubusercontent.com/derailed/k9s/refs/tags/v0.51.0/plugins/flux.yaml"
-refreshPeriod = "168h" # once a week
-
-[".config/k9s/plugins/external-secrets.yaml"]
-type = "file"
-url  = "https://raw.githubusercontent.com/derailed/k9s/refs/tags/v0.51.0/plugins/external-secrets.yaml"
-refreshPeriod = "168h" # once a week
-
-[".config/k9s/plugins/cert-manager.yaml"]
-type = "file"
-url  = "https://raw.githubusercontent.com/derailed/k9s/refs/tags/v0.51.0/plugins/cert-manager.yaml"
-refreshPeriod = "168h" # once a week
-
-{{- if .personal }}
-[".config/k9s/plugins/cnpg.yaml"]
-type = "file"
-url  = "https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/refs/tags/v1.30.1/docs/src/samples/k9s/plugins.yml"
-refreshPeriod = "168h" # once a week
-{{- end }}

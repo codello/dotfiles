@@ -1,0 +1,110 @@
+{{- if .personal }}
+# CloudNativePG cluster actions. Require the kubectl cnpg plugin:
+# https://cloudnative-pg.io/docs/kubectl-plugin/
+
+[[plugins]]
+name = "CNPG status"
+palette = "cnpg-status"
+command = "kubectl"
+args = ["cnpg", "status", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "popup"
+timeout = "2m"
+mutating = false
+
+[[plugins]]
+name = "CNPG status (verbose)"
+palette = "cnpg-status-verbose"
+command = "kubectl"
+args = ["cnpg", "status", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT", "--verbose"]
+scopes = ["clusters"]
+output = "popup"
+timeout = "2m"
+mutating = false
+
+[[plugins]]
+name = "CNPG logs"
+palette = "cnpg-logs"
+command = "kubectl"
+args = ["cnpg", "logs", "cluster", "$NAME", "-f", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "terminal"
+mutating = false
+
+[[plugins]]
+name = "CNPG logs (pretty)"
+palette = "cnpg-logs-pretty"
+command = 'kubectl cnpg logs cluster "$2" -f -n "$1" --context "$3" | kubectl cnpg logs pretty'
+args = ["$NAMESPACE", "$NAME", "$CONTEXT"]
+shell = true
+scopes = ["clusters"]
+output = "terminal"
+mutating = false
+
+[[plugins]]
+name = "CNPG psql"
+palette = "cnpg-psql"
+command = "kubectl"
+args = ["cnpg", "psql", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "terminal"
+
+[[plugins]]
+name = "CNPG backup"
+key = "b"
+palette = "cnpg-backup"
+command = "kubectl"
+args = ["cnpg", "backup", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "terminal"
+confirm = true
+
+[[plugins]]
+name = "CNPG reload"
+palette = "cnpg-reload"
+command = "kubectl"
+args = ["cnpg", "reload", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "terminal"
+confirm = true
+
+[[plugins]]
+name = "CNPG restart"
+key = "shift-r"
+palette = "cnpg-restart"
+command = "kubectl"
+args = ["cnpg", "restart", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "terminal"
+confirm = true
+
+[[plugins]]
+name = "CNPG hibernate status"
+key = "h"
+palette = "cnpg-hibernate-status"
+command = "kubectl"
+args = ["cnpg", "hibernate", "status", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "popup"
+timeout = "2m"
+mutating = false
+
+[[plugins]]
+name = "CNPG hibernate"
+key = "shift-h"
+palette = "cnpg-hibernate"
+command = "kubectl"
+args = ["cnpg", "hibernate", "on", "$NAME", "-n", "$NAMESPACE", "--context", "$CONTEXT"]
+scopes = ["clusters"]
+output = "terminal"
+confirm = true
+
+[[plugins]]
+name = "CNPG wake hibernated cluster"
+palette = "cnpg-wake"
+command = "kubectl"
+args = ["cnpg", "hibernate", "off", "$NAME", "-n", "$NAME", "--context", "$CONTEXT"]
+scopes = ["namespaces"]
+output = "terminal"
+confirm = true
+{{- end }}

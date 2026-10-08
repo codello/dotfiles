@@ -1,3 +1,6 @@
 .bashrc
 .bash_profile
 .profile
+
+# k9s (replaced by sofka)
+.config/k9s

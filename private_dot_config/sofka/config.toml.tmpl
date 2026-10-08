@@ -1,0 +1,18 @@
+# sofka configuration
+# Reference: https://github.com/nklmilojevic/sofka/blob/main/docs/configuration.md
+
+mouse = true
+compact_mode = true
+
+[skin]
+name = "gruvbox-dark"
+
+# k9s CPU/MEM coloring bands (percent of request/limit)
+[thresholds]
+utilization = { warn = 70, critical = 90 }
+
+[aliases]
+cr = "clusterroles"
+crb = "clusterrolebindings"
+rb = "rolebindings"
+np = "networkpolicies"
