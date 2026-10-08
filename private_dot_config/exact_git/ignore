@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 ### Project Files ###
 .idea
 .nova
+
+### Agents ###
+# Message board for the parallel-agents skill
+.agents/board/
