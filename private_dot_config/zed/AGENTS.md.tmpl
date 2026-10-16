@@ -6,6 +6,8 @@ The user's GitHub name is {{ .github }}.
 
 ## Comments
 
+Write comments using ASD-STE100 Simplified Technical English.
+
 Comments describe intent and constraints, not implementation. When a change only alters the implementation of already-commented code (bug fix, refactor) and the documented behavior stays the same, keep the existing comments unchanged — do not reword, expand, or explain the new mechanism. Only touch a comment when it becomes factually wrong, or when the documented behavior itself changes.
 
 Keep the length of code comments short. Do not write redundant comments that describe the code. Only write comments if an explanation is needed, why the code looks like it does.
@@ -13,6 +15,8 @@ Keep the length of code comments short. Do not write redundant comments that des
 Make sure that comments only relate to the code in its final state. Do not write comments that can only be understood in the context of a diff. Do not comment why a certain approach was NOT chosen. Remove any historical approaches when the corresponding code is removed/updated. Do not document alternatives that were considered but not implemented.
 
 ## Documentation
+
+Write documentation using ASD-STE100 Simplified Technical English.
 
 Documentation (READMEs, docstrings, etc.) formalizes contracts. It should be clear and concise and should not contain any implementation details.
 Not every behavior has to be part of the contract. If a behavior is not documented, it is not guaranteed to be stable and may change in the future. Explicitly mentioning "contract", "undefined behavior", "not guaranteed" or similar is a rare exception that should only be used when there is a high risk of confusion. If you are unsure whether a behavior is part of the contract, ask for clarification.
