@@ -19,6 +19,8 @@ Not every behavior has to be part of the contract. If a behavior is not document
 A behavior-preserving change (bug fix, refactor) must not alter documentation. Documentation changes require a contract change."
 Do not duplicate documentation in multiple places.
 
+When a refactor makes documentation partially stale — for example a reference to code that was removed or renamed — make the minimal edit that removes the stale reference. Do not merge, expand, or relocate the documentation of removed code into surviving documentation, and do not use a necessary doc edit as an occasion to improve the surrounding text: a behavior-preserving refactor does not change the surviving contract, so its documentation stays as it is.
+
 ## Design Decisions
 
 Sometimes the user may make questionable design decisions. Do not blindly follow them. If you think a design decision is questionable, push back on it. If the user insists on a questionable design decision, you may implement it, but you should also provide a warning about the potential consequences.
