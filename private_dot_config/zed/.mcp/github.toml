@@ -18,13 +18,14 @@ X-MCP-Toolsets = "all"
 # Actions
 actions_get = "allow"
 actions_list = "allow"
-actions_run_trigger = true
+actions_run_trigger = false
 get_job_logs = "allow"
 # Code Quality
 get_code_quality_finding = false
 # Code Security
 get_code_scanning_alert = false
 list_code_scanning_alerts = false
+check_dependency_vulnerabilities = false
 # Context
 get_me = "allow"
 get_team_members = false
@@ -35,6 +36,10 @@ request_copilot_review = false
 get_copilot_job_status = false
 # Copilot Issue Intents
 assign_copilot_to_issue_with_intent = false
+# Custom Properties
+custom_properties_read = false
+custom_properties_write = false
+
 # Dependabot
 get_dependabot_alert = false
 list_dependabot_alerts = false
@@ -53,13 +58,14 @@ update_gist = false
 get_repository_tree = "allow"
 # Issues
 add_issue_comment = false
+update_issue_comment = false
 issue_read = "allow"
-issue_write = true
+issue_write = false
 list_issue_fields = "allow"
 list_issue_types = "allow"
 list_issues = "allow"
 search_issues = "allow"
-sub_issue_write = true
+sub_issue_write = false
 # Labels
 get_label = "allow"
 label_write = false
@@ -76,23 +82,23 @@ search_orgs = false
 # Projects
 projects_get = true
 projects_list = "allow"
-projects_write = true
+projects_write = false
 # Pull Requests
-add_comment_to_pending_review = "allow"
+add_comment_to_pending_review = "allow-when-enabled"
 add_reply_to_pull_request_comment = false
-create_pull_request = true
+create_pull_request = false
 list_pull_requests = "allow"
 merge_pull_request = false
 pull_request_read = "allow"
-pull_request_review_write = true
+pull_request_review_write = false
 search_pull_requests = "allow"
-update_pull_request = true
-update_pull_request_branch = true
+update_pull_request = false
+update_pull_request_branch = false
 # Repositories
-create_branch = true
-create_or_update_file = true
+create_branch = false
+create_or_update_file = false
 create_repository = false
-delete_file = true
+delete_file = false
 fork_repository = false
 get_commit = "allow"
 get_file_contents = "allow"
@@ -110,6 +116,7 @@ search_commits = "allow"
 search_repositories = "allow"
 # Repository Rulesets
 repository_ruleset_read = "allow"
+create_repository_ruleset = false
 # Secret Protection
 get_secret_scanning_alert = false
 list_secret_scanning_alerts = false
@@ -132,4 +139,20 @@ get_copilot_space = false
 github_support_docs_search = "allow"
 
 # Copilot-hosted Features (undocumented)
-web_search = "allow"
+# web_search times out often. Use Tavily or Exa for web search.
+web_search = false
+
+# Write tools for the Coding Agent profile
+[GitHub.tools.agent]
+actions_run_trigger = true
+add_comment_to_pending_review = true
+issue_write = true
+sub_issue_write = true
+projects_write = true
+create_pull_request = true
+pull_request_review_write = true
+update_pull_request = true
+update_pull_request_branch = true
+create_branch = true
+create_or_update_file = true
+delete_file = true

@@ -1,0 +1,24 @@
+[Tavily.config]
+enabled = true
+url = "https://mcp.tavily.com/mcp/"
+
+# See https://docs.tavily.com/documentation/mcp
+# Prices: https://docs.tavily.com/documentation/api-credits
+# Free tier: 1,000 credits per month.
+[Tavily.tools]
+# 1 credit per call (basic) or 2 credits (advanced).
+tavily_search   = "allow"
+# 1 credit per 5 URLs (basic) or 2 credits per 5 URLs (advanced).
+tavily_extract  = "allow"
+# 1 credit per 10 pages. 2 credits per 10 pages with instructions.
+tavily_map      = "allow-when-enabled"
+# Map cost plus extract cost.
+tavily_crawl    = false
+# 4-110 credits per call (mini) or 15-250 credits (pro).
+tavily_research = false
+
+# Deep Research profile
+[Tavily.tools.research]
+tavily_map      = true
+tavily_crawl    = true
+tavily_research = true

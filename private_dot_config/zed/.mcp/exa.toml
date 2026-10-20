@@ -1,0 +1,24 @@
+[Exa.config]
+enabled = true
+# Enable opt-in tools. An explicit tools list replaces the server defaults.
+url = "https://mcp.exa.ai/mcp?login&tools=web_search_exa,web_fetch_exa,web_search_advanced_exa,agent_run"
+
+# See https://exa.ai/docs/get-started/exa-mcp
+# Prices: https://exa.ai/pricing
+# Free tier: 10 USD in credits per month. Exa bills in dollars, not credits.
+[Exa.tools]
+# 4-15 USD per 1,000 requests, by search mode.
+# 1 USD per 1,000 for each result above 10.
+web_search_exa          = "allow"
+# 1 USD per 1,000 pages, by content type.
+web_fetch_exa           = "allow-when-enabled"
+# Same price as web_search_exa.
+web_search_advanced_exa = "allow-when-enabled"
+# 0.012-1.00 USD per run.
+agent_run               = false
+
+# Deep Research profile
+[Exa.tools.research]
+web_fetch_exa           = true
+web_search_advanced_exa = true
+agent_run               = true

@@ -6,8 +6,8 @@ search = "allow"
 create_record = false
 update_record = false
 delete_record = false
-create_table = true
-update_table = true
+create_table = false
+update_table = false
 delete_table = false
 read_query = "allow"
 describe = "allow"
@@ -16,6 +16,11 @@ delete_skill = false
 init_file_upload = false
 commit_file_upload = false
 file_download = false
+
+# Write tools for the Coding Agent profile
+[Dataverse.tools.agent]
+create_table = true
+update_table = true
 
 [MSLearn.tools]
 # See https://github.com/microsoftdocs/mcp#%EF%B8%8F-currently-supported-tools

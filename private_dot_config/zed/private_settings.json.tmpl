@@ -332,7 +332,29 @@
           "search_web": true,
         },
         "context_servers": {
-          {{- includeTemplate "private_dot_config/zed/.mcp/enabled-tools.tmpl" . }}
+          {{- includeTemplate "private_dot_config/zed/.mcp/profile-tools.tmpl" (dict "data" . "profile" "agent") }}
+        },
+      },
+      "research": {
+        "name": "Deep Research",
+        "enable_all_context_servers": true,
+        // Research: read, search, and probe. Restricted writing tools.
+        "tools": {
+          "ask_user": true,
+          "diagnostics": true,
+          "fetch": true,
+          "find_path": true,
+          "find_references": true,
+          "go_to_definition": true,
+          "grep": true,
+          "list_directory": true,
+          "read_file": true,
+          "search_web": true,
+          "skill": true,
+          "terminal": true,
+        },
+        "context_servers": {
+          {{- includeTemplate "private_dot_config/zed/.mcp/profile-tools.tmpl" (dict "data" . "profile" "research") }}
         },
       },
     },

@@ -1,0 +1,81 @@
+[Firecrawl.config]
+enabled = true
+url = "https://mcp.firecrawl.dev/v2/mcp-oauth"
+
+# See https://docs.firecrawl.dev/mcp-server/tools
+# Prices: https://www.firecrawl.dev/pricing
+# Free tier: 1,000 credits per month. 1 credit = 1 page on a basic scrape,
+# crawl, or map.
+[Firecrawl.tools]
+# Read pages
+# 1 credit per page. The JSON, question, and highlight formats add 4 credits per page.
+firecrawl_scrape = "allow"
+# Cost: not documented.
+firecrawl_parse = false
+# Search
+# 2 credits per 10 results.
+firecrawl_search = "allow-when-enabled"
+# 2 credits per 10 results.
+firecrawl_developer_search = "allow"
+# Cost: not documented.
+firecrawl_gov_search = false
+# Cost: the price listed on the tool.
+firecrawl_find_tools = false
+# Site discovery
+# 1 credit per page.
+firecrawl_map = "allow-when-enabled"
+# 1 credit per page.
+firecrawl_crawl = false
+# Cost: not documented.
+firecrawl_check_crawl_status = "allow-when-enabled"
+# Browser agent
+# 5 free runs per day. Usage-based after.
+firecrawl_agent = false
+# Cost: not documented.
+firecrawl_agent_status = false
+# 2 credits per browser minute.
+firecrawl_interact = false
+# Cost: not documented.
+firecrawl_interact_stop = false
+# Research papers
+# Cost: not documented.
+firecrawl_research_search_papers = false
+# Cost: not documented.
+firecrawl_research_read_paper = false
+# Cost: not documented.
+firecrawl_research_inspect_paper = false
+# Cost: not documented.
+firecrawl_research_related_papers = false
+# Site monitoring
+# 1 credit per page per check. 7 credits per page per check with the
+# deterministic-extraction engine.
+firecrawl_monitor_create = false
+# Cost: not documented.
+firecrawl_monitor_get = false
+# Cost: not documented.
+firecrawl_monitor_list = false
+# Cost: not documented.
+firecrawl_monitor_checks = false
+# Cost: not documented.
+firecrawl_monitor_check = false
+# Cost: not documented.
+firecrawl_monitor_run = false
+# Cost: not documented.
+firecrawl_monitor_update = false
+# Cost: not documented.
+firecrawl_monitor_delete = false
+# Misc
+# Cost: not documented.
+firecrawl_credit_usage = "allow-when-enabled"
+# Cost: not documented.
+firecrawl_feedback = false
+# Cost: not documented.
+firecrawl_search_feedback = false
+
+# Deep Research profile
+[Firecrawl.tools.research]
+firecrawl_search = true
+firecrawl_map = true
+firecrawl_crawl = true
+firecrawl_check_crawl_status = true
+firecrawl_credit_usage = true

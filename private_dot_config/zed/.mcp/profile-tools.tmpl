@@ -1,0 +1,22 @@
+{{- $profile := .profile -}}
+{{- $files := printf "%s/%s" .data.chezmoi.sourceDir "private_dot_config/zed/.mcp/*.toml" | glob -}}
+{{- range $file := $files }}
+    {{- $mcps := fromToml (includeTemplate $file $.data) -}}
+    {{- range $name, $mcp := $mcps }}
+        {{- if hasKey $mcp "tools" }}
+          {{- $tools := $mcp.tools -}}
+          {{- $overrides := dict -}}
+          {{- if hasKey $tools $profile }}{{- $overrides = index $tools $profile }}{{- end }}
+          "{{ $name }}": {
+            "tools": {
+              {{- range $tool, $value := (mergeOverwrite $tools $overrides) }}
+                  {{- if not (kindIs "map" $value) }}
+                    {{- if and (kindIs "string" $value) (eq $value "allow-when-enabled") }}{{- $value = false }}{{- end }}
+              "{{ $tool }}": {{ $value | not | not }},
+                  {{- end }}
+              {{- end }}
+            },
+          },
+        {{- end }}
+    {{- end }}
+{{- end -}}

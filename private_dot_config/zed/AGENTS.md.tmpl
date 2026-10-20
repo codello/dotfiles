@@ -58,6 +58,17 @@ Before reading potentially large files from GitHub, check the file size by using
 
 Do not use GitHub MCP tools for standard Git operations (committing, pushing, pulling, etc.) unless explicitly instructed to do so. Use GitHub MCP tools only for tasks that require direct interaction with GitHub's API.
 
+## Web Research
+
+- Use the GitHub MCP for searches about GitHub repositories, issues, pull requests, workflows, and code.
+- Use Tavily for general web search. Typical queries: error messages, known bugs, release notes, best practices, and community discussions.
+- Use Exa when you do not know the exact search terms. Typical queries: libraries, alternatives, and concepts.
+- Use Firecrawl Developer Search for known problems with libraries, tools, and workflows.
+- Read a known URL with Tavily Extract. Use Firecrawl Scrape only when a page needs JavaScript to show its content.
+- Do not send the same query to more than one provider by default. If the results are weak, make the query more precise and search again. Change the provider only when the first provider fails to give useful results.
+- Verify important claims in the original source. Do not trust search snippets or generated summaries.
+- Use advanced search tools sparingly (if available). Prefer low-effort options first, e.g. `tavily_research` (mini), Exa `agent_run` (low)
+
 ## CLI Tools
 
 Prefer using `jq` and `yq` over custom python code or other scripts, especially for validation and other one-off tasks.
