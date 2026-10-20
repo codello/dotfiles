@@ -80,7 +80,7 @@ mark_all_notifications_read = false
 # Organizations
 search_orgs = false
 # Projects
-projects_get = true
+projects_get = "allow"
 projects_list = "allow"
 projects_write = false
 # Pull Requests
