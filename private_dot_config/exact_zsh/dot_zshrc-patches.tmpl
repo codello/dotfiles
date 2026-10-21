@@ -44,6 +44,7 @@ preexec_functions+=(.zshrc:bsu-cleanup)
 ##############################################################################
 # Autocomplete Flicker Fix
 ##############################################################################
+# Validated against marlonrichert/zsh-autocomplete 77706d4 (2026-10-21).
 # zsh-autocomplete redraws the completion list in multiple steps, producing a
 # visible one-frame blink in iTerm2. We wrap the async complete callback with
 # BSU so that the list is cleared and redrawn in a single frame.
@@ -69,6 +70,7 @@ functions[.autocomplete:async:complete:callback:original]="${functions[.autocomp
 ##############################################################################
 # zsh-autocomplete: Suppress list-clear on special characters
 ##############################################################################
+# Validated against marlonrichert/zsh-autocomplete 77706d4 (2026-10-21).
 # `.autocomplete:async:complete` calls `builtin zle -Rc` when $KEYS matches the
 # pattern `([\ -+*]|$'\e\t')` (space, -, +, *, Esc-Tab). This clears the current
 # completion list synchronously, then schedules an async redraw
@@ -89,6 +91,7 @@ functions[.autocomplete:async:complete:callback:original]="${functions[.autocomp
 ##############################################################################
 # zsh-history-substring-search: Batch highlight removal via BSU
 ##############################################################################
+# Validated against zsh-users/zsh-history-substring-search a0bdb0d (2026-10-21).
 # When using zsh-history-substring-search the redraw of the highlight region
 # produces a visible one-frame blink. We patch the widget to send BSU right
 # before the highlight removal, and schedule ESU via a `zle -F` fd-handler.
@@ -135,6 +138,7 @@ zmodload -F zsh/system b:sysopen 2>/dev/null
 ##############################################################################
 # Powerlevel10k: Batch prompt re-renders via BSU
 ##############################################################################
+# Validated against romkatv/powerlevel10k d05a1b00 (2026-10-21).
 # When SHOW_ON_COMMAND segments appear/disappear (or any other prompt refresh),
 # `_p9k_reset_prompt` calls `zle .reset-prompt` + `zle -R`. The intermediate
 # state where the old prompt is cleared but the new one isn't fully drawn yet
