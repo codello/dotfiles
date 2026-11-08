@@ -1,11 +1,19 @@
 [Grafana.config]
 enabled = true
+{{- if .personal }}
+url = "https://grafana.int.wittenbude.de/mcp"
+[Grafana.config.oauth]
+client_id = "grafana-mcp"
+client_secret = ""
+
+{{- else }}
 command = "uvx"
 args = ["mcp-grafana"]
 
 [Grafana.config.env]
 GRAFANA_URL = ""
 GRAFANA_SERVICE_ACCOUNT_TOKEN = ""
+{{- end }}
 
 [Grafana.tools]
 # See https://github.com/grafana/mcp-grafana#tools
