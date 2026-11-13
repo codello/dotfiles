@@ -21,6 +21,3 @@ README.md
 .config/ngrok
 .config/kanidm
 {{ end }}
-{{ if .personal }}
-.claude
-{{ end }}

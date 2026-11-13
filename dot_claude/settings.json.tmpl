@@ -1,19 +1,107 @@
-{{ if .work -}}
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "env": {
-    "ANTHROPIC_AUTH_TOKEN": "{{ (bitwarden "item" "AI Keys").login.password }}",
-    "ANTHROPIC_BASE_URL": "https://aikeys.maibornwolff.de",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4.6",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4.6",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4.6",
-    "DISABLE_TELEMETRY": "1",
-    "CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS": "1"
-  },
-  "availableModels": [
-    "claude-sonnet-4.6",
-    "claude-opus-4.6",
-    "claude-haiku-4.6"
-  ]
+  "showThinkingSummaries": true,
+  "effortLevel": "high",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/kim/.config/iterm2/it2 handle-agent-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  }
 }
-{{- end }}

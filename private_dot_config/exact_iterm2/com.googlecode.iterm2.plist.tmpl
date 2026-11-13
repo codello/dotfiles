@@ -1,41 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+    "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>AI Timeout</key>
 	<integer>30</integer>
 	<key>AI Web Search Enabled</key>
-	<false/>
+	<false />
 	<key>AIFeatureFunctionCalling</key>
-	<true/>
+	<true />
 	<key>AIFeatureHostedCodeInterpeter</key>
-	<true/>
+	<false />
 	<key>AIFeatureHostedFileSearch</key>
-	<true/>
+	<false />
 	<key>AIFeatureHostedWebSearch</key>
-	<true/>
+	<false />
 	<key>AIFeatureStreamingResponses</key>
-	<true/>
+	<true />
 	<key>AITermAPI</key>
-	<integer>4</integer>
+	<integer>7</integer>
 	<key>AIVectorStore</key>
 	<integer>0</integer>
-	<key>AiMaxTokens</key>
-	<integer>1050000</integer>
-	<key>AiModel</key>
-	<string>z-ai/glm-5.2</string>
 	<key>AiResponseMaxTokens</key>
 	<integer>128000</integer>
-	<key>AitermURL</key>
-	<string>https://openrouter.ai/api/v1/chat/completions</string>
 	<key>AlternateMouseScroll</key>
-	<true/>
+	<true />
 	<key>AutoCommandHistory</key>
-	<false/>
+	<false />
+	<key>ClaudeCodeTriggersInstalled</key>
+	<true />
+	<key>CodeReviewSavedPrompts</key>
+	<data>
+	{{- $prompts := list }}
+	{{- range glob (joinPath .chezmoi.sourceDir "private_dot_config/exact_iterm2/.prompts/*") }}
+	{{-   $name := base . }}
+	{{-   if not (hasPrefix "." $name) }}
+	{{-     $h := sha256sum $name | upper }}
+	{{-     $uuid := printf "%s-%s-8%s-8%s-%s" (substr 0 8 $h) (substr 8 12 $h) (substr 13 16 $h) (substr 17 20 $h) (substr 20 32 $h) }}
+	{{-     $prompts = append $prompts (dict "name" $name "uuid" $uuid "text" (include . | trimSuffix "\n")) }}
+	{{-   end }}
+	{{- end }}
+	{{ $prompts | toJson | b64enc }}
+	</data>
 	<key>ConvertDosNewlines</key>
-	<true/>
+	<true />
 	<key>CopySelection</key>
-	<false/>
+	<false />
 	<key>Default Bookmark Guid</key>
 	<string>52F550EC-6808-4793-A244-5A7971865FED</string>
 	<key>Default Browser Profile Guid</key>
@@ -45,28 +55,28 @@
 	<key>DeleteProfile_selection</key>
 	<integer>0</integer>
 	<key>DimBackgroundWindows</key>
-	<true/>
+	<true />
 	<key>DimOnlyText</key>
-	<true/>
+	<true />
 	<key>DisableFullscreenTransparency</key>
-	<false/>
+	<false />
 	<key>DoubleClickPerformsSmartSelection</key>
-	<false/>
+	<false />
 	<key>EnableAPIServer</key>
-	<false/>
+	<true />
 	<key>EnableDivisionView</key>
-	<false/>
+	<false />
 	<key>EnableProxyIcon</key>
-	<true/>
+	<true />
 	<key>EnableRendezvous</key>
-	<false/>
+	<false />
 	<key>EscapeShellCharsWithBackslash</key>
-	<false/>
+	<false />
 	<key>FocusFollowsMouse</key>
-	<false/>
+	<false />
 	<key>GlobalKeyMap</key>
 	<dict>
-		<key>0x7f-0x100000-0x33</key>
+		<key>0x7f-0x100000-0x33-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>16</integer>
@@ -75,11 +85,11 @@
 			<key>Escaping</key>
 			<integer>2</integer>
 			<key>Text</key>
-			<string></string>
+			<string />
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0x7f-0x80000-0x33</key>
+		<key>0x7f-0x80000-0x33-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>11</integer>
@@ -97,16 +107,16 @@
 			<key>Action</key>
 			<integer>7</integer>
 			<key>Text</key>
-			<string></string>
+			<string />
 		</dict>
 		<key>0xf701-0x300000</key>
 		<dict>
 			<key>Action</key>
 			<integer>6</integer>
 			<key>Text</key>
-			<string></string>
+			<string />
 		</dict>
-		<key>0xf702-0x220000-0x7b</key>
+		<key>0xf702-0x220000-0x7b-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>47</integer>
@@ -119,7 +129,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf702-0x280000-0x7b</key>
+		<key>0xf702-0x280000-0x7b-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>10</integer>
@@ -132,7 +142,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf702-0x2a0000-0x7b</key>
+		<key>0xf702-0x2a0000-0x7b-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>47</integer>
@@ -145,7 +155,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf702-0x300000-0x7b</key>
+		<key>0xf702-0x300000-0x7b-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>11</integer>
@@ -158,7 +168,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf702-0x320000-0x7b</key>
+		<key>0xf702-0x320000-0x7b-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>47</integer>
@@ -171,7 +181,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf703-0x220000-0x7c</key>
+		<key>0xf703-0x220000-0x7c-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>46</integer>
@@ -184,7 +194,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf703-0x280000-0x7c</key>
+		<key>0xf703-0x280000-0x7c-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>10</integer>
@@ -197,7 +207,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf703-0x2a0000-0x7c</key>
+		<key>0xf703-0x2a0000-0x7c-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>46</integer>
@@ -210,7 +220,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf703-0x300000-0x7c</key>
+		<key>0xf703-0x300000-0x7c-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>11</integer>
@@ -223,7 +233,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf703-0x320000-0x7c</key>
+		<key>0xf703-0x320000-0x7c-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>46</integer>
@@ -236,7 +246,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf728-0x100000-0x75</key>
+		<key>0xf728-0x100000-0x75-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>11</integer>
@@ -249,7 +259,7 @@
 			<key>Version</key>
 			<integer>2</integer>
 		</dict>
-		<key>0xf728-0x80000-0x75</key>
+		<key>0xf728-0x80000-0x75-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>10</integer>
@@ -264,56 +274,63 @@
 		</dict>
 	</dict>
 	<key>HapticFeedbackForEsc</key>
-	<false/>
+	<false />
 	<key>HideFromDockAndAppSwitcher</key>
-	<true/>
+	<true />
 	<key>HideMenuBarInFullscreen</key>
-	<false/>
+	<false />
 	<key>HideScrollbar</key>
-	<false/>
+	<false />
 	<key>HideTab</key>
-	<true/>
+	<true />
 	<key>HideTabNumber</key>
-	<true/>
+	<true />
 	<key>Hotkey</key>
-	<false/>
+	<false />
 	<key>HotkeyChar</key>
 	<integer>32</integer>
 	<key>HotkeyCode</key>
 	<integer>49</integer>
 	<key>HotkeyMigratedFromSingleToMulti</key>
-	<true/>
+	<true />
 	<key>HotkeyModifiers</key>
 	<integer>524288</integer>
 	<key>Mark Alert Action</key>
 	<string>Post Notification</string>
 	<key>NeverWarnAboutShortLivedSessions_0EA91B8E-D917-42A1-BF18-D9F0880712B7</key>
-	<true/>
-	<key>NeverWarnAboutShortLivedSessions_0EA91B8E-D917-42A1-BF18-D9F0880712B7_selection</key>
-	<integer>0</integer>
+	<true />
+	<key
+        >NeverWarnAboutShortLivedSessions_0EA91B8E-D917-42A1-BF18-D9F0880712B7_selection</key>
+    <integer>0</integer>
+    <key
+        >NeverWarnAboutShortLivedSessions_D722CB0C-AC04-425A-8616-AD662A7D4311</key>
+    <true />
+    <key
+        >NeverWarnAboutShortLivedSessions_D722CB0C-AC04-425A-8616-AD662A7D4311_selection</key>
+    <integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
-			<true/>
+			<true />
 			<key>ASCII Ligatures</key>
-			<true/>
+			<true />
 			<key>AWDS Pane Directory</key>
-			<string></string>
+			<string />
 			<key>AWDS Pane Option</key>
 			<string>Recycle</string>
 			<key>AWDS Tab Directory</key>
-			<string></string>
+			<string />
 			<key>AWDS Tab Option</key>
 			<string>No</string>
 			<key>AWDS Window Directory</key>
-			<string></string>
+			<string />
 			<key>AWDS Window Option</key>
 			<string>No</string>
 			<key>Allow Title Reporting</key>
-			<true/>
+			<true />
 			<key>Ambiguous Double Width</key>
-			<false/>
+			<false />
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -463,7 +480,7 @@
 				<real>1</real>
 			</dict>
 			<key>BM Growl</key>
-			<true/>
+			<true />
 			<key>Background Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -478,7 +495,7 @@
 				<real>0.11372549019607843</real>
 			</dict>
 			<key>Background Image Location</key>
-			<string></string>
+			<string />
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -493,15 +510,15 @@
 				<real>1</real>
 			</dict>
 			<key>Badge Text</key>
-			<string></string>
+			<string />
 			<key>Blend</key>
 			<real>0.5</real>
 			<key>Blink Allowed</key>
-			<true/>
+			<true />
 			<key>Blinking Cursor</key>
-			<true/>
+			<true />
 			<key>Blur</key>
-			<true/>
+			<true />
 			<key>Blur Radius</key>
 			<real>6.3036980488578669</real>
 			<key>Bold Color</key>
@@ -514,9 +531,9 @@
 				<real>1</real>
 			</dict>
 			<key>Bound Hosts</key>
-			<array/>
+			<array />
 			<key>Brighten Bold Text</key>
-			<true/>
+			<true />
 			<key>Character Encoding</key>
 			<integer>4</integer>
 			<key>Close Sessions On End</key>
@@ -524,7 +541,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string></string>
+			<string />
 			<key>Cursor Boost</key>
 			<real>0.0</real>
 			<key>Cursor Color</key>
@@ -550,7 +567,7 @@
 				<real>0.70213186740875244</real>
 			</dict>
 			<key>Cursor Shadow</key>
-			<false/>
+			<false />
 			<key>Cursor Text Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -571,11 +588,11 @@
 			<key>Description</key>
 			<string>Default</string>
 			<key>Disable Window Resizing</key>
-			<true/>
+			<true />
 			<key>Draw Powerline Glyphs</key>
-			<true/>
+			<true />
 			<key>Flashing Bell</key>
-			<false/>
+			<false />
 			<key>Foreground Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -592,17 +609,17 @@
 			<key>Guid</key>
 			<string>D722CB0C-AC04-425A-8616-AD662A7D4311</string>
 			<key>Has Hotkey</key>
-			<true/>
+			<true />
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>HotKey Activated By Modifier</key>
-			<true/>
+			<true />
 			<key>HotKey Alternate Shortcuts</key>
-			<array/>
+			<array />
 			<key>HotKey Characters</key>
-			<string></string>
+			<string />
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string></string>
+			<string />
 			<key>HotKey Key Code</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Activation</key>
@@ -610,23 +627,23 @@
 			<key>HotKey Modifier Flags</key>
 			<integer>0</integer>
 			<key>HotKey Window Animates</key>
-			<true/>
+			<true />
 			<key>HotKey Window AutoHides</key>
-			<true/>
+			<true />
 			<key>HotKey Window Dock Click Action</key>
 			<integer>0</integer>
 			<key>HotKey Window Floats</key>
-			<true/>
+			<true />
 			<key>HotKey Window Reopens On Activation</key>
-			<false/>
+			<false />
 			<key>Icon</key>
 			<integer>0</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string></string>
+			<string />
 			<key>Initial Use Transparency</key>
-			<true/>
+			<true />
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -635,7 +652,7 @@
 				<string>telnet</string>
 			</array>
 			<key>Keyboard Map</key>
-			<dict/>
+			<dict />
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -652,25 +669,25 @@
 			<key>Minimum Contrast</key>
 			<real>0.0</real>
 			<key>Mouse Reporting</key>
-			<true/>
+			<true />
 			<key>Name</key>
 			<string>Hotkey Window</string>
 			<key>Non Ascii Font</key>
 			<string>JetBrainsMonoNFP-Regular 13</string>
 			<key>Non-ASCII Anti Aliased</key>
-			<true/>
+			<true />
 			<key>Non-ASCII Ligatures</key>
-			<true/>
+			<true />
 			<key>Normal Font</key>
 			<string>JetBrainsMonoNFP-Regular 13</string>
 			<key>Only The Default BG Color Uses Transparency</key>
-			<true/>
+			<true />
 			<key>Open Toolbelt</key>
-			<false/>
+			<false />
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prevent Opening in a Tab</key>
-			<false/>
+			<false />
 			<key>Prompt Before Closing 2</key>
 			<integer>2</integer>
 			<key>Right Option Key Sends</key>
@@ -708,17 +725,17 @@
 				<real>0.52156862745098043</real>
 			</dict>
 			<key>Send Code When Idle</key>
-			<false/>
+			<false />
 			<key>Session Close Undo Timeout</key>
 			<integer>20</integer>
 			<key>Shortcut</key>
-			<string></string>
+			<string />
 			<key>Show Mark Indicators</key>
-			<false/>
+			<false />
 			<key>Show Status Bar</key>
-			<false/>
+			<false />
 			<key>Silence Bell</key>
-			<false/>
+			<false />
 			<key>Space</key>
 			<integer>-1</integer>
 			<key>Status Bar Layout</key>
@@ -731,10 +748,10 @@
 					<string>.AppleSystemUIFont 12</string>
 				</dict>
 				<key>components</key>
-				<array/>
+				<array />
 			</dict>
 			<key>Sync Title</key>
-			<false/>
+			<false />
 			<key>Tags</key>
 			<array>
 				<string>hotkey</string>
@@ -744,25 +761,70 @@
 			<key>Transparency</key>
 			<real>0.29999999999999999</real>
 			<key>Triggers</key>
-			<array/>
+			<array>
+				<dict>
+					<key>action</key>
+					<string>iTermEnterWorkgroupTrigger</string>
+					<key>contentregex</key>
+					<string />
+					<key>disabled</key>
+					<false />
+					<key>eventParams</key>
+					<dict>
+						<key>jobName</key>
+						<string>claude</string>
+					</dict>
+					<key>matchType</key>
+					<integer>113</integer>
+					<key>parameter</key>
+					<string>builtin.claudeCode</string>
+					<key>partial</key>
+					<false />
+					<key>regex</key>
+					<string />
+				</dict>
+				<dict>
+					<key>action</key>
+					<string>iTermExitWorkgroupTrigger</string>
+					<key>contentregex</key>
+					<string />
+					<key>disabled</key>
+					<false />
+					<key>eventParams</key>
+					<dict>
+						<key>jobName</key>
+						<string>claude</string>
+						<key>leaderOnly</key>
+						<true />
+					</dict>
+					<key>matchType</key>
+					<integer>114</integer>
+					<key>parameter</key>
+					<string />
+					<key>partial</key>
+					<false />
+					<key>regex</key>
+					<string />
+				</dict>
+			</array>
 			<key>Unicode Version</key>
 			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
-			<true/>
+			<true />
 			<key>Use Bold Font</key>
-			<true/>
+			<true />
 			<key>Use Bright Bold</key>
-			<true/>
+			<true />
 			<key>Use Italic Font</key>
-			<true/>
+			<true />
 			<key>Use Non-ASCII Font</key>
-			<false/>
+			<false />
 			<key>Use Tab Color</key>
-			<false/>
+			<false />
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
-			<true/>
+			<true />
 			<key>Window Type</key>
 			<integer>2</integer>
 			<key>Working Directory</key>
@@ -770,25 +832,25 @@
 		</dict>
 		<dict>
 			<key>ASCII Anti Aliased</key>
-			<true/>
+			<true />
 			<key>ASCII Ligatures</key>
-			<true/>
+			<true />
 			<key>AWDS Pane Directory</key>
-			<string></string>
+			<string />
 			<key>AWDS Pane Option</key>
 			<string>Recycle</string>
 			<key>AWDS Tab Directory</key>
-			<string></string>
+			<string />
 			<key>AWDS Tab Option</key>
 			<string>No</string>
 			<key>AWDS Window Directory</key>
-			<string></string>
+			<string />
 			<key>AWDS Window Option</key>
 			<string>No</string>
 			<key>Allow Title Reporting</key>
-			<true/>
+			<true />
 			<key>Ambiguous Double Width</key>
-			<false/>
+			<false />
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -938,7 +1000,7 @@
 				<real>1</real>
 			</dict>
 			<key>BM Growl</key>
-			<true/>
+			<true />
 			<key>Background Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -953,7 +1015,7 @@
 				<real>0.11372549086809158</real>
 			</dict>
 			<key>Background Image Location</key>
-			<string></string>
+			<string />
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -968,15 +1030,15 @@
 				<real>1</real>
 			</dict>
 			<key>Badge Text</key>
-			<string></string>
+			<string />
 			<key>Blend</key>
 			<real>0.5</real>
 			<key>Blink Allowed</key>
-			<true/>
+			<true />
 			<key>Blinking Cursor</key>
-			<true/>
+			<true />
 			<key>Blur</key>
-			<true/>
+			<true />
 			<key>Blur Radius</key>
 			<real>2</real>
 			<key>Bold Color</key>
@@ -989,7 +1051,7 @@
 				<real>1</real>
 			</dict>
 			<key>Bound Hosts</key>
-			<array/>
+			<array />
 			<key>Character Encoding</key>
 			<integer>4</integer>
 			<key>Close Sessions On End</key>
@@ -997,7 +1059,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string></string>
+			<string />
 			<key>Composer Top Offset</key>
 			<real>0.0</real>
 			<key>Cursor Boost</key>
@@ -1040,19 +1102,19 @@
 			<key>Custom Directory</key>
 			<string>Advanced</string>
 			<key>Custom Tab Title</key>
-			<string></string>
+			<string />
 			<key>Custom Window Title</key>
-			<string></string>
+			<string />
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
 			<string>Default</string>
 			<key>Disable Window Resizing</key>
-			<true/>
+			<true />
 			<key>Draw Powerline Glyphs</key>
-			<true/>
+			<true />
 			<key>Flashing Bell</key>
-			<false/>
+			<false />
 			<key>Foreground Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1069,17 +1131,17 @@
 			<key>Guid</key>
 			<string>52F550EC-6808-4793-A244-5A7971865FED</string>
 			<key>Has Hotkey</key>
-			<false/>
+			<false />
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>HotKey Activated By Modifier</key>
-			<false/>
+			<false />
 			<key>HotKey Alternate Shortcuts</key>
-			<array/>
+			<array />
 			<key>HotKey Characters</key>
-			<string></string>
+			<string />
 			<key>HotKey Characters Ignoring Modifiers</key>
-			<string></string>
+			<string />
 			<key>HotKey Key Code</key>
 			<integer>0</integer>
 			<key>HotKey Modifier Activation</key>
@@ -1087,23 +1149,23 @@
 			<key>HotKey Modifier Flags</key>
 			<integer>0</integer>
 			<key>HotKey Window Animates</key>
-			<true/>
+			<true />
 			<key>HotKey Window AutoHides</key>
-			<true/>
+			<true />
 			<key>HotKey Window Dock Click Action</key>
 			<integer>0</integer>
 			<key>HotKey Window Floats</key>
-			<false/>
+			<false />
 			<key>HotKey Window Reopens On Activation</key>
-			<true/>
+			<true />
 			<key>Icon</key>
 			<integer>1</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Initial Text</key>
-			<string></string>
+			<string />
 			<key>Initial Use Transparency</key>
-			<true/>
+			<true />
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -1112,7 +1174,7 @@
 				<string>telnet</string>
 			</array>
 			<key>Keyboard Map</key>
-			<dict/>
+			<dict />
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1129,21 +1191,21 @@
 			<key>Minimum Contrast</key>
 			<real>0.0</real>
 			<key>Mouse Reporting</key>
-			<true/>
+			<true />
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
 			<string>JetBrainsMonoNFM-Regular 13</string>
 			<key>Non-ASCII Anti Aliased</key>
-			<true/>
+			<true />
 			<key>Non-ASCII Ligatures</key>
-			<true/>
+			<true />
 			<key>Normal Font</key>
 			<string>JetBrainsMonoNFP-Regular 13</string>
 			<key>Only The Default BG Color Uses Transparency</key>
-			<true/>
+			<true />
 			<key>Open Toolbelt</key>
-			<false/>
+			<false />
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1183,17 +1245,17 @@
 				<real>0.5215686559677124</real>
 			</dict>
 			<key>Send Code When Idle</key>
-			<false/>
+			<false />
 			<key>Session Close Undo Timeout</key>
 			<integer>20</integer>
 			<key>Shortcut</key>
-			<string></string>
+			<string />
 			<key>Show Mark Indicators</key>
-			<false/>
+			<false />
 			<key>Show Status Bar</key>
-			<false/>
+			<false />
 			<key>Silence Bell</key>
-			<false/>
+			<false />
 			<key>Space</key>
 			<integer>-1</integer>
 			<key>Status Bar Layout</key>
@@ -1206,12 +1268,12 @@
 					<string>.AppleSystemUIFont 12</string>
 				</dict>
 				<key>components</key>
-				<array/>
+				<array />
 			</dict>
 			<key>Sync Title</key>
-			<false/>
+			<false />
 			<key>Tags</key>
-			<array/>
+			<array />
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Title Components</key>
@@ -1219,31 +1281,82 @@
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
-			<array/>
+			<array>
+				<dict>
+					<key>action</key>
+					<string>BounceTrigger</string>
+					<key>regex</key>
+					<string />
+				</dict>
+				<dict>
+					<key>action</key>
+					<string>iTermEnterWorkgroupTrigger</string>
+					<key>contentregex</key>
+					<string />
+					<key>disabled</key>
+					<false />
+					<key>eventParams</key>
+					<dict>
+						<key>jobName</key>
+						<string>claude</string>
+					</dict>
+					<key>matchType</key>
+					<integer>113</integer>
+					<key>parameter</key>
+					<string>builtin.claudeCode</string>
+					<key>partial</key>
+					<false />
+					<key>regex</key>
+					<string />
+				</dict>
+				<dict>
+					<key>action</key>
+					<string>iTermExitWorkgroupTrigger</string>
+					<key>contentregex</key>
+					<string />
+					<key>disabled</key>
+					<false />
+					<key>eventParams</key>
+					<dict>
+						<key>jobName</key>
+						<string>claude</string>
+						<key>leaderOnly</key>
+						<true />
+					</dict>
+					<key>matchType</key>
+					<integer>114</integer>
+					<key>parameter</key>
+					<string />
+					<key>partial</key>
+					<false />
+					<key>regex</key>
+					<string />
+				</dict>
+			</array>
 			<key>Unicode Version</key>
 			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
-			<true/>
+			<true />
 			<key>Use Bold Font</key>
-			<true/>
+			<true />
 			<key>Use Bright Bold</key>
-			<true/>
+			<true />
 			<key>Use Custom Tab Title</key>
-			<false/>
+			<false />
 			<key>Use Custom Window Title</key>
-			<false/>
+			<false />
 			<key>Use Italic Font</key>
-			<true/>
+			<true />
 			<key>Use Non-ASCII Font</key>
-			<false/>
+			<false />
 			<key>Use Tab Color</key>
-			<false/>
+			<false />
 			<key>Use Underline Color</key>
-			<false/>
+			<false />
 			<key>Vertical Spacing</key>
 			<real>1</real>
 			<key>Visual Bell</key>
-			<true/>
+			<true />
 			<key>Window Type</key>
 			<integer>0</integer>
 			<key>Working Directory</key>
@@ -1251,19 +1364,19 @@
 		</dict>
 	</array>
 	<key>OpenBookmark</key>
-	<false/>
+	<false />
 	<key>PMPrintingExpandedStateForPrint2</key>
-	<false/>
+	<false />
 	<key>PasteSpecialRegex</key>
-	<string></string>
+	<string />
 	<key>PasteSpecialSubstitution</key>
-	<string></string>
+	<string />
 	<key>PasteSpecialUseRegexSubstitution</key>
-	<false/>
+	<false />
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>4</integer>
 	<key>PerPaneBackgroundImage</key>
-	<false/>
+	<false />
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1298,37 +1411,39 @@
 		</dict>
 	</dict>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
-	<false/>
+	<false />
 	<key>Print In Black And White</key>
-	<true/>
+	<true />
 	<key>PromptOnQuit</key>
-	<false/>
+	<false />
 	<key>QuitWhenAllWindowsClosed</key>
-	<false/>
+	<false />
 	<key>SeparateStatusBarsPerPane</key>
-	<false/>
+	<false />
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<false />
 	<key>ShowPaneTitles</key>
-	<false/>
+	<false />
 	<key>SmartPlacement</key>
-	<true/>
+	<true />
 	<key>SolidUnderlines</key>
-	<false/>
+	<false />
 	<key>SoundForEsc</key>
-	<false/>
+	<false />
 	<key>SpacelessApplicationSupport</key>
-	<string></string>
+	<string />
 	<key>SplitPaneDimmingAmount</key>
 	<real>0.35018640018203878</real>
 	<key>StatusBarIcon</key>
-	<false/>
+	<false />
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
+	<key>StatusMergeWorkgroups</key>
+	<true />
 	<key>StretchTabsToFillBar</key>
-	<true/>
+	<true />
 	<key>SupportPowerlineExtendedSymbols</key>
-	<true/>
+	<true />
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
 	<key>TabTransform</key>
@@ -1336,27 +1451,35 @@
 	<key>TabViewType</key>
 	<integer>0</integer>
 	<key>ThreeFingerEmulates</key>
-	<false/>
+	<false />
 	<key>ToolbeltTools</key>
 	<array>
-		<string>Actions</string>
+		<string>Session Status</string>
 	</array>
 	<key>UIElementRequiresHotkeys</key>
-	<true/>
+	<true />
 	<key>URLHandlersByGuid</key>
-	<dict/>
+	<dict />
 	<key>UnderlineHyperlinks</key>
-	<false/>
+	<false />
 	<key>UseBorder</key>
-	<false/>
+	<false />
 	<key>UseRecommendedAIModel</key>
-	<false/>
+	<true />
 	<key>VisualIndicatorForEsc</key>
-	<false/>
+	<false />
 	<key>WindowNumber</key>
-	<false/>
+	<false />
 	<key>WordCharacters</key>
 	<string>-+~_.</string>
+	<key>Workgroups</key>
+	<data>
+	{{- $workgroups := list }}
+	{{- range glob (joinPath .chezmoi.sourceDir "private_dot_config/exact_iterm2/.workgroups/*.json") }}
+	{{-   $workgroups = append $workgroups (include . | fromJson) }}
+	{{- end }}
+	{{ $workgroups | toJson | b64enc }}
+	</data>
 	<key>com.apple.WebPrivacy.ResourceMonitorURLsVersion</key>
 	<string>qrsAAAGXnXBrwGxMO6s=</string>
 	<key>findMode_iTerm</key>
@@ -1364,10 +1487,10 @@
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>7</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
-	<false/>
+	<false />
 	<key>kCPKUseSystemColorPicker</key>
-	<true/>
+	<true />
 	<key>metalMaximizeThroughput</key>
-	<false/>
+	<false />
 </dict>
 </plist>

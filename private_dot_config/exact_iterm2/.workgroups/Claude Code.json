@@ -1,0 +1,38 @@
+{
+  "name": "Claude Code",
+  "uniqueIdentifier": "builtin.claudeCode",
+  "sessions": [
+    {
+      "toolbarItems": [
+        { "kind": "modeSwitcher" },
+        { "kind": "gitStatus" },
+        { "kind": "autoRequestReviewWhenIdle" }
+      ],
+      "urlString": "",
+      "command": "",
+      "perFileCommand": "",
+      "uniqueIdentifier": "builtin.claudeCode.main",
+      "mode": "regular",
+      "displayName": "Chat",
+      "kind": { "kind": "root" }
+    },
+    {
+      "toolbarItems": [
+        { "kind": "modeSwitcher" },
+        {
+          "kind": "reload",
+          "shortcut": { "serialized": "0x72-0x100000-0xf-0x1" }
+        },
+        { "kind": "autoSendClippingsWhenIdle" }
+      ],
+      "urlString": "",
+      "parentID": "builtin.claudeCode.main",
+      "command": "claude \\(codeReviewPrompt) --append-system-prompt-file '\\(codeReviewSystemPromptFile)' --settings '\\(codeReviewSettingsFile)'",
+      "perFileCommand": "",
+      "uniqueIdentifier": "builtin.claudeCode.review",
+      "mode": "codeReview",
+      "displayName": "Code-Review",
+      "kind": { "kind": "peer" }
+    }
+  ]
+}
