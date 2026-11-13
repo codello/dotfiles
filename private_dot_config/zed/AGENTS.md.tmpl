@@ -1,34 +1,4 @@
-# Global Agent Instructions
-
-If you are not sure what the user means or how the user's instruction relate to the existing code, aks for clarification. Do not blindly guess. Do not immediately scan upstream code if the user may be able to provide clarification with a simple question.
-
-The user's GitHub name is {{ .github }}.
-
-## Comments
-
-Write comments using ASD-STE100 Simplified Technical English.
-
-Comments describe intent and constraints, not implementation. When a change only alters the implementation of already-commented code (bug fix, refactor) and the documented behavior stays the same, keep the existing comments unchanged — do not reword, expand, or explain the new mechanism. Only touch a comment when it becomes factually wrong, or when the documented behavior itself changes.
-
-Keep the length of code comments short. Do not write redundant comments that describe the code. Only write comments if an explanation is needed, why the code looks like it does.
-
-Make sure that comments only relate to the code in its final state. Do not write comments that can only be understood in the context of a diff. Do not comment why a certain approach was NOT chosen. Remove any historical approaches when the corresponding code is removed/updated. Do not document alternatives that were considered but not implemented.
-
-## Documentation
-
-Write documentation using ASD-STE100 Simplified Technical English.
-
-Documentation (READMEs, docstrings, etc.) formalizes contracts. It should be clear and concise and should not contain any implementation details.
-Not every behavior has to be part of the contract. If a behavior is not documented, it is not guaranteed to be stable and may change in the future. Explicitly mentioning "contract", "undefined behavior", "not guaranteed" or similar is a rare exception that should only be used when there is a high risk of confusion. If you are unsure whether a behavior is part of the contract, ask for clarification.
-A behavior-preserving change (bug fix, refactor) must not alter documentation. Documentation changes require a contract change."
-Do not duplicate documentation in multiple places.
-
-When a refactor makes documentation partially stale — for example a reference to code that was removed or renamed — make the minimal edit that removes the stale reference. Do not merge, expand, or relocate the documentation of removed code into surviving documentation, and do not use a necessary doc edit as an occasion to improve the surrounding text: a behavior-preserving refactor does not change the surviving contract, so its documentation stays as it is.
-
-## Design Decisions
-
-Sometimes the user may make questionable design decisions. Do not blindly follow them. If you think a design decision is questionable, push back on it. If the user insists on a questionable design decision, you may implement it, but you should also provide a warning about the potential consequences.
-
+{{ template "agents/base.md" . }}
 ## Terminal Commands
 
 {{- if eq .chezmoi.os "darwin" }}
@@ -58,22 +28,4 @@ Before reading potentially large files from GitHub, check the file size by using
 
 Do not use GitHub MCP tools for standard Git operations (committing, pushing, pulling, etc.) unless explicitly instructed to do so. Use GitHub MCP tools only for tasks that require direct interaction with GitHub's API.
 
-## Web Research
-
-- Use the GitHub MCP for searches about GitHub repositories, issues, pull requests, workflows, and code.
-- Use Tavily for general web search. Typical queries: error messages, known bugs, release notes, best practices, and community discussions.
-- Use Exa when you do not know the exact search terms. Typical queries: libraries, alternatives, and concepts.
-- Use Firecrawl Developer Search for known problems with libraries, tools, and workflows.
-- Read a known URL with Tavily Extract. Use Firecrawl Scrape only when a page needs JavaScript to show its content.
-- Do not send the same query to more than one provider by default. If the results are weak, make the query more precise and search again. Change the provider only when the first provider fails to give useful results.
-- Verify important claims in the original source. Do not trust search snippets or generated summaries.
-- Use advanced search tools sparingly (if available). Prefer low-effort options first, e.g. `tavily_research` (mini), Exa `agent_run` (low)
-
-## CLI Tools
-
-Prefer using `jq` and `yq` over custom python code or other scripts, especially for validation and other one-off tasks.
-For validating JSON or YAML syntax only `jq` and `yq` are permitted. Do not use python, ruby, or other tools for this purpose.
-
-## OrbStack
-
-Docker is running locally on OrbStack. In addition to the `docker` command, you can use the `orb` command to manage containers and images. The command `orb debug [CONTAINER_NAME_OR_ID_OR_IMAGE] [COMMAND] [ARGS]...` can be used to inspect running containers or images, even if the image doesn't contain a working shell. Use this instead of `docker exec` or `docker run` for inspecting containers or images.
+{{ template "agents/tools.md" . -}}

@@ -1,0 +1,10 @@
+{{ template "agents/base.md" . }}
+## GitHub MCP
+
+When accessing GitHub, always use MCP tools (`mcp__GitHub__`-prefixed tools). Do not use `curl`, `gh`, `git`, `WebFetch`, or any other non-MCP mechanism to reach GitHub. If no GitHub MCP tools are available, stop and inform the user.
+
+One exception to this rule: If you want to fetch a file from a public GitHub repository and you are sure that you want to read the entire file, you can use the `WebFetch` tool instead of the `get_file_contents` MCP tool. Do not do this for large files or files that contain non-text content.
+
+Do not use GitHub MCP tools for standard Git operations (committing, pushing, pulling, etc.) unless explicitly instructed to do so. Use GitHub MCP tools only for tasks that require direct interaction with GitHub's API.
+
+{{ template "agents/tools.md" . -}}
