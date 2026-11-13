@@ -434,6 +434,12 @@
     {{- includeTemplate "private_dot_config/zed/.mcp/context-servers.tmpl" . }}
   },
   "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+      "default_config_options": {
+        "model": "default"
+      }
+    },
     "{{ if .personal }}github-copilot-cli{{ end }}{{ if .work }}claude-acp{{ end }}": {
       "type": "registry",
     },
