@@ -1,4 +1,10 @@
 {{ template "agents/base.md" . }}
+## File Operations
+
+For simple file operations, prefer the dedicated tools: `Read` to read a file, `Edit` to change a file, and `Write` to create a file. The editor shows these tool calls better than terminal output.
+Use the terminal when it is clearly more efficient. Examples: the same mechanical change in many files, or a pipeline that combines search and filtering.
+Use the `Grep` and `Glob` tools to search, if they are available. If they are not available, use `rg`, `grep`, or `find` in the terminal.
+
 ## GitHub MCP
 
 When accessing GitHub, always use MCP tools (`mcp__GitHub__`-prefixed tools). Do not use `curl`, `gh`, `git`, `WebFetch`, or any other non-MCP mechanism to reach GitHub. If no GitHub MCP tools are available, stop and inform the user.

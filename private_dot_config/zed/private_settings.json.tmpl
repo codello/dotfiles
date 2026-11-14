@@ -380,53 +380,14 @@
     "sandbox_permissions": {
       "allow_all_hosts": false,
       "network_hosts": [
-        // GitHub content and docs. github.com itself is not allowlisted:
-        // Non-MCP push/clone and GitHub API access should always prompt.
-
-        // GitHub Content and Docs
-        "ghcr.io",
-        "docs.github.com",
-        "raw.githubusercontent.com",
-        "objects.githubusercontent.com",
-        "release-assets.githubusercontent.com",
-        "pkg-containers.githubusercontent.com",
-
-        // Documentation
-        "docs.stackit.cloud",     // STACKIT
-        "docs.api.stackit.cloud", // STACKIT
-        "docs.renovatebot.com",   // Renovate
-        "pkg.go.dev",             // GoDoc
-
-        // Package registries for dependency downloads
-        "crates.io",              // Rust
-        "static.crates.io",       // Rust
-        "index.crates.io",        // Rust
-        "registry.npmjs.org",     // NPM
-        "proxy.golang.org",       // Go
-        "sum.golang.org",         // Go
-        "pypi.org",               // Python
-        "files.pythonhosted.org", // Python
-        "*.nuget.org",            // NuGet
+        {{- range .agent.sandbox.networkHosts }}
+        {{ . | toJson }},
+        {{- end }}
       ],
       "write_paths": [
-        // Helm config and caches
-        "{{ .chezmoi.homeDir }}/.config/helm/",
-        "{{ .chezmoi.homeDir }}/Library/Caches/helm/",
-        // uv caches
-        "{{ .chezmoi.homeDir }}/Library/Caches/uv/",
-        // Terraform Cache
-        "{{ .chezmoi.homeDir }}/Library/Caches/terraform/",
-        // Go Caches
-        "{{ .chezmoi.homeDir }}/Library/Caches/go/",
-        "{{ .chezmoi.homeDir }}/Library/Caches/go-build/",
-        "{{ .chezmoi.homeDir }}/.local/share/go/",
-        "{{ .chezmoi.homeDir }}/Library/Caches/golangci-lint/",
-        // Cargo
-        "{{ .chezmoi.homeDir }}/.cargo/",
-        // npm
-        "{{ .chezmoi.homeDir }}/.npm/",
-        // pre-commit
-        "{{ .chezmoi.homeDir }}/Library/Caches/pre-commit/",
+        {{- range .agent.sandbox.writePaths }}
+        {{ printf "%s/%s" $.chezmoi.homeDir . | toJson }},
+        {{- end }}
       ],
     },
   },
@@ -436,6 +397,9 @@
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
+      "env": {
+        "CLAUDE_CODE_THINKING_DISPLAY": "summarized"
+      },
       "default_config_options": {
         "model": "opus"
       }

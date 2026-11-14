@@ -1,2 +1,55 @@
-name   = "Kim Wittenburg"
+name = "Kim Wittenburg"
 github = "codello"
+
+# Sandbox boundary for agent shell commands
+[agent.sandbox]
+networkHosts = [
+    # GitHub Content and Docs
+    # github.com is not allowlisted to avoid unconfirmed edits
+    "ghcr.io",
+    "docs.github.com",
+    "raw.githubusercontent.com",
+    "objects.githubusercontent.com",
+    "release-assets.githubusercontent.com",
+    "pkg-containers.githubusercontent.com",
+
+    # Documentation
+    "docs.stackit.cloud",     # STACKIT
+    "docs.api.stackit.cloud", # STACKIT
+    "docs.renovatebot.com",   # Renovate
+    "pkg.go.dev",             # GoDoc
+
+    # Package registries for dependency downloads
+    "crates.io",              # Rust
+    "static.crates.io",       # Rust
+    "index.crates.io",        # Rust
+    "registry.npmjs.org",     # NPM
+    "proxy.golang.org",       # Go
+    "sum.golang.org",         # Go
+    "pypi.org",               # Python
+    "files.pythonhosted.org", # Python
+    "*.nuget.org",            # NuGet
+]
+
+# Paths relative to the home directory.
+writePaths = [
+    # Helm config and caches
+    ".config/helm/",
+    "Library/Caches/helm/",
+    # uv caches
+    "Library/Caches/uv/",
+    # Terraform Cache
+    "Library/Caches/terraform/",
+    # Go Caches
+    "Library/Caches/go/",
+    "Library/Caches/go-build/",
+    ".local/share/go/pkg/",
+    "Library/Caches/golangci-lint/",
+    # Cargo
+    ".cargo/registry/",
+    ".cargo/git/",
+    # npm
+    ".npm/",
+    # pre-commit
+    "Library/Caches/pre-commit/",
+]
