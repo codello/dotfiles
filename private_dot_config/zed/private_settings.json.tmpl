@@ -221,8 +221,9 @@
     "play_sound_when_agent_done": "always",
     "single_file_review": true,
     "enable_feedback": false,
+    "terminal_init_command": "claude",
 
-    "commit_message_include_project_rules": false,
+    "commit_message_include_project_rules": true,
     "favorite_models": [
       {
         "provider": "openrouter",
@@ -289,6 +290,7 @@
       "agent": {
         "name": "Coding Agent",
         "enable_all_context_servers": true,
+        "defer_context_server_tools": true,
         "tools": {
           "ask_user": true,
           "copy_path": true,
@@ -322,6 +324,7 @@
       "research": {
         "name": "Deep Research",
         "enable_all_context_servers": true,
+        "defer_context_server_tools": true,
         // Research: read, search, and probe. Restricted writing tools.
         "tools": {
           "ask_user": true,

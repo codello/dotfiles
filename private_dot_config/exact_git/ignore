@@ -49,3 +49,4 @@ $RECYCLE.BIN/
 ### Agents ###
 # Message board for the parallel-agents skill
 .agents/board/
+**/.claude/.cc-writes/
