@@ -277,11 +277,11 @@
     },
     "commit_message_model": {
       "provider": "openrouter",
-      "model": "deepseek/deepseek-v4.1-flash-1017:nitro",
+      "model": "@preset/short-summary",
     },
     "thread_summary_model": {
       "provider": "openrouter",
-      "model": "deepseek/deepseek-v4.1-flash-1017:nitro",
+      "model": "@preset/short-summary",
     },
 
     "default_profile": "agent",
@@ -422,11 +422,10 @@
     {{- end }}
     "open_router": {
       "available_models": [{
-        "name": "deepseek/deepseek-v4.1-flash-1017:nitro",
-        "display_name": "DeepSeek V4.1 Flash 1017 (Nitro)",
+        "name": "@preset/short-summary",
+        "display_name": "Preset: Short Summary",
         "max_tokens": 1048576,
         "supports_tools": true,
-        "mode": { "type": "adaptive" },
       }]
     }
   },
