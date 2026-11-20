@@ -2,30 +2,47 @@
 ## Terminal Commands
 
 {{- if eq .chezmoi.os "darwin" }}
-You have access to a directory for temporary files at `$TMPDIR`. The directory is dedicated to this conversation. Do not use `/tmp`.
+You have access to a directory for temporary files at `$TMPDIR`.
+The directory is dedicated to this conversation.
+Do not use `/tmp`.
 {{- if not .work }}
-However, you cannot use the `$TMPDIR` variable directly for shell substitutions. Instead run `printenv TMPDIR` to get the path use the path directly in your commands.
+However, you cannot use the `$TMPDIR` variable directly for shell substitutions.
+Instead run `printenv TMPDIR` to get the path use the path directly in your commands.
 {{- end }}
 {{- end }}
 
-Never pipe terminal output through `head`, `tail`, `sed -n`, or similar. Always use the `head_lines` / `tail_lines` parameters of the `terminal` tool instead. Piping hides valuable output from the user and significantly impacts user experience.
-`head_lines` and `tail_lines` are **not** shell commands. They have to be supplied as parameter to the tool call.
+Never pipe terminal output through `head`, `tail`, `sed -n`, or similar.
+Always use the `head_lines` / `tail_lines` parameters of the `terminal` tool instead.
+Piping hides valuable output from the user and significantly impacts user experience.
+`head_lines` and `tail_lines` are **not** shell commands.
+They have to be supplied as parameter to the tool call.
 
 ## GitHub MCP
 
-When accessing GitHub, always use MCP tools (e.g. `github`-prefixed tools). Do not use `curl`, `gh`, `git`, `fetch`, or any other non-MCP mechanism to reach GitHub. If no GitHub MCP tools are available, stop and inform the user.
+When accessing GitHub, always use MCP tools (e.g. `github`-prefixed tools).
+Do not use `curl`, `gh`, `git`, `fetch`, or any other non-MCP mechanism to reach GitHub.
+If no GitHub MCP tools are available, stop and inform the user.
 
-One exception to this rule: If you want to fetch a file from a public GitHub repository and you are sure that you want to read the entire file, you can use the `fetch` tool instead of the `get_file_contents` MCP tool. Do not do this for large files or files that contain non-text content.
+One exception to this rule:
+If you want to fetch a file from a public GitHub repository and you are sure that you want to read the entire file,
+you can use the `fetch` tool instead of the `get_file_contents` MCP tool.
+Do not do this for large files or files that contain non-text content.
 
 {{- if .personal }}
-There is one exception: the `get_file_contents` tool returns the file as an attachment. If you only see "successfully downloaded text file" but not the file contents, you can try the following alternatives:
+There is one exception: the `get_file_contents` tool returns the file as an attachment.
+If you only see "successfully downloaded text file" but not the file contents,
+you can try the following alternatives:
 
 - Use the `fetch` tool, to access the file contents via raw.githubusercontent.com
 - Use `gh repo read-file --repo <owner>/<repo> <path>` to read the file contents
 
-Before reading potentially large files from GitHub, check the file size by using the `get_file_contents` tool on the parent directory of the file. The result will contain the file size in bytes. For large files you may use the `gh` CLI as part of a shell pipeline (grep, sed, ...) to only read relevant parts of the file.
+Before reading potentially large files from GitHub,
+check the file size by using the `get_file_contents` tool on the parent directory of the file.
+The result will contain the file size in bytes.
+For large files you may use the `gh` CLI as part of a shell pipeline (grep, sed, ...) to only read relevant parts of the file.
 {{- end }}
 
-Do not use GitHub MCP tools for standard Git operations (committing, pushing, pulling, etc.) unless explicitly instructed to do so. Use GitHub MCP tools only for tasks that require direct interaction with GitHub's API.
+Do not use GitHub MCP tools for standard Git operations (committing, pushing, pulling, etc.) unless explicitly instructed to do so.
+Use GitHub MCP tools only for tasks that require direct interaction with GitHub's API.
 
 {{ template "agents/tools.md" . -}}
