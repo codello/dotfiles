@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "showThinkingSummaries": true,
+  "autoCompactEnabled": false,
   "effortLevel": "high",
   "permissions": {
     "ask": [
@@ -23,6 +24,14 @@
       {{- end }}
       "allowWrite": {{ $writePaths | toPrettyJson | indent 6 | trim }}
     }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name'); pct=$(echo \"$input\" | jq -r '.context_window.used_percentage // 0 | floor'); filled=$((pct / 10)); [ $filled -gt 10 ] && filled=10; bar=''; for i in 1 2 3 4 5 6 7 8 9 10; do if [ $i -le $filled ]; then bar=\"${bar}█\"; else bar=\"${bar}░\"; fi; done; cB=$(printf '\\033[1;36m'); cG=$(printf '\\033[32m'); cY=$(printf '\\033[33m'); cR=$(printf '\\033[31m'); cZ=$(printf '\\033[0m'); if [ $pct -ge 90 ]; then ctx='🔴'; uc=$cR; elif [ $pct -ge 70 ]; then ctx='🟡'; uc=$cY; else ctx='🟢'; uc=$cG; fi; cwd=$(echo \"$input\" | jq -r '.workspace.current_dir // .cwd'); dir=$cwd; t='~'; dir=${dir/#$HOME/$t}; cost=$(echo \"$input\" | jq -r '.cost.total_cost_usd // .rate_limits.spend_limit.used_usd // empty'); printf '🤖 %s%s%s  %s %s%s %s%%%s  📁 %s' \"$cB\" \"$model\" \"$cZ\" \"$ctx\" \"$uc\" \"$bar\" \"$pct\" \"$cZ\" \"$dir\"; [ -n \"$cost\" ] && printf '  💰 %s$%.2f%s' \"$cY\" \"$cost\" \"$cZ\"; branch=$(GIT_OPTIONAL_LOCKS=0 git -C \"$cwd\" branch --show-current 2>/dev/null); [ -n \"$branch\" ] && printf '  🌿 %s%s%s' \"$cG\" \"$branch\" \"$cZ\"; exit 0"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
   },
   "hooks": {
     "Notification": [
