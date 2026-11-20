@@ -1,6 +1,7 @@
 # Various Repo Files
 LICENSE
 README.md
+AGENTS.md
 
 # Compiled version of Powerlevel10k theme
 .config/zsh/p10k.zsh.zwc
