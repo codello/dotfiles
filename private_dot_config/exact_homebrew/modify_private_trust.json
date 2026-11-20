@@ -1,0 +1,12 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /* Trust the taps from the Brewfile. Keep all other entries that Homebrew wrote. */ -}}
+{{- $trust := dict -}}
+{{- if trim .chezmoi.stdin -}}
+{{-   $trust = fromJson .chezmoi.stdin -}}
+{{- end -}}
+{{- $taps := list -}}
+{{- range regexFindAll `(?m)^tap "[^"]+"` (includeTemplate "private_dot_config/exact_homebrew/Brewfile.tmpl" .) -1 -}}
+{{-   $taps = append $taps (trimSuffix "\"" (trimPrefix "tap \"" .)) -}}
+{{- end -}}
+{{- $_ := set $trust "trustedtaps" (concat (default list (get $trust "trustedtaps")) $taps | uniq | sortAlpha) -}}
+{{ toPrettyJson $trust -}}
